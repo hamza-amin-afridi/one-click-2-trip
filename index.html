@@ -1,403 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <link rel="stylesheet" href="style.css">
-    <title>One Click 2 Trip</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VVIP Chauffeur Service in Saudi Arabia, Qatar, and Bahrain. Luxury ground transport at your doorstep.">
+  <title>One Click 2 Trip | VVIP Chauffeur Service</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Navbar -->
-    <header class="navbar">
-    <div class="logo"><img src="./Images/logo.webp" ></div>
-
-    <!-- Hamburger Icon -->
-    <div class="hamburger" onclick="toggleMenu()">
-        ☰
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" role="banner">
+    <div class="logo">
+      <a href="#" aria-label="One Click 2 Trip Home">
+        <img src="./Images/logo.webp" alt="One Click 2 Trip Logo">
+      </a>
     </div>
 
-    <nav id="nav-menu">
-        <a href="#">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Services</a>
-        <a href="#">Our Fleets</a>
-        <a href="#">Book Now</a>
+    <button class="hamburger" onclick="toggleMenu()" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-menu">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <nav id="nav-menu" role="navigation" aria-label="Main navigation">
+      <a href="#">Home</a>
+      <a href="#">About Us</a>
+      <a href="#">Services</a>
+      <a href="#">Our Fleets</a>
+      <a href="#">Book Now</a>
     </nav>
 
-    <button class="quote-btn">GET A QUOTE</button>
-</header>
+    <button class="quote-btn" aria-label="Get a quote">Get a Quote</button>
+  </header>
 
-
-
-<script>
+  <script>
     function toggleMenu() {
-        document.getElementById("nav-menu").classList.toggle("show");
+      const nav = document.getElementById("nav-menu");
+      const btn = document.querySelector(".hamburger");
+      const isOpen = nav.classList.toggle("show");
+      btn.setAttribute("aria-expanded", isOpen ? "true" : "false");
     }
-</script>
+  </script>
 
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="overlay"></div>
+  <!-- ==================== HERO ==================== -->
+  <main>
+  <section class="hero" aria-label="Hero">
+    <div class="overlay" aria-hidden="true"></div>
 
-        <div class="hero-content">
-            <h1>VVIP Chauffeur Service At Your Doorstep</h1>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Premium Chauffeur Service</p>
+      <h1>VVIP Chauffeur Service<br><span>At Your Doorstep</span></h1>
+      <p class="hero-sub">KSA &nbsp;·&nbsp; Qatar &nbsp;·&nbsp; Bahrain</p>
+      <p class="hero-desc">
+        Experience luxury and discretion with our world-class chauffeur services across the Gulf region.
+      </p>
+      <div class="hero-actions">
+        <button class="book-btn">Book Now</button>
+        <button class="hero-ghost-btn">Our Fleet</button>
+      </div>
+    </div>
 
-            <h3>
-                Reliable Chauffeur Service in KSA, Qatar and Bahrain
-            </h3>
+    <!-- Stats bar -->
+    <div class="hero-stats" aria-label="Company statistics">
+      <div class="hero-stat">
+        <span class="hero-stat-number">16+</span>
+        <span class="hero-stat-label">Years of Experience</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">3</span>
+        <span class="hero-stat-label">Countries Served</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">500+</span>
+        <span class="hero-stat-label">VIP Clients</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-number">24/7</span>
+        <span class="hero-stat-label">Availability</span>
+      </div>
+    </div>
+  </section>
 
-            <p>
-                Enjoy luxury and convenience with our top chauffeur services
-                in Saudi Arabia, Qatar and Bahrain
-            </p>
 
-            <button class="book-btn">Book Now !!! →</button>
-        </div>
-    </section>
-
-    <section class="categories">
-
+  <!-- ==================== CATEGORIES ==================== -->
+  <section class="categories" aria-labelledby="categories-heading">
     <div class="categories-header">
-        <h2>Multiple Categories To Suit Your Needs!</h2>
+      <div class="categories-header-left">
+        <span class="gold-label">Our Fleet</span>
+        <h2 id="categories-heading">Multiple Categories<br>To Suit Your Needs</h2>
+      </div>
+      <div class="categories-header-right">
         <p>
-            <strong>Explore Our Collection – Endless Choices Await!</strong>
-            We have various categories for you, offering a diverse range of
-            options to meet your needs. Whether you're looking for luxury,
-            comfort, or efficiency, our collection has something for everyone.
+          Explore our curated fleet — from executive sedans to spacious family vans and luxury SUVs. Every vehicle is maintained to the highest standards to ensure your comfort and safety.
         </p>
+      </div>
     </div>
 
     <div class="category-grid">
 
-        <!-- Card 1 -->
-        <div class="category-card">
-            <h3>Luxury Sedans</h3>
-            <ul>
-                <li>Elegant Design</li>
-                <li>Luxury Rear Seating</li>
-                <li>Air Purification System</li>
-            </ul>
-            <img src="images/sedan.png" alt="Luxury Sedan">
-            <a href="#">Browse Our Collections →</a>
+      <!-- Sedans -->
+      <div class="category-card">
+        <div class="category-card-top">
+          <h3>Luxury Sedans</h3>
+          <ul>
+            <li>Elegant Executive Design</li>
+            <li>Premium Rear Seating</li>
+            <li>Air Purification System</li>
+          </ul>
         </div>
+        <img src="Images/sedan.png" alt="Luxury Sedan">
+        <a href="#">Browse Collection &nbsp;→</a>
+      </div>
 
-        <!-- Card 2 -->
-        <div class="category-card">
-            <h3>Luxury SUVs</h3>
-            <ul>
-                <li>6+1 Seater</li>
-                <li>GMC Yukon</li>
-                <li>Newer Model</li>
-            </ul>
-            <img src="images/suv.png" alt="Luxury SUV">
-            <a href="#">Browse Our Collections →</a>
+      <!-- SUVs -->
+      <div class="category-card">
+        <div class="category-card-top">
+          <h3>Luxury SUVs</h3>
+          <ul>
+            <li>6+1 Seater Capacity</li>
+            <li>GMC Yukon — Latest Model</li>
+            <li>Premium Sound System</li>
+          </ul>
         </div>
+        <img src="Images/suv.png" alt="Luxury SUV">
+        <a href="#">Browse Collection &nbsp;→</a>
+      </div>
 
-        <!-- Card 3 -->
-        <div class="category-card">
-            <h3>Family Vans</h3>
-            <ul>
-                <li>8+1 Seater</li>
-                <li>Sliding Doors</li>
-                <li>Rear Seat Entertainment</li>
-            </ul>
-            <img src="images/van.png" alt="Family Van">
-            <a href="#">Browse Our Collections →</a>
+      <!-- Vans -->
+      <div class="category-card">
+        <div class="category-card-top">
+          <h3>Family Vans</h3>
+          <ul>
+            <li>8+1 Seater Capacity</li>
+            <li>Sliding Doors</li>
+            <li>Rear Seat Entertainment</li>
+          </ul>
         </div>
+        <img src="Images/van.png" alt="Family Van">
+        <a href="#">Browse Collection &nbsp;→</a>
+      </div>
 
-        <!-- Card 4 -->
-        <div class="category-card">
-            <h3>Buses & Coasters</h3>
-            <ul>
-                <li>22 Seater Bus</li>
-                <li>Chilled AC</li>
-                <li>Comfortable Seats</li>
-            </ul>
-            <img src="images/van.png" alt="Family Van">
-            <a href="#">Browse Our Collections →</a>
+      <!-- Buses -->
+      <div class="category-card">
+        <div class="category-card-top">
+          <h3>Buses &amp; Coasters</h3>
+          <ul>
+            <li>22 Seater Capacity</li>
+            <li>Chilled AC Throughout</li>
+            <li>Comfortable Reclining Seats</li>
+          </ul>
         </div>
+        <img src="Images/van.png" alt="Bus and Coaster">
+        <a href="#">Browse Collection &nbsp;→</a>
+      </div>
 
     </div>
-</section>
+  </section>
 
- <section class="leader-section">
 
-    <div class="leader-container">
+  <!-- ==================== LEADER SECTION ==================== -->
+  <section class="leader-section" aria-labelledby="leader-heading">
+    <div class="leader-container container">
 
-        <!-- Left Content -->
-        <div class="leader-content">
-            <h2>We Are Leader In The Industry</h2>
-
-            <p>
-                As industry leaders, we prioritize excellence, offering
-                high-quality solutions driven by innovation and expertise.
-                Our dedicated team ensures customer satisfaction and long-term
-                success. With a strong focus on reliability and efficiency,
-                we deliver tailored services that meet industry benchmarks.
-            </p>
-
-            <ul>
-                <li>Committed to Quality, Performance, and Customer Satisfaction.</li>
-                <li>Delivering Excellence with Innovation and Precision.</li>
-                <li>Reliable and Efficient Solutions for Every Need.</li>
-            </ul>
-
-            <button class="learn-btn">Learn More →</button>
-        </div>
-
-        <!-- Right Image -->
-        <div class="leader-image">
-            <img src="images/leader.webp" alt="Industry Leader">
-        </div>
-
-    </div>
-</section>
-
-<section class="services-container">
-    <div class="intro-card">
-        <span class="sub-title">OUR SERVICES</span>
-        <h2 class="main-heading">What We Offers</h2>
-        <p class="description">
-            We provide top-quality services tailored to your needs. From innovative 
-            solutions to reliable support, our offerings ensure excellence and 
-            customer satisfaction.
+      <div class="leader-content">
+        <span class="gold-label">About Us</span>
+        <h2 id="leader-heading">We Are <span>Leaders</span><br>In The Industry</h2>
+        <p>
+          As industry leaders across the Gulf region, we prioritize excellence in every journey. Our dedicated team of professional chauffeurs ensures the highest standards of comfort, safety, and punctuality for every client.
         </p>
+        <ul class="leader-checklist">
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            Committed to Quality, Performance, and Customer Satisfaction
+          </li>
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            Delivering Excellence with Innovation and Precision
+          </li>
+          <li>
+            <span class="check-icon" aria-hidden="true"></span>
+            Reliable and Efficient Solutions for Every Journey
+          </li>
+        </ul>
+        <button class="learn-btn">Learn More &nbsp;→</button>
+      </div>
+
+      <div class="leader-image">
+        <img src="Images/leader.webp" alt="Professional chauffeur service">
+      </div>
+
     </div>
+  </section>
 
-    <div class="services-grid">
+
+  <!-- ==================== SERVICES SECTION ==================== -->
+  <section class="services-section" aria-labelledby="services-heading">
+    <div class="container">
+      <div class="services-header">
+        <div class="services-header-left">
+          <span class="gold-label">Our Services</span>
+          <h2 id="services-heading">What We Offer</h2>
+        </div>
+        <div class="services-header-right">
+          <p>
+            From airport transfers to cross-border journeys, we provide premium transport solutions tailored to your schedule and comfort.
+          </p>
+        </div>
+      </div>
+
+      <div class="services-grid">
+
         <div class="service-card">
-            <h3>Airport Pickup/Dropoff</h3>
-            <p>Convenient airport pickup and drop-off. Travel hassle-free with reliable service</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">01</p>
+          <h3>Airport Pickup &amp; Drop-off</h3>
+          <p>Seamless airport transfers with real-time flight tracking and meet-and-greet service.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
 
         <div class="service-card">
-            <h3>Wedding Car Service</h3>
-            <p>Luxury wedding car service. Arrive in style with elegance and comfort</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">02</p>
+          <h3>Wedding Car Service</h3>
+          <p>Arrive at your special occasion in style — elegant vehicles and impeccable presentation.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
 
         <div class="service-card">
-            <h3>Limo Service</h3>
-            <p>Premium limo service. Experience luxury, comfort, and a smooth ride</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">03</p>
+          <h3>Limo Service</h3>
+          <p>Premium limousine hire for corporate events, galas, and VIP experiences.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
 
         <div class="service-card">
-            <h3>Private Car Service</h3>
-            <p>Reliable private car service. Enjoy comfort, privacy, and a smooth ride</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">04</p>
+          <h3>Private Car Service</h3>
+          <p>Your own dedicated chauffeur for daily commutes or extended arrangements.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
 
         <div class="service-card">
-            <h3>Saudi To Bahrin</h3>
-            <p>Travel from Saudi to Bahrain. Enjoy a smooth, safe, and hassle-free journey</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">05</p>
+          <h3>Saudi Arabia to Bahrain</h3>
+          <p>Comfortable and safe inter-country road transfer between KSA and Bahrain.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
 
         <div class="service-card dark-card">
-            <h3>Saudi To Qatar</h3>
-            <p>Travel from Saudi to Qatar. Enjoy a comfortable, safe, and hassle-free trip</p>
-            <a href="#" class="learn-more">Learn More &rarr;</a>
+          <p class="service-card-number">06</p>
+          <h3>Saudi Arabia to Qatar</h3>
+          <p>Hassle-free premium ground transfer connecting Saudi Arabia and Qatar.</p>
+          <a href="#" class="learn-more">Learn More &nbsp;→</a>
         </div>
-    </div>
-</section>
 
-<section class="promo-section">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== PROMO / STATS SECTION ==================== -->
+  <section class="promo-section" aria-labelledby="promo-heading">
     <div class="container">
-        <div class="header-row">
-            <h2 class="experience-title">Over 16 Years Of Experience</h2>
-            <p class="header-desc">
-                We deliver expert solutions with precision and reliability, ensuring top-quality service, efficiency, and customer satisfaction in every project.
-            </p>
+
+      <div class="promo-header">
+        <h2 id="promo-heading">Over 16 Years<br>Of Excellence</h2>
+        <p>
+          We deliver expert chauffeur solutions with precision and reliability — ensuring top-quality service, efficiency, and client satisfaction on every journey across the Gulf region.
+        </p>
+      </div>
+
+      <div class="promo-body">
+        <div class="features-list">
+
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-headset"></i>
+            </div>
+            <h3>24/7 Support</h3>
+            <p>Our team is always on standby to assist you at any hour, any day of the year.</p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-tag"></i>
+            </div>
+            <h3>Transparent Pricing</h3>
+            <p>No hidden fees. Competitive rates that deliver exceptional value and quality.</p>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon" aria-hidden="true">
+              <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <h3>Book Anytime</h3>
+            <p>Instant booking available around the clock for a seamless, stress-free experience.</p>
+          </div>
+
         </div>
 
-        <div class="content-wrapper">
-            <div class="features-grid">
-                <div class="feature-item">
-                    <div class="icon-box"><img src="support-icon.png" alt="Support"></div>
-                    <h3>24/7 Support</h3>
-                    <p>Get support anytime, anywhere. Our team is always available to assist you.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon-box"><img src="price-icon.png" alt="Price"></div>
-                    <h3>Affordable Price</h3>
-                    <p>Quality services at the best rates. Get top value without compromising on excellence.</p>
-                </div>
-                <div class="feature-item">
-                    <div class="icon-box"><img src="book-icon.png" alt="Book"></div>
-                    <h3>Book Anytime</h3>
-                    <p>Book your reservation anytime. Enjoy a seamless, hassle-free experience.</p>
-                </div>
-            </div>
-
-            <div class="discount-card">
-                <h3>Discount Up To 20% For This Month</h3>
-                <p>"Get exclusive discounts and special offers. Save more on your next purchase!"</p>
-                <div class="phone-number">
-                    <span class="phone-icon">📞</span>
-                    <a href="tel:+966505330607">+966 50 533 0607</a>
-                </div>
-            </div>
+        <div class="discount-card">
+          <span class="discount-badge">Limited Offer</span>
+          <h3>Discount Up To 20%<br>This Month</h3>
+          <p>Get exclusive discounts on all services. Save more on your next journey with us.</p>
+          <div class="phone-number">
+            <span class="phone-icon" aria-hidden="true"><i class="fa-solid fa-phone"></i></span>
+            <a href="tel:+966505330607">+966 50 533 0607</a>
+          </div>
         </div>
+      </div>
+
     </div>
-</section>
+  </section>
 
-<section class="enquiry-section">
-    <div class="container">
-        <div class="contact-header">
-            <div class="header-left">
-                <span class="sub-heading">CONTACT US</span>
-                <h2 class="main-title">Feel Free To Asked Question</h2>
-                <p class="description">Have questions? We're here to help! Reach out anytime for assistance.</p>
+
+  <!-- ==================== CONTACT / ENQUIRY ==================== -->
+  <section class="enquiry-section" aria-labelledby="enquiry-heading">
+    <div class="enquiry-inner">
+
+      <div class="enquiry-header">
+        <div class="enquiry-header-left">
+          <span class="gold-label">Contact Us</span>
+          <h2 id="enquiry-heading">Feel Free to Ask Us Anything</h2>
+          <p>Have questions? We are here to help — reach out anytime for assistance.</p>
+        </div>
+        <div class="enquiry-header-right">
+          <span class="enquiry-cta">Get in Touch</span>
+        </div>
+      </div>
+
+      <div class="enquiry-body">
+
+        <!-- Contact Info -->
+        <div class="info-column">
+
+          <div class="contact-method">
+            <div class="icon-box" aria-hidden="true"><i class="fa-solid fa-phone"></i></div>
+            <div class="text-box">
+              <label>Phone</label>
+              <span>+966 50 533 0607</span>
             </div>
-            <div class="header-right">
-                <span class="cta-text">GET IN TOUCH!</span>
+          </div>
+
+          <div class="contact-method">
+            <div class="icon-box" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="text-box">
+              <label>Address</label>
+              <span>Palm Voyage Travel &amp; Tours<br>PO Box 31413, Al Khobar, KSA</span>
             </div>
+          </div>
+
+          <div class="contact-method">
+            <div class="icon-box" aria-hidden="true"><i class="fa-solid fa-envelope"></i></div>
+            <div class="text-box">
+              <label>Email</label>
+              <span>booking@oneclick2trip.com</span>
+            </div>
+          </div>
+
         </div>
 
-        <div class="content-flex-row">
-            <div class="info-column">
-                <div class="contact-method">
-                    <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
-                    <div class="text-box">
-                        <label>Phone</label>
-                        <span>+966 50 533 0607</span>
-                    </div>
-                </div>
+        <!-- Enquiry Form -->
+        <div class="form-column">
+          <h2 class="form-title">Chauffeur Driven Enquiry</h2>
+          <form class="enquiry-form" aria-label="Chauffeur enquiry form">
 
-                <div class="contact-method">
-                    <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
-                    <div class="text-box">
-                        <label>Address</label>
-                        <span>Palm Voyage Travel & Tours PO Box. 31413, Al khobar</span>
-                    </div>
-                </div>
-
-                <div class="contact-method">
-                    <div class="icon-box"><i class="fa-solid fa-envelope"></i></div>
-                    <div class="text-box">
-                        <label>Mail</label>
-                        <span>booking@oneclick2trip.com</span>
-                    </div>
-                </div>
-
+            <div class="form-row">
+              <div class="form-group">
+                <label for="full-name">Full Name <span class="required" aria-label="required">*</span></label>
+                <input id="full-name" type="text" placeholder="Enter full name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input id="email" type="email" placeholder="Enter email address">
+              </div>
             </div>
 
-            <div class="form-column">
-                <h2 class="form-title">Chauffeur Driven Enquiry</h2>
-                <form class="enquiry-form">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Full Name <span class="required">*</span></label>
-                            <input type="text" placeholder="Enter Full Name">
-                        </div>
-                        <div class="form-group">
-                            <label>Email Address</label>
-                            <input type="email" placeholder="Add email">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Phone Number <span class="required">*</span></label>
-                            <input type="text" placeholder="Enter Phone Number">
-                        </div>
-                        <div class="form-group">
-                            <label>Car Required</label>
-                            <select>
-                                <option>Select Your Desired Car</option>
-                                <option>Limo</option>
-                                <option>Private Sedan</option>
-                                <option>Luxury SUV</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Query</label>
-                        <textarea placeholder="Please Enter Your Query"></textarea>
-                    </div>
-
-                    <div class="form-footer">
-                        <button type="submit" class="submit-btn">Send Enquiry <i class="fa-solid fa-arrow-right"></i></button>
-                    </div>
-                </form>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number <span class="required" aria-label="required">*</span></label>
+                <input id="phone" type="tel" placeholder="Enter phone number" required>
+              </div>
+              <div class="form-group">
+                <label for="car-type">Vehicle Required</label>
+                <select id="car-type">
+                  <option value="">Select a vehicle</option>
+                  <option value="limo">Limousine</option>
+                  <option value="sedan">Luxury Sedan</option>
+                  <option value="suv">Luxury SUV</option>
+                  <option value="van">Family Van</option>
+                  <option value="bus">Bus / Coaster</option>
+                </select>
+              </div>
             </div>
+
+            <div class="form-group">
+              <label for="query">Your Message</label>
+              <textarea id="query" placeholder="Tell us about your requirements..."></textarea>
+            </div>
+
+            <div class="form-footer">
+              <button type="submit" class="submit-btn">
+                Send Enquiry &nbsp;<i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+              </button>
+            </div>
+
+          </form>
         </div>
+
+      </div>
     </div>
-</section>
+  </section>
+  </main>
 
-<footer class="main-footer">
-    <div class="container">
-        <div class="footer-top">
-            <div class="footer-col brand-col">
-                <img src="./Images/logo.webp" alt="OneClick2Trip Logo" class="footer-logo">
-                <p class="brand-text">
-                    Your trusted partner for quality and excellence. Serving you with dedication and care.
-                </p>
-            </div>
 
-            <div class="footer-col">
-                <h3 class="footer-title">Pages</h3>
-                <ul class="footer-links">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Our Vehicle</a></li>
-                    <li><a href="#">Our Services</a></li>
-                </ul>
-            </div>
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="main-footer" role="contentinfo">
 
-            <div class="footer-col">
-                <h3 class="footer-title">Quick Contact</h3>
-                <ul class="contact-list">
-                    <li><i class="fa-solid fa-phone"></i> +966 50 533 0607</li>
-                    <li><i class="fa-solid fa-location-dot"></i> Malaz Riyadh</li>
-                    <li><i class="fa-solid fa-envelope"></i> booking@oneclick2trip.com</li>
-                </ul>
-            </div>
-        </div>
+    <div class="footer-top">
 
-        <div class="footer-bottom-grid">
-            <div class="bottom-item">
-                <div class="icon-square"><i class="fa-solid fa-phone"></i></div>
-                <div class="item-text">
-                    <label>Phone</label>
-                    <span>+966 50 533 0607</span>
-                </div>
-            </div>
+      <div class="footer-brand">
+        <img src="./Images/logo.webp" alt="One Click 2 Trip Logo" class="footer-logo">
+        <p class="brand-text">Your trusted partner for luxury ground transport across Saudi Arabia, Qatar, and Bahrain. Excellence in every journey.</p>
+      </div>
 
-            <div class="bottom-item">
-                <div class="icon-square"><i class="fa-solid fa-location-dot"></i></div>
-                <div class="item-text">
-                    <label>Address</label>
-                    <span>Malaz Riyadh</span>
-                </div>
-            </div>
+      <div class="footer-col">
+        <h3>Pages</h3>
+        <ul class="footer-links" role="list">
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Fleet</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Book Now</a></li>
+        </ul>
+      </div>
 
-            <div class="bottom-item">
-                <div class="icon-square"><i class="fa-solid fa-envelope"></i></div>
-                <div class="item-text">
-                    <label>Mail</label>
-                    <span>booking@oneclick2trip.com</span>
-                </div>
-            </div>
-        </div>
+      <div class="footer-col">
+        <h3>Quick Contact</h3>
+        <ul class="footer-contact-list" role="list">
+          <li><i class="fa-solid fa-phone" aria-hidden="true"></i> +966 50 533 0607</li>
+          <li><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Malaz, Riyadh, KSA</li>
+          <li><i class="fa-solid fa-envelope" aria-hidden="true"></i> booking@oneclick2trip.com</li>
+        </ul>
+      </div>
 
-        <div class="copyright">
-            &copy; One Click 2 Trip 2025. All Right Reserved
-        </div>
     </div>
-</footer>
 
+    <div class="footer-bottom">
+      <p class="copyright">&copy; 2025 One Click 2 Trip. All rights reserved.</p>
+
+      <div class="footer-bottom-contacts">
+
+        <div class="footer-bottom-item">
+          <div class="footer-icon-sq" aria-hidden="true"><i class="fa-solid fa-phone"></i></div>
+          <div>
+            <label>Phone</label>
+            <span>+966 50 533 0607</span>
+          </div>
+        </div>
+
+        <div class="footer-bottom-item">
+          <div class="footer-icon-sq" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+          <div>
+            <label>Address</label>
+            <span>Malaz, Riyadh</span>
+          </div>
+        </div>
+
+        <div class="footer-bottom-item">
+          <div class="footer-icon-sq" aria-hidden="true"><i class="fa-solid fa-envelope"></i></div>
+          <div>
+            <label>Email</label>
+            <span>booking@oneclick2trip.com</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </footer>
 
 </body>
 </html>
