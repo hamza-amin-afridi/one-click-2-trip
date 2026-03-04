@@ -5,7 +5,7 @@ console.log("The sum of x and y is: " + sum);
 
 // Comment for github commit: Initial commit of the One Click 2 Trip website, including the homepage layout with navbar, hero section, categories, services, and contact form.
 
-// add something to commit: Added responsive design and improved accessibility features for better user experience across devices.
+// Hello Everyone! Welcome to the One Click 2 Trip website. We are excited to help you plan your next adventure with ease and convenience. Explore our wide range of travel options, from flights and hotels to car rentals and vacation packages. Start your journey with us today and experience the world like never before!
 
 function greetUser(name) {
     console.log("Hello, " + name + "! Welcome to One Click 2 Trip.");
