@@ -11,3 +11,9 @@ function greetUser(name) {
     console.log("Hello, " + name + "! Welcome to One Click 2 Trip.");
 };
 greetUser("Alice")
+
+function calculateTotal(price, quantity) {
+    return price * quantity;
+}       
+let total = calculateTotal(19.99, 3);
+console.log("The total price is: $" + total);                   
