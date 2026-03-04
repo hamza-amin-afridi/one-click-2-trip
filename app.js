@@ -20,3 +20,9 @@ console.log("The total price is: $" + total);
 
 
 // Comment for github commit: Initial commit of the One Click 2 Trip website, including the homepage layout with navbar, hero section, categories, services, and contact form.
+
+function displayCategories(categories) {
+    categories.forEach(category => {
+        console.log("Category: " + category);
+    });
+}
