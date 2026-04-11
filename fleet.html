@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet | One Click 2 Trip</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=2">
+    <style>
+        .inner-hero { height: 50vh; min-height: 450px; background-image: url('./Images/background.jpeg'); align-items: center; justify-content: center; text-align: center; }
+        .inner-hero .hero-content { margin: 0 auto; text-align: center; }
+        .inner-hero .hero-subtitle { justify-content: center; }
+        .inner-hero .hero-subtitle::before, .inner-hero .hero-subtitle::after { content: ''; display: block; width: 50px; height: 1px; background: var(--gold-main); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo"><img src="./Images/logo.webp" alt="One Click 2 Trip"></a>
+            <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">The Brand</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="fleet.html" class="active">Our Fleet</a></li>
+                <li><a href="book.html">Reserve</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="hero inner-hero">
+        <div class="container relative">
+            <div class="hero-content">
+                <div class="hero-subtitle reveal-up"><span class="text-gold">Masterpieces of Engineering</span></div>
+                <h1 class="reveal-up">Signature <span>Collection</span></h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding container">
+        <div class="fleet-grid" style="margin-top: 0;">
+            <!-- S-Class -->
+            <div class="car-card-premium reveal-up" onclick="window.location.href='fleet/mercedes-s-class.html'">
+                <img src="./Images/mercedes-s-class.png" alt="Mercedes S-Class">
+                <div class="car-card-overlay">
+                    <div class="car-card-meta">First Class</div>
+                    <div class="car-card-title">Mercedes-Benz<br>S-Class</div>
+                    <div class="car-card-specs">
+                        <span><i class="fa-solid fa-user-tie"></i> 3 Pax</span>
+                        <span><i class="fa-solid fa-suitcase-rolling"></i> 2 Bags</span>
+                        <span><i class="fa-solid fa-wifi"></i> Wi-Fi</span>
+                        <span><i class="fa-solid fa-bottle-water"></i> Amenities</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- V-Class -->
+            <div class="car-card-premium reveal-up" onclick="window.location.href='fleet/mercedes-v-class.html'" style="transition-delay: 0.1s;">
+                <img src="./Images/mercedes-v-class.png" alt="Mercedes V-Class">
+                <div class="car-card-overlay">
+                    <div class="car-card-meta">Executive Lounge</div>
+                    <div class="car-card-title">Mercedes-Benz<br>V-Class</div>
+                    <div class="car-card-specs">
+                        <span><i class="fa-solid fa-user-tie"></i> 7 Pax</span>
+                        <span><i class="fa-solid fa-suitcase-rolling"></i> 6 Bags</span>
+                        <span><i class="fa-solid fa-couch"></i> Conference</span>
+                        <span><i class="fa-solid fa-plug"></i> Power</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7-Series -->
+            <div class="car-card-premium reveal-up" onclick="window.location.href='fleet/bmw-7-series.html'" style="transition-delay: 0.2s;">
+                <img src="./Images/bmw-7-series.png" alt="BMW 7-Series">
+                <div class="car-card-overlay">
+                    <div class="car-card-meta">Premium Sedan</div>
+                    <div class="car-card-title">BMW<br>7-Series</div>
+                    <div class="car-card-specs">
+                        <span><i class="fa-solid fa-user-tie"></i> 3 Pax</span>
+                        <span><i class="fa-solid fa-suitcase-rolling"></i> 2 Bags</span>
+                        <span><i class="fa-solid fa-shield-halved"></i> Privacy</span>
+                        <span><i class="fa-solid fa-music"></i> Audio</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GMC Dummy -->
+            <div class="car-card-premium reveal-up" onclick="window.location.href='#'" style="transition-delay: 0.3s; background: #111;">
+                <img src="./Images/suv.png" alt="GMC SUV" style="object-fit: contain; padding: 30px;">
+                <div class="car-card-overlay">
+                    <div class="car-card-meta">SUV</div>
+                    <div class="car-card-title">GMC Yukon<br>XL</div>
+                    <div class="car-card-specs">
+                        <span><i class="fa-solid fa-user-tie"></i> 6 Pax</span>
+                        <span><i class="fa-solid fa-suitcase-rolling"></i> 5 Bags</span>
+                        <span><i class="fa-solid fa-shield"></i> Safe</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-lux">
+        <div class="container">
+            <div class="footer-lux-grid">
+                <div>
+                    <img src="./Images/logo.webp" alt="One Click 2 Trip" style="height: 70px; margin-bottom: 25px;">
+                    <p style="color: var(--text-muted); font-size: 0.9rem; max-width: 250px;">The pinnacle of executive ground transportation across the GCC region. Redefining your arrival.</p>
+                </div>
+                <div>
+                    <h4>The Fleet</h4>
+                    <ul>
+                        <li><a href="fleet/mercedes-s-class.html">Mercedes-Benz S-Class</a></li>
+                        <li><a href="fleet/mercedes-v-class.html">Mercedes-Benz V-Class</a></li>
+                        <li><a href="fleet/bmw-7-series.html">BMW 7-Series</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="about.html">Our Legacy</a></li>
+                        <li><a href="services.html">Chauffeur Services</a></li>
+                        <li><a href="book.html">Corporate Accounts</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact Desk</h4>
+                    <ul>
+                        <li style="color: var(--text-off-white);"><i class="fa-solid fa-phone text-gold" style="margin-right: 10px;"></i> +966 50 533 0607</li>
+                        <li style="color: var(--text-off-white);"><i class="fa-solid fa-envelope text-gold" style="margin-right: 10px;"></i> booking@oneclick2trip.com</li>
+                        <li style="color: var(--text-off-white);"><i class="fa-solid fa-location-dot text-gold" style="margin-right: 10px;"></i> Malaz Riyadh, KSA</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom-bar">
+                <span>&copy; 2026 One Click 2 Trip. All rights strictly reserved.</span>
+                <span>Designed for Excellence.</span>
+            </div>
+        </div>
+    </footer>
+    <script src="app.js?v=2"></script>
+</body>
+</html>
