@@ -90,4 +90,28 @@ document.addEventListener('DOMContentLoaded', () => {
             link.classList.remove('active');
         }
     });
+
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme');
+    const htmlElement = document.documentElement;
+
+    if (currentTheme) {
+        htmlElement.setAttribute('data-theme', currentTheme);
+        if (themeBtn) {
+            themeBtn.innerHTML = currentTheme === 'light' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        }
+    }
+
+    if (themeBtn) {
+        themeBtn.addEventListener('click', () => {
+            const current = htmlElement.getAttribute('data-theme');
+            const toggleTo = current === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', toggleTo);
+            localStorage.setItem('theme', toggleTo);
+            
+            themeBtn.innerHTML = toggleTo === 'light' ? '<i class="fa-solid fa-moon"></i>' : '<i class="fa-solid fa-sun"></i>';
+        });
+    }
 });
