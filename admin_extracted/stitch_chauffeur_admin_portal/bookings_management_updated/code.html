@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bookings Management | One Click 2 Trip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&amp;family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#3d2e00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "secondary-fixed-dim": "#e7c188",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#3e2e00",
+                        "on-background": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#281800",
+                        "on-primary-container": "#503d00",
+                        "background": "#131313",
+                        "surface-variant": "#353534",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary-fixed-variant": "#584400",
+                        "on-primary-fixed": "#241a00",
+                        "secondary": "#e7c188",
+                        "outline-variant": "#4d4637",
+                        "inverse-primary": "#755b00",
+                        "on-tertiary-container": "#513d00",
+                        "primary-fixed": "#ffe08f",
+                        "secondary-fixed": "#ffdeae",
+                        "outline": "#99907e",
+                        "tertiary-fixed-dim": "#e4c375",
+                        "surface-container": "#201f1f",
+                        "on-surface-variant": "#d0c5b2",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-container": "#d4af78",
+                        "tertiary-fixed": "#ffdf97",
+                        "primary-container": "#c9a84c",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary": "#e4c376",
+                        "surface-tint": "#e6c364",
+                        "on-secondary": "#432c01",
+                        "primary": "#e6c364",
+                        "secondary-container": "#5c4215",
+                        "primary-fixed-dim": "#e6c364",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5c4215",
+                        "tertiary-container": "#c7a85d"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Playfair Display"],
+                        "body": ["DM Sans"],
+                        "label": ["DM Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #0e0e0e;
+            color: #e5e2e1;
+        }
+        /* Custom scrollbar for premium feel */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0e0e0e; }
+        ::-webkit-scrollbar-thumb { background: #353534; border-radius: 10px; }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30">
+<!-- Sidebar Navigation -->
+<aside class="fixed inset-y-0 left-0 w-64 flex flex-col py-8 bg-[#0e0e0e] z-50 overflow-y-auto">
+<div class="px-8 mb-12">
+<h1 class="font-headline text-xl text-[#e6c364] mb-1">Obsidian</h1>
+<p class="font-label tracking-widest uppercase text-[10px] text-neutral-500">Concierge Admin</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Dashboard</span>
+</a>
+<!-- Active State: Bookings -->
+<a class="bg-[#1c1b1b] text-[#e6c364] border-r-4 border-[#e6c364] py-4 px-6 flex items-center gap-4 transition-all" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Bookings</span>
+</a>
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">person_pin</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Drivers</span>
+</a>
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">directions_car</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Fleet</span>
+</a>
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Analytics</span>
+</a>
+</nav>
+<div class="px-6 mt-auto">
+<button class="w-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2 mb-8 hover:scale-[1.02] active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined text-sm">add</span>
+<span class="font-label tracking-widest uppercase text-[10px]">New Booking</span>
+</button>
+<div class="space-y-1">
+<a class="text-neutral-500 py-2 flex items-center gap-4 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">contact_support</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Support</span>
+</a>
+<a class="text-neutral-500 py-2 flex items-center gap-4 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Logout</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Top App Bar -->
+<header class="fixed top-0 right-0 left-64 h-20 flex justify-between items-center px-12 bg-neutral-950/40 backdrop-blur-xl z-40">
+<div class="flex items-center gap-8">
+<img alt="One Click 2 Trip Logo" class="h-8 object-contain" data-alt="high-resolution elegant vector logo of a luxury travel concierge company in metallic gold on a transparent background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAJdNxz_pJNKJmZ3WPdlDw6JeJw8VR2wZQ49xiar4l8cOMm3omcAlXoC93fbMf3kDV84PkY7xODqkhSRXMGb25CM2zwkn6YYoadl45556njPvY7uOuaRvFZRs-4MD37LECXCeI4UATgQHUkoSeAbjsfK_pDcg5N4U9G9FdZJXVoUBq1fY1yLsU6M9-GuYsYiR-d7kEvMk5JtzSOMjDjYuRFRA-HrJD3NmdqfDcKGc90g1kgpq3ytWg2AyEbe6D9TkzczQ8vC0gkqZm"/>
+<div class="flex items-center bg-surface-container-low px-4 py-2 rounded-full border-b border-outline-variant/15">
+<span class="material-symbols-outlined text-neutral-500 mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm font-label text-on-surface placeholder:text-neutral-600 w-64" placeholder="Search itineraries or clients..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4">
+<button class="text-neutral-400 hover:text-primary transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-neutral-400 hover:text-primary transition-colors active:scale-90 duration-200">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 border-l border-outline-variant/20 pl-6">
+<div class="text-right">
+<p class="font-label text-[10px] tracking-widest uppercase text-neutral-500">Administrator</p>
+<p class="font-headline text-sm text-[#e6c364]">Marcus Vane</p>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-primary/20 ring-4 ring-primary/5">
+<img alt="Administrator Profile" data-alt="professional portrait of a sophisticated middle-aged man in a dark tailored suit with a confident smile" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiiUXImJNgLT-GTuno8mRAbolRiKNOGrBP-CuV-5Kuir-NJX5CK8HNbXUCflKtgjz006LkdpmWcEIrfZl1BlKFLfwMWR7wFesU3fXpNmNbgHnjWQyK14JCebDqCVDJQF1OjsPE2Rwgr_eM7edQUpFXZXGNgFWtJ7xr8-T2d3d-wY-6nn2hd_c5yVNfe9SkS7BnEwj5_3PnR-G3LD7XnwPO9QyqfO4Ah1lr2ei7WeZKdfKrJFryK7NEY-xiR5XulO8D8HeRchUm6vFV"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="ml-64 pt-28 px-12 pb-12 min-h-screen bg-surface">
+<!-- Hero Header Section -->
+<section class="mb-12 flex justify-between items-end">
+<div>
+<h2 class="font-headline text-5xl mb-2 text-on-surface">Bookings <span class="italic text-primary">Management</span></h2>
+<p class="text-neutral-500 max-w-xl font-body">Curating exclusive journeys and managing the obsidian fleet schedule for our premium clientele.</p>
+</div>
+<div class="flex gap-4">
+<div class="flex bg-surface-container-low p-1 rounded-lg">
+<button class="px-6 py-2 rounded-md bg-surface-container-highest text-primary font-label text-[10px] tracking-widest uppercase shadow-xl transition-all">All Bookings</button>
+<button class="px-6 py-2 rounded-md text-neutral-500 font-label text-[10px] tracking-widest uppercase hover:text-on-surface transition-all">Pending</button>
+</div>
+<div class="bg-surface-container-low px-4 py-2 rounded-lg flex items-center gap-2 border-b border-outline-variant/15">
+<span class="font-label text-[10px] tracking-widest uppercase text-neutral-500">Status:</span>
+<select class="bg-transparent border-none text-[10px] tracking-widest uppercase font-bold text-primary focus:ring-0 cursor-pointer">
+<option>All States</option>
+<option>Confirmed</option>
+<option>In Progress</option>
+<option>Completed</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Premium Table Section -->
+<section class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-2xl relative">
+<!-- Table Layering Decor -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[120px] pointer-events-none"></div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low/50">
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Booking ID</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Date Created</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Client</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Route</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Vehicle / Driver</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Fare</th>
+<th class="py-6 px-8 font-label text-[10px] tracking-widest uppercase text-neutral-500">Status</th>
+<th class="py-6 px-8"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-300">
+<td class="py-6 px-8 font-label text-sm text-primary font-bold">#OC-88219</td>
+<td class="py-6 px-8 font-body text-sm text-neutral-400">Oct 24, 2023</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-secondary">EH</div>
+<span class="font-headline text-sm">Elena Helmond</span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex flex-col gap-1">
+<span class="text-sm font-label text-on-surface">Heathrow Terminal 5</span>
+<span class="text-[10px] text-neutral-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_flat</span>
+                                        Mayfair, London
+                                    </span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<img alt="Rolls-Royce Phantom" class="w-12 h-8 object-cover rounded shadow-lg" data-alt="side view of a sleek black luxury sedan parked on a clean reflective surface with soft dramatic studio lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbm4v_M3MAuy9z5ES_oA4-DPRhMozey_pzV7kXGuIyAB2k-eImuc6jTnfAjy6ZwiYSetM2647X0_LXUK0XXbUWHbHeU5tH3iwcKQqwDlTuthbW38JYE-8A1gLGrU6vj-LmfoQylvrEMPi5Vk3qKf2yx0XeLs5kGWjPfKSTnbNhGt4r9U1F5A0LW0mq9Wp8l_6sl-tnMhdZrh7KHSFUqJ8_4VFPbwPjYzhHts0n7NO2zgofJJnUNhxSk1gPGxKyivqkY4kfvq2YbXTw"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Ghost II</span>
+<span class="text-[10px] text-primary flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse"></span>
+                                            James Thorne
+                                        </span>
+</div>
+</div>
+</td>
+<td class="py-6 px-8 font-headline text-lg text-secondary">£450.00</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary text-[9px] font-bold tracking-widest uppercase border border-primary/20">Confirmed</span>
+</td>
+<td class="py-6 px-8 text-right">
+<button class="text-neutral-600 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-300">
+<td class="py-6 px-8 font-label text-sm text-primary font-bold">#OC-88220</td>
+<td class="py-6 px-8 font-body text-sm text-neutral-400">Oct 24, 2023</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-secondary">AL</div>
+<span class="font-headline text-sm">Arthur Lockwood</span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex flex-col gap-1">
+<span class="text-sm font-label text-on-surface">Paris-Le Bourget</span>
+<span class="text-[10px] text-neutral-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_flat</span>
+                                        Hôtel de Crillon
+                                    </span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<img alt="Mercedes S-Class" class="w-12 h-8 object-cover rounded shadow-lg" data-alt="polished midnight blue luxury sedan driving on an elegant cobblestone street in Paris during blue hour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADDkUYFUv6MkUtqF74Jasl76qrck3giH6UVlERz73uXnNR6_FyOHCT_6FvnZ0OqYfn-HTbOlR_IcmFkXn0zT_ucKddMavULGSJvT3UU7MBhvYj14GIMUjXHQH_af6P_BfxvQ_wBNj_YE__eEnXf_ZSUkSPV7xvop0TcS99CaTg1YBx358RJcfuDeUtIFGqNUZ4ord4SShB3E9PcirvgLHkB0s34JZW9QO79X69Yxk2ML8nmBV8O73IPbWBZj3HipgZERlZfxD_qbnC"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">S-Class Maybach</span>
+<span class="text-[10px] text-primary flex items-center gap-1">
+<span class="w-1 h-1 rounded-full bg-primary animate-pulse"></span>
+                                            Pierre Blanc
+                                        </span>
+</div>
+</div>
+</td>
+<td class="py-6 px-8 font-headline text-lg text-secondary">€680.00</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-[9px] font-bold tracking-widest uppercase border border-secondary/20">In Progress</span>
+</td>
+<td class="py-6 px-8 text-right">
+<button class="text-neutral-600 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-300">
+<td class="py-6 px-8 font-label text-sm text-primary font-bold">#OC-88195</td>
+<td class="py-6 px-8 font-body text-sm text-neutral-400">Oct 23, 2023</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-secondary">SJ</div>
+<span class="font-headline text-sm">Sarah Jenkins</span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex flex-col gap-1">
+<span class="text-sm font-label text-on-surface">Aspen Jet Center</span>
+<span class="text-[10px] text-neutral-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_flat</span>
+                                        The Little Nell
+                                    </span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<img alt="Range Rover Vogue" class="w-12 h-8 object-cover rounded shadow-lg" data-alt="luxury SUV parked on a snowy mountain road with golden sunlight hitting the metallic bodywork" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBunjBJeaUG7dGsgeriZVnTKZj09_8-aKxpq_WwDZFRsMC7LVKJMfaeLBhWYrliYVJSHqNZPGFUBbRDJdvZJdb4S0-DC0-ED91LfUu1uP7Dpj2qo1SbSlCtT9etLApiC38W99BjYXBiouhrslIJSqImeYCMCUgP8qSpfMCgISzjMNcVyiZmIPKJifjOmRL3dpiNYghfRWLfBjQMOC5kjBmrVOn3Az9ZVC8gN92yRbDRfvu-gSMx7WAjrwkeKHlXgbexYneUwNEYIvpy"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Vogue LWB</span>
+<span class="text-[10px] text-neutral-500">David Miller</span>
+</div>
+</div>
+</td>
+<td class="py-6 px-8 font-headline text-lg text-secondary">$1,200.00</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full bg-neutral-800 text-neutral-400 text-[9px] font-bold tracking-widest uppercase border border-outline-variant/10">Completed</span>
+</td>
+<td class="py-6 px-8 text-right">
+<button class="text-neutral-600 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="group hover:bg-surface-container-low transition-colors duration-300">
+<td class="py-6 px-8 font-label text-sm text-primary font-bold">#OC-88192</td>
+<td class="py-6 px-8 font-body text-sm text-neutral-400">Oct 23, 2023</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center text-[10px] font-bold text-secondary">TM</div>
+<span class="font-headline text-sm">Thomas Moretti</span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex flex-col gap-1">
+<span class="text-sm font-label text-on-surface">Malpensa VIP Lounge</span>
+<span class="text-[10px] text-neutral-600 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_flat</span>
+                                        Lake Como Villa
+                                    </span>
+</div>
+</td>
+<td class="py-6 px-8">
+<div class="flex items-center gap-3">
+<img alt="Porsche Panamera" class="w-12 h-8 object-cover rounded shadow-lg" data-alt="sleek white luxury sport sedan parked on a terrace overlooking a serene lake at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDFIByFwkaHRav8DqwmulTTb0d3wt12kCIhGKTvUw5PkuOqR74ihaXOKp0-1uZvnUDJ7PLiocbIzIbms2YHeu423W6_Ny1IDmCr6wpjnacQ_xDNXSSaj7_Hjy9uD9xVG3pcMUqm5H2eEJfk3K70cloHfUq204UljXFJpee7SyL18rc9PS8CtpypC8tZZ82ODytUYEK6lJzSMse_0UJr6P-viedVHKw_Sj8wS_eoM7guFGsJ7rMtvKrgLloZ3MrA3uKJul0e8u0OSMjA"/>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-on-surface">Panamera Turbo</span>
+<span class="text-[10px] text-neutral-500">Luca Rossi</span>
+</div>
+</div>
+</td>
+<td class="py-6 px-8 font-headline text-lg text-secondary">€940.00</td>
+<td class="py-6 px-8">
+<span class="px-3 py-1 rounded-full bg-neutral-800 text-neutral-400 text-[9px] font-bold tracking-widest uppercase border border-outline-variant/10">Completed</span>
+</td>
+<td class="py-6 px-8 text-right">
+<button class="text-neutral-600 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-8 border-t border-outline-variant/5 flex justify-between items-center">
+<span class="font-label text-[10px] tracking-widest uppercase text-neutral-500">Showing 4 of 1,248 luxury journeys</span>
+<div class="flex items-center gap-4">
+<button class="p-2 text-neutral-500 hover:text-primary transition-colors disabled:opacity-20" disabled="">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary/10 text-primary text-xs font-bold font-label">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-all text-xs font-label">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-all text-xs font-label">3</button>
+<span class="text-neutral-700">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded hover:bg-surface-container-high transition-all text-xs font-label">48</button>
+</div>
+<button class="p-2 text-neutral-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Stats Bento-ish Grid -->
+<section class="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="bg-surface-container-low p-6 rounded-xl border-l border-primary/20 hover:border-primary transition-all">
+<p class="font-label text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Total Revenue (MTD)</p>
+<div class="flex items-baseline gap-2">
+<h3 class="font-headline text-3xl text-primary">£142.8k</h3>
+<span class="text-[10px] text-emerald-500 flex items-center font-bold">
+<span class="material-symbols-outlined text-[12px]">arrow_upward</span> 12%
+                    </span>
+</div>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l border-secondary/20">
+<p class="font-label text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Active Bookings</p>
+<h3 class="font-headline text-3xl text-on-surface">42</h3>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l border-outline-variant/20">
+<p class="font-label text-[10px] tracking-widest uppercase text-neutral-500 mb-2">Fleet Utilization</p>
+<h3 class="font-headline text-3xl text-on-surface">88%</h3>
+</div>
+<div class="bg-surface-container-low p-6 rounded-xl border-l border-primary/20 overflow-hidden relative group">
+<div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+<p class="font-label text-[10px] tracking-widest uppercase text-neutral-500 mb-2">VIP Requests</p>
+<h3 class="font-headline text-3xl text-primary">07</h3>
+<span class="absolute right-4 bottom-4 material-symbols-outlined text-primary/20 text-4xl">star_rate</span>
+</div>
+</section>
+</main>
+<!-- Contextual FAB - Suppression Logic: Hide on list views but kept for primary action relevance if needed -->
+<div class="fixed bottom-12 right-12 flex flex-col gap-4">
+<button class="group bg-gradient-to-br from-primary to-primary-container text-on-primary w-16 h-16 rounded-full shadow-[0_20px_50px_rgba(230,195,100,0.2)] flex items-center justify-center hover:scale-110 active:scale-95 transition-all duration-300 relative z-50">
+<span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">add</span>
+<div class="absolute right-full mr-4 bg-neutral-900 text-primary px-4 py-2 rounded text-[10px] tracking-widest uppercase font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none border border-primary/20">
+                Schedule Journey
+            </div>
+</button>
+</div>
+</body></html>

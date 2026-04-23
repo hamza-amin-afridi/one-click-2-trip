@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fleet | One Click 2 Trip Admin</title>
+<meta name="description" content="Manage the premium vehicle fleet for One Click 2 Trip.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.fleet-card{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.25rem 1.5rem;display:flex;align-items:center;gap:1.5rem;transition:all .3s;cursor:pointer}
+.fleet-card:hover{border-color:var(--border-strong);background:var(--surface-mid)}
+.car-image{width:180px;height:110px;border-radius:.5rem;overflow:hidden;background:var(--surface-high);flex-shrink:0}
+.car-image img{width:100%;height:100%;object-fit:cover;filter:grayscale(.3);transition:filter .5s}
+.fleet-card:hover .car-image img{filter:grayscale(0)}
+.car-specs{display:flex;gap:1.5rem}
+.spec{display:flex;flex-direction:column;gap:.2rem}
+.spec-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)}
+.spec-val{font-size:.85rem;font-weight:600}
+.fleet-actions{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:.75rem;flex-shrink:0}
+.price-tag{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold)}
+.view-tabs{display:flex;background:var(--surface-lowest);border-radius:.375rem;border:1px solid var(--border);overflow:hidden}
+.view-tab{padding:.4rem 1rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s}
+.view-tab.active{background:var(--surface-high);color:var(--gold)}
+@media(max-width:768px){.fleet-card{flex-direction:column;align-items:stretch}.car-image{width:100%;height:180px}.fleet-actions{flex-direction:row;align-items:center;justify-content:space-between;margin-left:0}.car-specs{flex-wrap:wrap;gap:.875rem}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link active"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold" onclick="showToast('Opening vehicle acquisition form...','info')"><span class="material-symbols-outlined">add</span><span class="btn-text">Add Vehicle</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div style="display:flex;align-items:center;gap:1.5rem">
+      <span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-style:italic">One Click 2 Trip</span>
+      <div style="display:flex;gap:1.25rem">
+        <a href="fleet.html" style="color:var(--gold);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;border-bottom:2px solid var(--gold);padding-bottom:.2rem">Fleet Overview</a>
+        <a href="#" style="color:var(--text-muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.1em" onclick="showToast('Service Log coming soon','info')">Service Log</a>
+      </div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <a href="settings.html" class="icon-btn"><span class="material-symbols-outlined">settings</span></a>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <div class="page-hero">
+    <div>
+      <h1 class="page-hero-title">The Active <em>Fleet</em></h1>
+      <div class="page-hero-sub">Curated management for executive mobility</div>
+    </div>
+    <div class="page-hero-actions">
+      <button class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:1rem">filter_list</span> Filters</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Opening acquisition form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">add</span> Acquire Vehicle</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Total Assets</div><div class="kpi-value">42</div><div class="kpi-trend">▲ +4 This Month</div><span class="material-symbols-outlined kpi-icon">inventory_2</span></div>
+    <div class="kpi-card"><div class="kpi-label">Operational Ready</div><div class="kpi-value">38</div><div class="kpi-trend">90.4% Efficiency</div><span class="material-symbols-outlined kpi-icon">task_alt</span></div>
+    <div class="kpi-card"><div class="kpi-label">Active Deployments</div><div class="kpi-value">24</div><div class="kpi-trend">En-route to 12 locations</div><span class="material-symbols-outlined kpi-icon">route</span></div>
+    <div class="kpi-card"><div class="kpi-label">Under Service</div><div class="kpi-value">04</div><div class="kpi-trend" style="color:var(--error)">Completion: 48h</div><span class="material-symbols-outlined kpi-icon">build</span></div>
+  </div>
+
+  <!-- List Header -->
+  <div class="section-header">
+    <h2 class="section-title"><em>Premier</em> Inventory</h2>
+    <div class="view-tabs">
+      <button class="view-tab active" onclick="this.parentElement.querySelectorAll('.view-tab').forEach(b=>b.classList.remove('active'));this.classList.add('active')">List View</button>
+      <button class="view-tab" onclick="showToast('Map view coming soon','info');this.parentElement.querySelectorAll('.view-tab').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Map View</button>
+    </div>
+  </div>
+
+  <!-- Fleet Cards -->
+  <div style="display:flex;flex-direction:column;gap:1rem">
+    <!-- Card 1 -->
+    <div class="fleet-card" onclick="location.href='vehicle-detail.html'">
+      <div class="car-image"><img src="img-mercedes.png" alt="Mercedes S-Class"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
+          <span style="font-family:'Playfair Display',serif;font-size:1.35rem">Mercedes-Benz S-Class</span>
+          <span class="badge badge-green">Available</span>
+        </div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);margin-bottom:.875rem">Plate: LON-2024-S7</div>
+        <div class="car-specs">
+          <div class="spec"><div class="spec-label">Range</div><div class="spec-val">450 mi</div></div>
+          <div class="spec"><div class="spec-label">Fuel</div><div class="spec-val">84%</div></div>
+          <div class="spec"><div class="spec-label">Interior</div><div class="spec-val">Nappa Silk</div></div>
+          <div class="spec"><div class="spec-label">Seats</div><div class="spec-val">4 Exec</div></div>
+        </div>
+      </div>
+      <div class="fleet-actions">
+        <div class="price-tag">£320/hr</div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Opening edit form...','info')" title="Edit"><span class="material-symbols-outlined" style="font-size:1rem">edit</span></button>
+          <a href="vehicle-detail.html" class="btn-icon" onclick="event.stopPropagation()" title="History"><span class="material-symbols-outlined" style="font-size:1rem">history</span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="fleet-card" onclick="location.href='vehicle-detail.html'">
+      <div class="car-image" style="background:var(--surface-high);display:flex;align-items:center;justify-content:center">
+        <span class="material-symbols-outlined" style="font-size:3rem;color:var(--text-muted)">directions_car</span>
+      </div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
+          <span style="font-family:'Playfair Display',serif;font-size:1.35rem">Rolls-Royce Phantom</span>
+          <span class="badge badge-amber"><span class="dot dot-amber pulse"></span>In Use</span>
+        </div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);margin-bottom:.875rem">Plate: RR-GHOST-01</div>
+        <div class="car-specs">
+          <div class="spec"><div class="spec-label">Client</div><div class="spec-val">VIP Alpha One</div></div>
+          <div class="spec"><div class="spec-label">Route</div><div class="spec-val">LHR → Mayfair</div></div>
+          <div class="spec"><div class="spec-label">Status</div><div class="spec-val" style="color:var(--success)">On-Time</div></div>
+        </div>
+      </div>
+      <div class="fleet-actions">
+        <div class="price-tag">£1,200/hr</div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Locating vehicle...','info')"><span class="material-symbols-outlined" style="font-size:1rem">location_on</span></button>
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Contacting driver...','info')"><span class="material-symbols-outlined" style="font-size:1rem">contact_phone</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="fleet-card" onclick="location.href='vehicle-detail.html'">
+      <div class="car-image"><img src="img-bmw.png" alt="BMW 7 Series"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
+          <span style="font-family:'Playfair Display',serif;font-size:1.35rem">BMW 7 Series i7</span>
+          <span class="badge badge-red">Maintenance</span>
+        </div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);margin-bottom:.875rem">Plate: EV-700-LUX</div>
+        <div class="car-specs">
+          <div class="spec"><div class="spec-label">Issue</div><div class="spec-val">Tire Rotation</div></div>
+          <div class="spec"><div class="spec-label">Service Centre</div><div class="spec-val">West Tech Hub</div></div>
+          <div class="spec"><div class="spec-label">ETA</div><div class="spec-val" style="color:var(--error)">Tomorrow 09:00</div></div>
+        </div>
+      </div>
+      <div class="fleet-actions">
+        <div class="price-tag">£450/hr</div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Opening maintenance log...','info')"><span class="material-symbols-outlined" style="font-size:1rem">build</span></button>
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Viewing service record...','info')"><span class="material-symbols-outlined" style="font-size:1rem">description</span></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="fleet-card" onclick="location.href='vehicle-detail.html'">
+      <div class="car-image"><img src="img-vclass.png" alt="Mercedes V-Class"></div>
+      <div style="flex:1;min-width:0">
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.25rem">
+          <span style="font-family:'Playfair Display',serif;font-size:1.35rem">Mercedes-Benz V-Class</span>
+          <span class="badge badge-green">Available</span>
+        </div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:var(--text-muted);margin-bottom:.875rem">Plate: SV-ULTRA-22</div>
+        <div class="car-specs">
+          <div class="spec"><div class="spec-label">Seats</div><div class="spec-val">7 Executive</div></div>
+          <div class="spec"><div class="spec-label">Last Cleaned</div><div class="spec-val">1h ago</div></div>
+          <div class="spec"><div class="spec-label">Chauffeur</div><div class="spec-val">Assigned</div></div>
+        </div>
+      </div>
+      <div class="fleet-actions">
+        <div class="price-tag">£280/hr</div>
+        <div style="display:flex;gap:.5rem">
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Opening edit form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">edit</span></button>
+          <button class="btn-icon" onclick="event.stopPropagation();showToast('Opening schedule...','info')"><span class="material-symbols-outlined" style="font-size:1rem">calendar_add_on</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-top:1.5rem">
+    <span style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted)">Showing 4 of 42 vehicles</span>
+    <div style="display:flex;gap:.5rem">
+      <button class="page-btn active">1</button>
+      <button class="page-btn">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn"><span class="material-symbols-outlined" style="font-size:1rem">chevron_right</span></button>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="fab"><span class="fab-label">Add Vehicle</span><button class="fab-btn" onclick="showToast('Opening acquisition form...','info')"><span class="material-symbols-outlined">add</span></button></div>
+<div class="toast-container"></div>
+<script src="admin.js"></script>
+<script>document.getElementById('hamburger').addEventListener('click',openSidebar);</script>
+</body>
+</html>

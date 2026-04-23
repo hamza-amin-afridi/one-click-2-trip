@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Booking Detail | One Click 2 Trip Admin</title>
+<meta name="description" content="Detailed view of a single chauffeur booking.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.detail-grid{display:grid;grid-template-columns:340px 1fr;gap:1.5rem}
+.detail-card{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem}
+.detail-card-title{font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1.25rem}
+.detail-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid rgba(212,160,23,.05);font-size:.875rem}
+.detail-row:last-child{border:none}
+.detail-row-label{color:var(--text-muted);font-size:.78rem}
+.fare-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1rem}
+.fare-item{padding-right:1rem;border-right:1px solid var(--border)}
+.fare-item:last-child{border:none}
+.fare-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);margin-bottom:.3rem}
+.fare-val{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--text)}
+.fare-val.total{color:var(--gold);font-size:1.75rem}
+.map-mini{background:var(--surface-mid);border-radius:.5rem;overflow:hidden;position:relative;height:200px}
+.map-mini img{width:100%;height:100%;object-fit:cover;opacity:.5;filter:grayscale(.4)}
+.map-mini-overlay{position:absolute;bottom:.875rem;left:.875rem}
+.breadcrumb{display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;font-size:.7rem;color:var(--text-muted)}
+.breadcrumb a{color:var(--text-muted);transition:color .2s}
+.breadcrumb a:hover{color:var(--gold)}
+.breadcrumb .sep{color:var(--border-strong)}
+@media(max-width:1024px){.detail-grid{grid-template-columns:1fr}.fare-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.fare-grid{grid-template-columns:1fr 1fr}.detail-card{padding:1rem}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link active"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold"><span class="material-symbols-outlined">add</span><span class="btn-text">New Booking</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div style="display:flex;gap:1.5rem;align-items:center">
+      <span style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);font-style:italic">One Click 2 Trip</span>
+      <div style="display:flex;gap:1rem;display:none" class="header-tabs">
+        <span style="color:var(--gold);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;border-bottom:2px solid var(--gold);padding-bottom:.25rem;cursor:pointer">Details</span>
+        <span style="color:var(--text-muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">History</span>
+        <span style="color:var(--text-muted);font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;cursor:pointer;transition:color .2s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--text-muted)'">Documents</span>
+      </div>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <a href="settings.html" class="icon-btn"><span class="material-symbols-outlined">settings</span></a>
+    <div class="admin-profile"><div><div class="name">Administrator</div><div class="role">Op. Commander</div></div><div class="avatar">A</div></div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <!-- Breadcrumb -->
+  <div class="breadcrumb">
+    <a href="index.html">Dashboard</a><span class="sep">›</span>
+    <a href="bookings.html">Bookings</a><span class="sep">›</span>
+    <span style="color:var(--gold)">#OC-88220</span>
+  </div>
+
+  <!-- Header -->
+  <div class="page-hero">
+    <div>
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);margin-bottom:.5rem">Premium Concierge Service</div>
+      <h1 class="page-hero-title" style="font-size:2rem">Booking #CHF-2024-8892</h1>
+      <div style="display:flex;align-items:center;gap:.875rem;margin-top:.5rem;flex-wrap:wrap">
+        <span class="badge badge-amber"><span class="dot dot-amber pulse"></span>In Progress</span>
+        <span style="font-size:.78rem;color:var(--text-muted);font-style:italic">Created Oct 24, 2024 · 09:12 AM</span>
+      </div>
+    </div>
+    <div class="page-hero-actions">
+      <button class="btn btn-ghost btn-sm" onclick="showToast('Opening edit form...','info')">
+        <span class="material-symbols-outlined" style="font-size:1rem">edit</span> Modify
+      </button>
+      <button class="btn btn-danger btn-sm" onclick="confirmAction('Cancel Booking','Are you sure you want to cancel booking #CHF-2024-8892? This cannot be undone.',()=>showToast('Booking cancelled','error'))">
+        <span class="material-symbols-outlined" style="font-size:1rem">cancel</span> Cancel
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Generating PDF invoice...','info')">
+        <span class="material-symbols-outlined" style="font-size:1rem">picture_as_pdf</span> Export PDF
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Grid -->
+  <div class="detail-grid">
+    <!-- Left: Timeline -->
+    <div>
+      <div class="detail-card" style="border-left:2px solid var(--gold)">
+        <div class="detail-card-title" style="display:flex;align-items:center;justify-content:space-between">
+          Live Trip Status
+          <span style="display:flex;gap:.25rem"><span style="width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite;display:block"></span></span>
+        </div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot done"><span class="material-symbols-outlined">check_circle</span></div>
+            <div class="tl-time">08:00 AM</div>
+            <div class="tl-label">Dispatch Confirmed</div>
+            <div class="tl-desc">Vehicle departed from central hub.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot done"><span class="material-symbols-outlined">check_circle</span></div>
+            <div class="tl-time">08:45 AM</div>
+            <div class="tl-label">Arrived at Pickup</div>
+            <div class="tl-desc">142 Park Lane, London.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot active"><span class="material-symbols-outlined">local_taxi</span></div>
+            <div class="tl-time" style="color:var(--gold);font-weight:700">09:15 AM · On Route</div>
+            <div class="tl-label">Passenger Onboard</div>
+            <div class="tl-desc">Transit to Heathrow Terminal 5.</div>
+          </div>
+          <div class="tl-item pending">
+            <div class="tl-dot pending"><span class="material-symbols-outlined" style="font-size:.875rem;color:var(--text-muted)">location_on</span></div>
+            <div class="tl-time">Est. 10:05 AM</div>
+            <div class="tl-label">Drop-off</div>
+            <div class="tl-desc">Heathrow T5 Departures.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Cards -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <!-- Passenger + Driver -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+        <div class="detail-card">
+          <div class="detail-card-title">Passenger</div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
+            <div class="avatar avatar-lg">JS</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.25rem">Julian Sterling</div>
+              <div class="badge badge-amber" style="margin-top:.35rem">Black Card Member</div>
+            </div>
+          </div>
+          <div class="detail-row"><span class="detail-row-label">Contact</span><span>+44 20 7946 0124</span></div>
+          <div class="detail-row"><span class="detail-row-label">Request</span><span style="font-style:italic;font-size:.8rem">Newspaper, Still Water</span></div>
+          <div class="detail-row"><span class="detail-row-label">Passengers</span><span>2 Adults</span></div>
+        </div>
+        <div class="detail-card" style="border:1px solid rgba(212,160,23,.2)">
+          <div class="detail-card-title">Assignment</div>
+          <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem">
+            <div class="avatar avatar-lg">MT</div>
+            <div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.25rem">Marcus Thorne</div>
+              <div style="display:flex;align-items:center;gap:.5rem;margin-top:.3rem">
+                <span style="color:var(--gold);font-size:.75rem">★ 4.9</span>
+                <span style="font-size:.6rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em">Senior Chauffeur</span>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--surface-mid);border-radius:.375rem;padding:.75rem;display:flex;align-items:center;gap:.75rem">
+            <span class="material-symbols-outlined" style="color:var(--gold);font-size:1.5rem">directions_car</span>
+            <div>
+              <div style="font-size:.875rem;font-weight:700">Mercedes-Benz S-Class</div>
+              <div style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em">OB-77-SDN · Obsidian Black</div>
+            </div>
+          </div>
+          <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:.875rem;justify-content:center" onclick="showToast('Contact driver','info')">
+            <span class="material-symbols-outlined" style="font-size:1rem">phone</span> Contact Driver
+          </button>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="detail-card" style="padding:0;overflow:hidden">
+        <div class="map-mini">
+          <img src="https://images.unsplash.com/photo-1535530990760-dac6a8bf7e76?w=800&q=70" alt="London Map">
+          <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg),transparent 60%)"></div>
+          <div class="map-mini-overlay">
+            <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:.25rem">Live Location</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.1rem">M4 Motorway, Heading West</div>
+          </div>
+          <button style="position:absolute;top:.75rem;right:.75rem;background:rgba(15,14,12,.8);backdrop-filter:blur(12px);border:1px solid var(--border);color:var(--gold);width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="showToast('Expanding map...','info')">
+            <span class="material-symbols-outlined" style="font-size:1rem">fullscreen</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Fare Breakdown -->
+      <div class="detail-card">
+        <div class="detail-card-title">Fare Breakdown</div>
+        <div class="fare-grid">
+          <div class="fare-item"><div class="fare-label">Base Rate</div><div class="fare-val">£145.00</div></div>
+          <div class="fare-item"><div class="fare-label">Airport Fee</div><div class="fare-val">£12.50</div></div>
+          <div class="fare-item"><div class="fare-label">Concierge Add-ons</div><div class="fare-val">£25.00</div></div>
+          <div class="fare-item"><div class="fare-label">Total Estimated</div><div class="fare-val total">£182.50</div></div>
+        </div>
+        <div style="margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--border);display:flex;align-items:center;gap:.75rem">
+          <span class="material-symbols-outlined" style="color:var(--gold)">verified_user</span>
+          <span style="font-size:.78rem;color:var(--text-muted)">Paid via Visa Platinum (•••• 8812) · Receipt generated upon completion.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="toast-container"></div>
+<div class="modal-overlay hidden" id="modal"></div>
+<script src="admin.js"></script>
+<script>
+document.getElementById('hamburger').addEventListener('click',openSidebar);
+// Show header tabs on md+
+if(window.innerWidth>768) document.querySelector('.header-tabs').style.display='flex';
+</script>
+</body>
+</html>

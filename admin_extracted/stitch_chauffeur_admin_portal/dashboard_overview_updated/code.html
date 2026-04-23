@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=DM+Sans:wght@400;500;700&amp;family=Noto+Serif:wght@400;700&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#3d2e00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "secondary-fixed-dim": "#e7c188",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#3e2e00",
+                        "on-background": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#281800",
+                        "on-primary-container": "#503d00",
+                        "background": "#131313",
+                        "surface-variant": "#353534",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary-fixed-variant": "#584400",
+                        "on-primary-fixed": "#241a00",
+                        "secondary": "#e7c188",
+                        "outline-variant": "#4d4637",
+                        "inverse-primary": "#755b00",
+                        "on-tertiary-container": "#513d00",
+                        "primary-fixed": "#ffe08f",
+                        "secondary-fixed": "#ffdeae",
+                        "outline": "#99907e",
+                        "tertiary-fixed-dim": "#e4c375",
+                        "surface-container": "#201f1f",
+                        "on-surface-variant": "#d0c5b2",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-container": "#d4af78",
+                        "tertiary-fixed": "#ffdf97",
+                        "primary-container": "#c9a84c",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary": "#e4c376",
+                        "surface-tint": "#e6c364",
+                        "on-secondary": "#432c01",
+                        "primary": "#e6c364",
+                        "secondary-container": "#5c4215",
+                        "primary-fixed-dim": "#e6c364",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5c4215",
+                        "tertiary-container": "#c7a85d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Playfair Display", "Noto Serif", "serif"],
+                        "body": ["DM Sans", "Manrope", "sans-serif"],
+                        "label": ["DM Sans", "Manrope", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.4);
+            backdrop-filter: blur(20px);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #e6c364 0%, #c9a84c 100%);
+        }
+        .status-pulse {
+            position: relative;
+        }
+        .status-pulse::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 1px solid #e6c364;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar Shell -->
+<aside class="fixed inset-y-0 left-0 w-64 bg-[#0e0e0e] flex flex-col py-8 z-50">
+<div class="px-8">
+<div class="flex items-center gap-3 mb-8">
+<img alt="One Click 2 Trip Logo" class="h-10 w-auto" data-alt="Sophisticated gold and obsidian minimalist logo for a premium chauffeur and travel concierge service" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAOEAviJZBZxXnQEVuyS7XXWx8EMRSzjWFZ914YrZZXGmYz2xpc2A2lgavZ2JiMLXYUUNn25NbhO2X5EhoeoyEZzYjwkaSZVXtS2HwtJi0zEKPIb3NzmgaA42K0_aJKvNFB13rTSkYr0MmzRtVM9HOVVXyxllFi3UInaFU76bzTGpV7WOquBeWX2FMnkcUEisBK7iFaqrIG1mCM4cfXWzIFE2gWX50R9O0Lq7yNC5zhqXbPOLTsArUSlnvRiapF-7sPX9hoizMRXfGQ"/>
+<div>
+<h1 class="font-headline text-xl text-[#e6c364] leading-tight">Obsidian</h1>
+<p class="font-label tracking-widest uppercase text-[10px] text-neutral-500">Concierge Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 mt-4">
+<!-- Active: Dashboard -->
+<a class="bg-[#1c1b1b] text-[#e6c364] border-r-4 border-[#e6c364] py-4 px-8 flex items-center gap-4 group transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Dashboard</span>
+</a>
+<a class="text-neutral-500 py-4 px-8 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Bookings</span>
+</a>
+<a class="text-neutral-500 py-4 px-8 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">person_pin</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Drivers</span>
+</a>
+<a class="text-neutral-500 py-4 px-8 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">directions_car</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Fleet</span>
+</a>
+<a class="text-neutral-500 py-4 px-8 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="font-label tracking-widest uppercase text-[10px]">Analytics</span>
+</a>
+</nav>
+<div class="px-8 mt-auto space-y-4">
+<button class="gold-gradient w-full py-3 rounded-lg text-on-primary font-bold font-label tracking-widest uppercase text-[10px] hover:scale-105 active:scale-95 transition-transform duration-200 shadow-lg shadow-primary/10">
+                New Booking
+            </button>
+<div class="pt-6 border-t border-white/5 space-y-2">
+<a class="text-neutral-500 flex items-center gap-4 text-[10px] uppercase tracking-widest hover:text-[#e7c188]" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span> Support
+                </a>
+<a class="text-neutral-500 flex items-center gap-4 text-[10px] uppercase tracking-widest hover:text-error" href="#">
+<span class="material-symbols-outlined text-[18px]">logout</span> Logout
+                </a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 min-h-screen relative bg-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 right-0 left-64 h-20 flex justify-between items-center px-12 bg-neutral-950/40 backdrop-blur-xl z-40 transition-all duration-300">
+<div class="flex items-center gap-8">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 text-[20px]">search</span>
+<input class="bg-surface-container-low border-none rounded-lg pl-10 pr-4 py-2 text-[10px] tracking-widest uppercase font-label focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="SEARCH OPERATIONS..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<button class="relative text-neutral-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-1.5 h-1.5 bg-primary rounded-full"></span>
+</button>
+<button class="text-neutral-400 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-8 w-[1px] bg-white/10 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-[10px] font-bold tracking-widest uppercase text-on-surface">Admin</p>
+<p class="text-[9px] text-neutral-500 uppercase tracking-widest">Op. Commander</p>
+</div>
+<div class="w-10 h-10 rounded-full border border-primary/20 p-0.5">
+<img alt="Administrator Profile" class="w-full h-full rounded-full object-cover grayscale brightness-90" data-alt="Close-up portrait of a professional male administrator in a sharp suit with dark aesthetic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8eH3N73mtk6nc0GzxU6Qp0KpPLKk5NHVbEoSU_4fwEmLuCRo7Nuv0s4GtVmbn7joj5h-zL2lqIq0IBxDfjShjclznBxGPF_H3GNeZ8QrVKzIhXbX5XWHwYsBdAOcJZahiNDl1VcMt4U-dXkCOxPqEHi7gxZofqqOQCgCpW2tRTSgh8LfEy90y_3GHmVXrgnT0-kciZukcGZYZ2kV-68CrcTmUyCxKNuckdMz-nYF5Si0AVntqpT2c1iOQKpQpC1IhVi_O1GU7by17"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="pt-28 px-12 pb-12 space-y-10">
+<!-- Headline Section -->
+<section class="flex justify-between items-end">
+<div>
+<h2 class="font-headline text-5xl italic text-on-surface">Operational Command</h2>
+<p class="font-label tracking-[0.2em] uppercase text-primary mt-2 text-xs">Real-time Fleet Intelligence &amp; Logistics</p>
+</div>
+<div class="flex gap-4">
+<div class="px-4 py-2 bg-surface-container-low rounded-lg border border-outline-variant/10">
+<p class="text-[9px] text-neutral-500 uppercase tracking-widest">System Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse shadow-[0_0_8px_#e6c364]"></span>
+<span class="text-[10px] font-bold uppercase tracking-widest text-on-surface">All Nodes Active</span>
+</div>
+</div>
+</div>
+</section>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<!-- Total Bookings -->
+<div class="bg-surface-container-low p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all duration-300 group">
+<p class="font-label tracking-[0.15em] uppercase text-neutral-500 text-[10px] mb-4">Total Bookings</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-4xl text-on-surface group-hover:text-primary transition-colors">48</span>
+<span class="text-primary text-[10px] font-bold">+12% Today</span>
+</div>
+</div>
+<!-- Active Rides -->
+<div class="bg-surface-container-low p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all duration-300 group">
+<p class="font-label tracking-[0.15em] uppercase text-neutral-500 text-[10px] mb-4">Active Rides</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-4xl text-on-surface group-hover:text-primary transition-colors">14</span>
+<span class="text-primary text-[10px] font-bold">In Progress</span>
+</div>
+</div>
+<!-- Revenue Today -->
+<div class="bg-surface-container-low p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all duration-300 group">
+<p class="font-label tracking-[0.15em] uppercase text-neutral-500 text-[10px] mb-4">Revenue Today</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-4xl text-on-surface group-hover:text-primary transition-colors">$5,420</span>
+<span class="text-primary text-[10px] font-bold">Peak Perf.</span>
+</div>
+</div>
+<!-- Drivers Online -->
+<div class="bg-surface-container-low p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all duration-300 group">
+<p class="font-label tracking-[0.15em] uppercase text-neutral-500 text-[10px] mb-4">Drivers Online</p>
+<div class="flex items-baseline gap-2">
+<span class="font-headline text-4xl text-on-surface group-hover:text-primary transition-colors">22</span>
+<span class="text-primary text-[10px] font-bold">92% Utilized</span>
+</div>
+</div>
+</section>
+<!-- Main Operational View -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- London City Map View -->
+<div class="lg:col-span-8 relative rounded-2xl overflow-hidden min-h-[500px] shadow-2xl">
+<div class="absolute inset-0 bg-neutral-900">
+<img alt="Dark aesthetic map of London City" class="w-full h-full object-cover opacity-60 grayscale brightness-75" data-alt="High-contrast dark satellite view of London city streets at night with glowing golden light trails along main thoroughfares" data-location="London City" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDLCJMLKLpJZeVXDi2zD_yNCbhNHA5owf-IzX2Ki0AxG149qBZNAK2VJdZf3tq9_SFgluYTDFOco0JbwU1i-xR9s17iJveLS5-QLRQOr7Kr_3VHBVGiCKw0TbspzMC74RNwXakZEy5x6fFTo1azoPI0MIls1pchMZ1F8N4-7RktrdN0FHRy2AzmRVoi1ot9jCPdknTkKLV2hbQ2tGf3Dp2ZRq0hMu3FwSENaeOzeCtJeOehJwPBZvXv0-N7zLGrE6tUYpFJeVNEQ4_P"/>
+</div>
+<!-- Map Overlays -->
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<!-- Custom Map Marker (Driver) -->
+<div class="absolute top-[40%] left-[30%] group">
+<div class="status-pulse w-4 h-4 bg-primary rounded-full shadow-[0_0_12px_#e6c364] flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-on-primary rounded-full"></div>
+</div>
+<div class="absolute top-6 left-1/2 -translate-x-1/2 glass-panel p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity border border-primary/20 min-w-[120px]">
+<p class="text-[9px] font-bold tracking-widest uppercase text-primary">ID: CH-882</p>
+<p class="text-[8px] text-on-surface uppercase mt-1">Status: En-route</p>
+</div>
+</div>
+<div class="absolute top-[55%] left-[60%] group">
+<div class="status-pulse w-4 h-4 bg-primary rounded-full shadow-[0_0_12px_#e6c364] flex items-center justify-center">
+<div class="w-1.5 h-1.5 bg-on-primary rounded-full"></div>
+</div>
+<div class="absolute top-6 left-1/2 -translate-x-1/2 glass-panel p-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity border border-primary/20 min-w-[120px]">
+<p class="text-[9px] font-bold tracking-widest uppercase text-primary">ID: CH-415</p>
+<p class="text-[8px] text-on-surface uppercase mt-1">Status: Active</p>
+</div>
+</div>
+<!-- Map Controls -->
+<div class="absolute bottom-6 left-6 flex gap-2">
+<button class="glass-panel p-3 rounded-lg text-primary border border-outline-variant/10 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">zoom_in</span>
+</button>
+<button class="glass-panel p-3 rounded-lg text-primary border border-outline-variant/10 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">zoom_out</span>
+</button>
+<button class="glass-panel p-3 rounded-lg text-primary border border-outline-variant/10 hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">my_location</span>
+</button>
+</div>
+<div class="absolute top-6 left-6 glass-panel px-4 py-2 rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[18px]">location_on</span>
+<span class="text-[10px] font-bold uppercase tracking-[0.2em] text-on-surface">Greater London Operational Zone</span>
+</div>
+</div>
+</div>
+<!-- System Intelligence Live Feed -->
+<div class="lg:col-span-4 flex flex-col gap-6">
+<div class="bg-surface-container-low p-6 rounded-2xl border border-outline-variant/5 h-full">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-xl text-on-surface italic">System Intelligence</h3>
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+<div class="space-y-6">
+<!-- Feed Item 1 -->
+<div class="flex gap-4 group">
+<div class="relative">
+<div class="w-2 h-2 rounded-full bg-primary mt-1.5"></div>
+<div class="absolute top-3.5 left-0.5 w-[1px] h-12 bg-outline-variant/20"></div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold text-on-surface uppercase tracking-widest">New Priority Booking</p>
+<span class="text-[8px] text-neutral-500 font-label">2M AGO</span>
+</div>
+<p class="text-[11px] text-neutral-400 mt-1">Executive Sedan requested from Heathrow T5 to Mayfair. AI Auto-dispatching CH-882.</p>
+</div>
+</div>
+<!-- Feed Item 2 -->
+<div class="flex gap-4 group">
+<div class="relative">
+<div class="w-2 h-2 rounded-full bg-primary mt-1.5"></div>
+<div class="absolute top-3.5 left-0.5 w-[1px] h-12 bg-outline-variant/20"></div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold text-on-surface uppercase tracking-widest">Route Optimized</p>
+<span class="text-[8px] text-neutral-500 font-label">12M AGO</span>
+</div>
+<p class="text-[11px] text-neutral-400 mt-1">Traffic alert on M4. Recalculated 3 active routes for efficiency +14min gain.</p>
+</div>
+</div>
+<!-- Feed Item 3 -->
+<div class="flex gap-4 group">
+<div class="relative">
+<div class="w-2 h-2 rounded-full bg-primary mt-1.5"></div>
+<div class="absolute top-3.5 left-0.5 w-[1px] h-12 bg-outline-variant/20"></div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold text-on-surface uppercase tracking-widest">Shift Completion</p>
+<span class="text-[8px] text-neutral-500 font-label">28M AGO</span>
+</div>
+<p class="text-[11px] text-neutral-400 mt-1">Driver Julian A. completed shift. Fleet utilization report generated for CH-04.</p>
+</div>
+</div>
+<!-- Feed Item 4 (Muted) -->
+<div class="flex gap-4 opacity-50">
+<div class="relative">
+<div class="w-2 h-2 rounded-full bg-neutral-600 mt-1.5"></div>
+</div>
+<div class="flex-1">
+<div class="flex justify-between items-start">
+<p class="text-[10px] font-bold text-on-surface uppercase tracking-widest">Weather Advisory</p>
+<span class="text-[8px] text-neutral-500 font-label">1H AGO</span>
+</div>
+<p class="text-[11px] text-neutral-400 mt-1">Rain projected for 18:00. Pre-dispatching 4 additional standby drivers.</p>
+</div>
+</div>
+</div>
+<button class="w-full mt-10 py-3 border border-outline-variant/15 text-primary text-[10px] font-label tracking-widest uppercase hover:bg-surface-container-high transition-colors">
+                            View Full Intelligence Log
+                        </button>
+</div>
+</div>
+</section>
+<!-- Active Fleet Table (The Chauffeur Queue) -->
+<section class="space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="font-headline text-2xl text-on-surface">Active Chauffeur Queue</h3>
+<div class="flex gap-2">
+<button class="text-[10px] uppercase tracking-widest font-label text-primary px-3 py-1 bg-primary/5 rounded">All Drivers</button>
+<button class="text-[10px] uppercase tracking-widest font-label text-neutral-500 px-3 py-1 hover:text-primary transition-colors">On Trip</button>
+<button class="text-[10px] uppercase tracking-widest font-label text-neutral-500 px-3 py-1 hover:text-primary transition-colors">Available</button>
+</div>
+</div>
+<div class="bg-surface-container-low rounded-2xl overflow-hidden border border-outline-variant/5">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-outline-variant/10">
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-neutral-500">Chauffeur</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-neutral-500">Vehicle</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-neutral-500">Current Task</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-neutral-500">Performance</th>
+<th class="px-8 py-5 text-[10px] font-bold uppercase tracking-widest text-neutral-500 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="px-8 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full status-pulse">
+<img alt="Driver Avatar" class="w-full h-full rounded-full object-cover" data-alt="Close-up professional headshot of a mature chauffeur in formal uniform, sharp lighting, obsidian background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7607nsfuM53NkN9gFGMokwt5HiHyX-nMIjRKKAajDmIRBNoy09WqqVIDSEjTC8wuSdFUlzVK1ONUkkxVdmt6gGMZj_cgbECTEywM4p6-mrEUKtZ9N1vQS5f2QiaUw_QWVTjI0DwzI-zxfNU6gfq8j52pNJQ2MyJEBWpLu51Zp3CBF8fmYUK2GCMEJ6RO4Js6QzSkcSD0rZw2l_G10d2EIV9ppg2ZYp4LXd4WeKzfgSeCcth6p9EmKnRCh_QHdIUbvdllD3slmn1Ss"/>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface uppercase tracking-wide">Marcus Thorne</p>
+<p class="text-[10px] text-primary">Senior Grade I</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-4">
+<p class="text-[11px] text-on-surface uppercase">Mercedes S-Class</p>
+<p class="text-[10px] text-neutral-500">LNE 4821</p>
+</td>
+<td class="px-8 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary">
+<span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+<span class="text-[9px] font-bold uppercase tracking-widest">En-Route (LHR)</span>
+</div>
+</td>
+<td class="px-8 py-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[11px] text-on-surface">4.98</span>
+</div>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="text-neutral-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors group">
+<td class="px-8 py-4">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full">
+<img alt="Driver Avatar" class="w-full h-full rounded-full object-cover grayscale" data-alt="Professional chauffeur portrait with slight smile, evening lighting, luxury car interior visible in soft focus background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0jYElvNf-V8prueVkfJbgGOPKF8kywX6k7vBJUCTDdvy0YdpdICi_puEchtwNPesbnRNguZqujAdnBJ-KxzmNlOMSVxMZJTIGzO8vbHCERAQlKxF0P7tXJt8a49iJ-MF4yxjiLgplGL8J856nFip_QqKDXIR6B4Ue0AnmawImikXMLdZnRN5bLdXF6PQ4BuolMn0gUq_taDJJVtWj32RucH6Mz08OagTeHHJK-iZxDUlFonAKaFT5GeBSYKV9vz6LVtvpWIGQWes7"/>
+</div>
+<div>
+<p class="text-[11px] font-bold text-on-surface uppercase tracking-wide">Elena Rossi</p>
+<p class="text-[10px] text-neutral-500">Senior Grade II</p>
+</div>
+</div>
+</td>
+<td class="px-8 py-4">
+<p class="text-[11px] text-on-surface uppercase">Range Rover SV</p>
+<p class="text-[10px] text-neutral-500">BKR 9901</p>
+</td>
+<td class="px-8 py-4">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-800 text-neutral-400">
+<span class="text-[9px] font-bold uppercase tracking-widest">Available</span>
+</div>
+</td>
+<td class="px-8 py-4">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[11px] text-on-surface">5.00</span>
+</div>
+</td>
+<td class="px-8 py-4 text-right">
+<button class="text-neutral-500 hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+<!-- Contextual FAB - Restricted to Command Dashboard -->
+<div class="fixed bottom-10 right-10 z-50">
+<button class="gold-gradient p-5 rounded-full shadow-2xl shadow-primary/40 group hover:scale-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-on-primary text-3xl group-hover:rotate-90 transition-transform">add</span>
+<span class="absolute right-full mr-4 top-1/2 -translate-y-1/2 glass-panel px-4 py-2 rounded-lg text-primary text-[10px] font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-primary/20">Quick Dispatch</span>
+</button>
+</div>
+</body></html>

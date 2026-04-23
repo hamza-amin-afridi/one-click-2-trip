@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drivers | One Click 2 Trip Admin</title>
+<meta name="description" content="Manage elite chauffeurs for One Click 2 Trip.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.drivers-layout{display:grid;grid-template-columns:1fr 300px;gap:1.5rem}
+.drivers-table-wrap{min-width:0}
+.doc-alert{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.25rem}
+.doc-card{border-radius:.5rem;padding:.875rem;margin-bottom:.75rem;border-left:3px solid}
+.doc-card.expired{background:rgba(255,107,107,.06);border-color:var(--error)}
+.doc-card.expiring{background:rgba(251,191,36,.06);border-color:var(--warning)}
+.doc-card-name{font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.25rem}
+.doc-card-item{font-size:.8rem;font-weight:600}
+.doc-card-meta{font-size:.6rem;font-weight:700;margin-top:.5rem;text-transform:uppercase;letter-spacing:.08em}
+.expired .doc-card-meta{color:var(--error)}
+.expiring .doc-card-meta{color:var(--warning)}
+.driver-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;padding:.625rem 1.5rem;align-items:center;cursor:pointer;transition:background .2s;border-top:1px solid rgba(212,160,23,.05)}
+.driver-grid:first-child{border:none}
+.driver-grid:hover{background:var(--surface-low)}
+@media(max-width:1200px){.drivers-layout{grid-template-columns:1fr}.doc-alert{display:none}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link active"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold" onclick="showToast('Opening add driver form...','info')"><span class="material-symbols-outlined">person_add</span><span class="btn-text">Add Driver</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div class="header-search"><span class="material-symbols-outlined">search</span><input type="text" placeholder="Search Chauffeur ID or name..." id="table-search"></div>
+  </div>
+  <div class="header-right">
+    <button class="btn btn-primary btn-sm" onclick="showToast('Opening deploy form...','info')">Deploy Driver</button>
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <div class="admin-profile"><div><div class="name">Administrator</div><div class="role">Op. Commander</div></div><div class="avatar">A</div></div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <div class="page-hero">
+    <div>
+      <h1 class="page-hero-title">Elite Chauffeur <em>Management</em></h1>
+      <div class="page-hero-sub">Monitor performance, compliance & real-time status</div>
+    </div>
+    <div class="page-hero-actions">
+      <button class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:1rem">filter_list</span> Filters</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Opening add driver form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">person_add</span> Add Driver</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Online Now</div><div class="kpi-value">42</div><div class="kpi-trend">▲ +12% Today</div><span class="material-symbols-outlined kpi-icon">person_pin</span></div>
+    <div class="kpi-card"><div class="kpi-label">Avg Rating</div><div class="kpi-value">4.92</div><div class="kpi-trend" style="color:var(--gold)">★★★★★</div><span class="material-symbols-outlined kpi-icon">star_rate</span></div>
+    <div class="kpi-card"><div class="kpi-label">Doc Compliance</div><div class="kpi-value">98%</div><div class="kpi-trend">2 Pending</div><span class="material-symbols-outlined kpi-icon">verified_user</span></div>
+    <div class="kpi-card"><div class="kpi-label">Total Trips</div><div class="kpi-value">1,204</div><div class="kpi-trend">All Time</div><span class="material-symbols-outlined kpi-icon">receipt_long</span></div>
+  </div>
+
+  <!-- Filters -->
+  <div style="display:flex;gap:.75rem;margin-bottom:1.25rem;flex-wrap:wrap">
+    <div class="filter-group" style="background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.4rem .875rem;display:flex;align-items:center;gap:.5rem">
+      <label style="font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)">Status:</label>
+      <select style="background:transparent;border:none;outline:none;color:var(--text);font-size:.78rem;cursor:pointer" onchange="filterDrivers(this.value)">
+        <option value="">All Drivers</option><option value="online">Online</option><option value="trip">On Trip</option><option value="inactive">Inactive</option>
+      </select>
+    </div>
+    <div style="background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.4rem .875rem;display:flex;align-items:center;gap:.5rem">
+      <label style="font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)">Rating:</label>
+      <select style="background:transparent;border:none;outline:none;color:var(--text);font-size:.78rem;cursor:pointer">
+        <option>Any Rating</option><option>4.5+ Stars</option><option>Top Tier Only</option>
+      </select>
+    </div>
+    <div style="background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.4rem .875rem;display:flex;align-items:center;gap:.5rem">
+      <label style="font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)">Docs:</label>
+      <select style="background:transparent;border:none;outline:none;color:var(--text);font-size:.78rem;cursor:pointer">
+        <option>All Status</option><option>Expiring Soon</option><option>Critical</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="drivers-layout">
+    <!-- Table -->
+    <div class="drivers-table-wrap">
+      <div class="table-wrap">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 40px;padding:.875rem 1.5rem;background:var(--surface-low);border-bottom:1px solid var(--border)">
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted)">Chauffeur</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted);text-align:center">Status</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted)">Vehicle</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted);text-align:center">Trips</div>
+          <div style="font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted);text-align:center">Rating</div>
+          <div></div>
+        </div>
+        <div id="driver-rows">
+        <!-- Row 1 -->
+        <div class="driver-row" data-status="online" onclick="showToast('Opening driver profile...','info')" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 40px;padding:.875rem 1.5rem;align-items:center;cursor:pointer;transition:background .2s;border-top:1px solid rgba(212,160,23,.05)" onmouseover="this.style.background='var(--surface-low)'" onmouseout="this.style.background=''">
+          <div style="display:flex;align-items:center;gap:.875rem">
+            <div class="avatar" style="border-radius:.5rem">AS</div>
+            <div><div style="font-size:.875rem;font-weight:700">Alexander Sterling</div><div style="font-size:.65rem;color:var(--text-muted)">MC-8829 · Senior Partner</div></div>
+          </div>
+          <div style="display:flex;justify-content:center"><span class="badge badge-green"><span class="dot dot-green"></span>Online</span></div>
+          <div><div style="font-size:.8rem">Rolls-Royce Ghost</div><div style="font-size:.6rem;color:var(--text-muted)">MC 007 GOLD</div></div>
+          <div style="text-align:center;font-size:.9rem;font-weight:700">842</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem">
+            <div style="display:flex;gap:1px;color:var(--gold);font-size:.875rem">★★★★★</div>
+            <span style="font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em">Master</span>
+          </div>
+          <div style="display:flex;justify-content:flex-end"><div style="width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 6px rgba(74,222,128,.5)"></div></div>
+        </div>
+        <!-- Row 2 -->
+        <div class="driver-row" data-status="trip" onclick="showToast('Opening driver profile...','info')" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 40px;padding:.875rem 1.5rem;align-items:center;cursor:pointer;transition:background .2s;border-top:1px solid rgba(212,160,23,.05)" onmouseover="this.style.background='var(--surface-low)'" onmouseout="this.style.background=''">
+          <div style="display:flex;align-items:center;gap:.875rem">
+            <div class="avatar" style="border-radius:.5rem">EM</div>
+            <div><div style="font-size:.875rem;font-weight:700">Elena Moretti</div><div style="font-size:.65rem;color:var(--text-muted)">MC-9104 · First Officer</div></div>
+          </div>
+          <div style="display:flex;justify-content:center"><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>On Trip</span></div>
+          <div><div style="font-size:.8rem">Mercedes S-Class</div><div style="font-size:.6rem;color:var(--text-muted)">VIP 224 LND</div></div>
+          <div style="text-align:center;font-size:.9rem;font-weight:700">312</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem">
+            <div style="display:flex;gap:1px;color:var(--gold);font-size:.875rem">★★★★<span style="opacity:.4">★</span></div>
+            <span style="font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em">Pro Elite</span>
+          </div>
+          <div style="display:flex;justify-content:flex-end"><div style="width:8px;height:8px;border-radius:50%;background:var(--warning);box-shadow:0 0 6px rgba(251,191,36,.5)"></div></div>
+        </div>
+        <!-- Row 3 -->
+        <div class="driver-row" data-status="inactive" onclick="showToast('Opening driver profile...','info')" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 40px;padding:.875rem 1.5rem;align-items:center;cursor:pointer;transition:background .2s;border-top:1px solid rgba(212,160,23,.05);opacity:.7" onmouseover="this.style.background='var(--surface-low)'" onmouseout="this.style.background=''">
+          <div style="display:flex;align-items:center;gap:.875rem">
+            <div class="avatar" style="border-radius:.5rem;filter:grayscale(1)">MT</div>
+            <div><div style="font-size:.875rem;font-weight:700">Marcus Thorne</div><div style="font-size:.65rem;color:var(--text-muted)">MC-7721 · Support Staff</div></div>
+          </div>
+          <div style="display:flex;justify-content:center"><span class="badge badge-gray">Inactive</span></div>
+          <div><div style="font-size:.8rem;color:var(--text-muted)">Not Assigned</div><div style="font-size:.6rem;color:var(--text-muted)">MAINTENANCE</div></div>
+          <div style="text-align:center;font-size:.9rem;font-weight:700;color:var(--text-muted)">1,509</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem">
+            <div style="display:flex;gap:1px;color:var(--text-muted);font-size:.875rem">★★★★<span style="opacity:.4">★</span></div>
+            <span style="font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em">Veteran</span>
+          </div>
+          <div style="display:flex;justify-content:flex-end"><div style="width:8px;height:8px;border-radius:50%;background:var(--error);box-shadow:0 0 6px rgba(255,107,107,.5)"></div></div>
+        </div>
+        <!-- Row 4 -->
+        <div class="driver-row" data-status="online" onclick="showToast('Opening driver profile...','info')" style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr 40px;padding:.875rem 1.5rem;align-items:center;cursor:pointer;transition:background .2s;border-top:1px solid rgba(212,160,23,.05)" onmouseover="this.style.background='var(--surface-low)'" onmouseout="this.style.background=''">
+          <div style="display:flex;align-items:center;gap:.875rem">
+            <div class="avatar" style="border-radius:.5rem">JV</div>
+            <div><div style="font-size:.875rem;font-weight:700">Julian Vane</div><div style="font-size:.65rem;color:var(--text-muted)">MC-8840 · Junior Partner</div></div>
+          </div>
+          <div style="display:flex;justify-content:center"><span class="badge badge-green"><span class="dot dot-green"></span>Online</span></div>
+          <div><div style="font-size:.8rem">Audi A8 L</div><div style="font-size:.6rem;color:var(--text-muted)">LX 778 PRM</div></div>
+          <div style="text-align:center;font-size:.9rem;font-weight:700">128</div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:.2rem">
+            <div style="display:flex;gap:1px;color:var(--gold);font-size:.875rem">★★★★<span style="opacity:.4">★</span></div>
+            <span style="font-size:.55rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em">Rising</span>
+          </div>
+          <div style="display:flex;justify-content:flex-end"><div style="width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 6px rgba(74,222,128,.5)"></div></div>
+        </div>
+        </div>
+        <!-- Mobile cards -->
+        <div class="mobile-cards" style="padding:1rem">
+          <div class="m-card"><div class="m-card-header"><div style="display:flex;align-items:center;gap:.75rem"><div class="avatar">AS</div><div><div style="font-weight:700">Alexander Sterling</div><div style="font-size:.65rem;color:var(--text-muted)">MC-8829</div></div></div><span class="badge badge-green">Online</span></div><div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Rolls-Royce Ghost</span></div><div class="m-card-row"><span class="m-card-label">Trips</span><span>842</span></div><div class="m-card-row"><span class="m-card-label">Rating</span><span style="color:var(--gold)">★★★★★</span></div></div>
+          <div class="m-card"><div class="m-card-header"><div style="display:flex;align-items:center;gap:.75rem"><div class="avatar">EM</div><div><div style="font-weight:700">Elena Moretti</div><div style="font-size:.65rem;color:var(--text-muted)">MC-9104</div></div></div><span class="badge badge-gold">On Trip</span></div><div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Mercedes S-Class</span></div><div class="m-card-row"><span class="m-card-label">Trips</span><span>312</span></div></div>
+        </div>
+        <div class="pagination">
+          <span class="pagination-info">Showing 4 of 42 elite chauffeurs</span>
+          <div class="pagination-pages">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><span class="material-symbols-outlined" style="font-size:1rem">chevron_right</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel: Expiring docs + activity -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <div class="doc-alert">
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;font-weight:700">⚠ Expiring Documents</div>
+        <div class="doc-card expired">
+          <div class="doc-card-name">Marcus Thorne</div>
+          <div class="doc-card-item">Chauffeur License #002</div>
+          <div class="doc-card-meta">EXPIRED 2 DAYS AGO</div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:.625rem" onclick="showToast('Opening update form...','info')">Update Now</button>
+        </div>
+        <div class="doc-card expiring">
+          <div class="doc-card-name">Elena Moretti</div>
+          <div class="doc-card-item">Medical Certificate</div>
+          <div class="doc-card-meta">EXPIRING IN 4 DAYS</div>
+          <button class="btn btn-ghost btn-sm" style="margin-top:.625rem" onclick="showToast('Sending notification...','info')">Notify Driver</button>
+        </div>
+      </div>
+      <div class="doc-alert">
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);margin-bottom:1rem;font-weight:700">Recent Activity</div>
+        <div class="feed-item"><div class="feed-dot"></div><div><div class="feed-event">MC-8829 Assigned</div><div class="feed-time">12 min ago</div><div class="feed-text">Driver assigned to VIP trip #2910.</div></div></div>
+        <div class="feed-item"><div class="feed-dot muted"></div><div><div class="feed-event">Shift Ended</div><div class="feed-time">1 hour ago</div><div class="feed-text">Julian Vane completed shift.</div></div></div>
+        <div class="feed-item"><div class="feed-dot" style="background:var(--success)"></div><div><div class="feed-event">Doc Verified</div><div class="feed-time">2 hours ago</div><div class="feed-text">New documents verified for Sterling A.</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="fab"><span class="fab-label">Add Driver</span><button class="fab-btn" onclick="showToast('Opening add driver form...','info')"><span class="material-symbols-outlined">person_add</span></button></div>
+<div class="toast-container"></div>
+<script src="admin.js"></script>
+<script>
+document.getElementById('hamburger').addEventListener('click',openSidebar);
+function filterDrivers(status){
+  document.querySelectorAll('.driver-row').forEach(r=>{
+    r.style.display=(!status||r.dataset.status===status)?'grid':'none';
+  });
+}
+</script>
+</body>
+</html>

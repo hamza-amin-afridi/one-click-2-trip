@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Midnight Concierge - Vehicle Detail</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#554825",
+                      "on-primary-fixed": "#241a00",
+                      "secondary": "#d8c598",
+                      "on-secondary": "#3b2f0e",
+                      "primary-fixed-dim": "#e6c364",
+                      "error": "#ffb4ab",
+                      "on-tertiary": "#1e2b66",
+                      "background": "#131313",
+                      "surface-dim": "#131313",
+                      "on-tertiary-container": "#2e3b77",
+                      "surface-container-highest": "#353534",
+                      "on-primary": "#3d2e00",
+                      "tertiary-fixed": "#dde1ff",
+                      "on-surface": "#e5e2e1",
+                      "surface-container-lowest": "#0e0e0e",
+                      "primary-container": "#c9a84c",
+                      "on-primary-container": "#503d00",
+                      "on-secondary-fixed-variant": "#524523",
+                      "outline": "#99907e",
+                      "surface-bright": "#3a3939",
+                      "primary": "#e6c364",
+                      "surface-tint": "#e6c364",
+                      "surface-variant": "#353534",
+                      "surface-container": "#201f1f",
+                      "secondary-fixed": "#f5e1b2",
+                      "on-background": "#e5e2e1",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed": "#241a00",
+                      "surface": "#131313",
+                      "surface-container-low": "#1c1b1b",
+                      "primary-fixed": "#ffe08f",
+                      "outline-variant": "#4d4637",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed-variant": "#35437e",
+                      "on-primary-fixed-variant": "#584400",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed-dim": "#b9c3ff",
+                      "on-tertiary-fixed": "#041451",
+                      "on-surface-variant": "#d0c5b2",
+                      "tertiary": "#b9c4ff",
+                      "on-secondary-container": "#c9b78b",
+                      "inverse-on-surface": "#313030",
+                      "inverse-primary": "#755b00",
+                      "tertiary-container": "#9ba8eb",
+                      "surface-container-high": "#2a2a2a",
+                      "secondary-fixed-dim": "#d8c598"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "fontFamily": {
+                      "headline": ["Noto Serif"],
+                      "body": ["Manrope"],
+                      "label": ["Manrope"]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-panel {
+            background: rgba(53, 53, 52, 0.6);
+            backdrop-filter: blur(12px);
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #e6c364 0%, #c9a84c 100%);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353534;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- Sidebar Navigation Shell -->
+<aside class="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 py-8 border-r border-white/5 bg-[#0e0e0e] z-50">
+<div class="px-8 mb-10">
+<h1 class="text-lg font-serif italic text-[#e6c364]">Concierge Terminal</h1>
+<p class="text-[10px] uppercase tracking-[0.2em] text-neutral-500 mt-1">Fleet Operations</p>
+</div>
+<nav class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-4 px-4 py-3 text-neutral-500 hover:text-neutral-200 hover:bg-[#1c1b1b] transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 duration-300">dashboard</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 bg-gradient-to-r from-[#e6c364]/10 to-transparent text-[#e6c364] border-r-2 border-[#e6c364] font-semibold transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 duration-300">directions_car</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Fleet Management</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-neutral-500 hover:text-neutral-200 hover:bg-[#1c1b1b] transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 duration-300">person_pin</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Chauffeurs</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-neutral-500 hover:text-neutral-200 hover:bg-[#1c1b1b] transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 duration-300">calendar_month</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Bookings</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-3 text-neutral-500 hover:text-neutral-200 hover:bg-[#1c1b1b] transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 duration-300">payments</span>
+<span class="font-['Manrope'] text-sm tracking-wide">Revenue</span>
+</a>
+</nav>
+<div class="px-8 mt-auto space-y-4">
+<button class="w-full py-3 px-4 gold-gradient text-on-primary font-bold text-xs uppercase tracking-widest rounded-lg shadow-lg active:scale-95 transition-transform">
+                New Vehicle
+            </button>
+<div class="pt-6 border-t border-white/5 space-y-1">
+<a class="flex items-center gap-4 py-2 text-neutral-500 hover:text-neutral-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">help_outline</span>
+<span class="text-sm">Support</span>
+</a>
+<a class="flex items-center gap-4 py-2 text-neutral-500 hover:text-neutral-200 transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">logout</span>
+<span class="text-sm">Log Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-72 min-h-screen bg-surface">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-8 h-20 sticky top-0 z-40 bg-[#131313] shadow-[0px_4px_40px_rgba(255,255,255,0.04)]">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="text-xl font-bold tracking-tighter text-[#e6c364]">Midnight Concierge</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors">settings</span>
+</div>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-primary/20">
+<img class="w-full h-full object-cover" data-alt="close-up portrait of a professional male fleet administrator in a dark suit with a sharp, focused expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDnCuwqV-ygQsYYYjVStHa0DpPNv3203K_FQNVVGFZs7NHmna16_uTmHOvlG8vlvLngC9qT3Qo8KBRSzrXMRBB1oKDz4ghN8IaOc5rH5MSWjrQd32HW3YbT9yCSSjIvbNatl5Ok9P10CoMWODgeEpVWeQTEurJ6_eiBDm1we1VkYgB79H3qgARn4ZbGPXIxlQRz6WfXK42G_QInf8ZwdGlHom9l35WYnqlbAPLsdxC1EsahmAgk_p2HKCg8xdLDPL90ouGbPCCj70NB"/>
+</div>
+</div>
+</header>
+<div class="p-8 max-w-7xl mx-auto space-y-8">
+<!-- 1. Header: Editorial Intro & Photo Gallery -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-5 space-y-6">
+<nav class="flex items-center gap-2 text-xs uppercase tracking-widest text-on-surface-variant mb-4">
+<span class="hover:text-primary cursor-pointer">Fleet</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary font-bold">RR-902-GH</span>
+</nav>
+<h2 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none">Rolls-Royce <br/><span class="text-primary italic">Ghost</span></h2>
+<div class="flex flex-wrap gap-4 items-center pt-4">
+<div class="px-4 py-2 bg-surface-container-low border border-outline-variant/20 rounded-lg flex flex-col">
+<span class="text-[10px] uppercase tracking-widest text-on-surface-variant">Plate Number</span>
+<span class="text-lg font-mono font-bold">LX 77 RRG</span>
+</div>
+<div class="px-4 py-2 bg-secondary-container/20 rounded-lg flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="text-primary text-sm font-semibold uppercase tracking-widest">Active Status</span>
+</div>
+</div>
+</div>
+<div class="lg:col-span-7 grid grid-cols-3 gap-3 h-[400px]">
+<div class="col-span-2 row-span-2 rounded-xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="sleek modern rolls-royce ghost in charcoal grey parked in front of a minimalist architecture building at dusk with soft golden ambient light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiXLkh3HZXJuDN0HaXfkom1Q3_6JZxNKy5ldkQ8q4GShI_S0JkwlgsUH56xOx_6OVMqM3G_H33F9cmYqTQv5BwSxGE-Cc_ErFykXtzhd4qkIL9V6De06LdciiyMvtpZ16OaHN666Ilv0qIwYNSST7lCNllk0S6NyuuTJ7ELqesqSV0mdOF2jgxlKAkznYn0PiwepOPLVb3KjsU8afmeCqCzs1-MeMJsozG94dSfX__DQpdIrL9vHv7prjdBGkktrHV8MoI1zyrByAc"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+<span class="text-white text-sm font-medium">Exterior - Front Profile</span>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="extreme close up of a luxury car leather seat detail with intricate stitching and silver chrome accents in a dark refined interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrTt5FmP1fnnnzN-f529Wgmq4fJ2VavhIg0TXdtMy8CllhVhO2oQgdETcKDK7s4huEieAeXFUwPs8Yt3RZhWpFWMVBtpc0-EctHNkqbcMs6jOtizRT6aZM2K_bk5aQQV7Dnb4opR3cr_XWdJ79NX5DBlhcayFKJgHKPnlMPquAqP4l2xCIpC_WNxk1BRkT_ir9HKNRphe5A5-JN_uIwigObkjWliWag-83cDKQoSgpxc6RSB2j3ff3G-12Z-_mZx93V76b_8irrNSh"/>
+</div>
+<div class="rounded-xl overflow-hidden relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="interior dashboard of a luxury vehicle featuring high resolution screens and walnut wood trim with soft blue ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmGAPZh5LBnxnnap06fcQw58CSZxfhm2i4mjB60C7ql9LsnMfUmx1FTE9fzCmkaPwyuFCFpxHT_nwTTd0TPmS8xgnGdQ_n3rJCopAWkKDg6WSeioTXH0jBqYMAvKOOdd7n4uoPLZ34J5iy-VtBXB7TTvJy6eYreL50TufGefUM6yHbtE-XCDG8fOdmGYF0kBnP11AHcMFhhNM8AvAOC0BAAy6eY2qvWcVFZs2epZoOlSDBRDL3EGWZWKZASeIVENYh4rz5i_od7L2j"/>
+</div>
+</div>
+</section>
+<!-- 2. Specs & Amenities: Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+<!-- Vehicle Specs -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl p-8 space-y-8">
+<h3 class="text-sm font-bold uppercase tracking-[0.3em] text-primary">Technical Specifications</h3>
+<div class="grid grid-cols-2 gap-y-8 gap-x-12">
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant mb-1">Exterior Color</span>
+<span class="text-xl font-medium flex items-center gap-2">
+<span class="w-4 h-4 rounded-full bg-[#2a2a2a] ring-1 ring-white/10"></span> Midnight Grey
+                            </span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant mb-1">VIN Identification</span>
+<span class="text-xl font-mono">SCA662000X12...</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant mb-1">Fuel Type</span>
+<span class="text-xl font-medium">98 Octane Premium</span>
+</div>
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant mb-1">Passenger Capacity</span>
+<span class="text-xl font-medium">3 Adults + Chauffeur</span>
+</div>
+</div>
+</div>
+<!-- Amenities Card -->
+<div class="bg-surface-container-high rounded-xl p-8 border-l-2 border-primary/30">
+<h3 class="text-sm font-bold uppercase tracking-[0.3em] text-primary mb-6">Amenity Package</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">wifi</span>
+<span class="text-sm font-medium">Ultra-High Speed 5G WiFi</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">water_drop</span>
+<span class="text-sm font-medium">Evian Chilled Mineral Water</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">newspaper</span>
+<span class="text-sm font-medium">FT &amp; WSJ Digital Access</span>
+</li>
+<li class="flex items-center gap-3 text-on-surface">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">devices</span>
+<span class="text-sm font-medium">iPad Pro Rear Entertainment</span>
+</li>
+</ul>
+</div>
+<!-- 3. Current Assignment Card -->
+<div class="bg-surface-container-low rounded-xl p-6 flex flex-col justify-between">
+<h3 class="text-[10px] font-bold uppercase tracking-[0.3em] text-on-surface-variant mb-4">Current Assignment</h3>
+<div class="flex items-center gap-4">
+<div class="relative">
+<img class="w-14 h-14 rounded-full object-cover" data-alt="professional portrait of a chauffeur in a dark black uniform and peaked cap looking professional and courteous" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD5DTmdE38Qsrnt-g0M4QtlgjaWjdWCYe0XluOGkL63qGyFlcKlr-iUjYxpQ1zu_DMH7m9xbvlCyjM-5aswXGH6iGBCYu0njpbiiKmlSB9QX7YWF980_IGu_HR5pFOGDI4i1bekvyvCy6WPNvifNzQ7Bic55zma3H5bO_qfohjuT1KZvRK9Tg1LWTfq3FCZlc62PCiVGbtEr5THY_ZRaUWhcpyzIyzheFoagH6mbwOgQRoPVnP_92Wy9qIaSHUFMBtnjG7SFa7tZURq"/>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-surface-container-low"></div>
+</div>
+<div>
+<p class="font-headline text-lg">Marcus Sterling</p>
+<p class="text-xs text-primary font-medium tracking-wide">Elite Tier Chauffeur</p>
+</div>
+</div>
+<div class="mt-6 pt-4 border-t border-white/5">
+<p class="text-[10px] text-on-surface-variant uppercase mb-2">Upcoming Route</p>
+<p class="text-sm font-medium italic">Heathrow Terminal 5 → The Ritz London</p>
+</div>
+</div>
+</section>
+<!-- 4. Maintenance Log & 5. Booking History -->
+<section class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Maintenance Log -->
+<div class="space-y-4">
+<div class="flex justify-between items-end px-2">
+<h3 class="text-sm font-bold uppercase tracking-[0.3em] text-primary">Maintenance Log</h3>
+<span class="text-xs text-on-surface-variant underline cursor-pointer">View All Records</span>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden shadow-2xl">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-high/50 border-b border-white/5">
+<th class="p-5 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Date</th>
+<th class="p-5 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Service Type</th>
+<th class="p-5 text-[10px] uppercase tracking-widest text-on-surface-variant font-bold text-right">Cost</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-5 text-sm font-medium">Oct 14, 2023</td>
+<td class="p-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Brake System Inspection</span>
+<span class="text-[10px] text-on-surface-variant">Replaced ceramic pads</span>
+</div>
+</td>
+<td class="p-5 text-right font-headline text-primary">$1,240.00</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-5 text-sm font-medium">Aug 02, 2023</td>
+<td class="p-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Synthetic Oil Change</span>
+<span class="text-[10px] text-on-surface-variant">Rolls-Royce Authorized Center</span>
+</div>
+</td>
+<td class="p-5 text-right font-headline text-primary">$450.00</td>
+</tr>
+<tr class="hover:bg-surface-container-highest transition-colors">
+<td class="p-5 text-sm font-medium">Jun 19, 2023</td>
+<td class="p-5">
+<div class="flex flex-col">
+<span class="text-sm font-bold">Annual Detailing</span>
+<span class="text-[10px] text-on-surface-variant">Graphene ceramic coating</span>
+</div>
+</td>
+<td class="p-5 text-right font-headline text-primary">$2,100.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Booking History -->
+<div class="space-y-4">
+<div class="flex justify-between items-end px-2">
+<h3 class="text-sm font-bold uppercase tracking-[0.3em] text-primary">Recent Bookings</h3>
+<span class="text-xs text-on-surface-variant underline cursor-pointer">Export Ledger</span>
+</div>
+<div class="space-y-3">
+<!-- Booking Item 1 -->
+<div class="group bg-surface-container-low p-5 rounded-xl flex items-center justify-between hover:bg-surface-container-high transition-all duration-300">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">map</span>
+</div>
+<div>
+<p class="text-sm font-bold">VIP Airport Transfer</p>
+<p class="text-xs text-on-surface-variant">Yesterday, 14:30 • 24.5 miles</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-headline text-on-surface">$580.00</p>
+<span class="text-[10px] uppercase tracking-widest text-green-400 font-bold">Completed</span>
+</div>
+</div>
+<!-- Booking Item 2 -->
+<div class="group bg-surface-container-low p-5 rounded-xl flex items-center justify-between hover:bg-surface-container-high transition-all duration-300">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">event_seat</span>
+</div>
+<div>
+<p class="text-sm font-bold">Corporate Gala Event</p>
+<p class="text-xs text-on-surface-variant">Oct 25, 2023 • 12.0 miles</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-headline text-on-surface">$1,200.00</p>
+<span class="text-[10px] uppercase tracking-widest text-green-400 font-bold">Completed</span>
+</div>
+</div>
+<!-- Booking Item 3 -->
+<div class="group bg-surface-container-low p-5 rounded-xl flex items-center justify-between hover:bg-surface-container-high transition-all duration-300">
+<div class="flex items-center gap-5">
+<div class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">nightlight</span>
+</div>
+<div>
+<p class="text-sm font-bold">Private Dinner Charter</p>
+<p class="text-xs text-on-surface-variant">Oct 23, 2023 • 8.2 miles</p>
+</div>
+</div>
+<div class="text-right">
+<p class="text-sm font-headline text-on-surface">$350.00</p>
+<span class="text-[10px] uppercase tracking-widest text-green-400 font-bold">Completed</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Footer Visual Element -->
+<footer class="p-8 mt-12 border-t border-white/5 flex justify-between items-center text-on-surface-variant">
+<p class="text-[10px] uppercase tracking-widest">© 2023 Midnight Concierge Luxury Fleet Mgt.</p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">share</span>
+<span class="material-symbols-outlined text-sm cursor-pointer hover:text-primary">print</span>
+</div>
+</footer>
+</main>
+</body></html>

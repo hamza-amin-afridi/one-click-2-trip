@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vehicle Detail | One Click 2 Trip Admin</title>
+<meta name="description" content="Detailed vehicle information and maintenance log.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.vd-grid{display:grid;grid-template-columns:1fr 340px;gap:1.5rem}
+.vd-card{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem;margin-bottom:1.25rem}
+.vd-card:last-child{margin-bottom:0}
+.vd-label{font-size:.58rem;text-transform:uppercase;letter-spacing:.18em;color:var(--text-muted);margin-bottom:.3rem}
+.vd-val{font-size:.9rem;font-weight:600}
+.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem}
+.spec-block{background:var(--surface-mid);border-radius:.5rem;padding:.875rem}
+.maint-row{display:flex;gap:1rem;align-items:flex-start;padding:.75rem 0;border-top:1px solid rgba(212,160,23,.05)}
+.maint-row:first-child{border:none}
+.maint-icon{width:36px;height:36px;border-radius:.375rem;background:var(--surface-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-ring{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.ring-val{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold)}
+.ring-label{font-size:.6rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)}
+.img-hero{width:100%;height:240px;object-fit:cover;border-radius:.75rem;background:var(--surface-high);margin-bottom:1.25rem}
+@media(max-width:1024px){.vd-grid{grid-template-columns:1fr}.spec-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.spec-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link active"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold"><span class="material-symbols-outlined">add</span><span class="btn-text">Add Vehicle</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.5rem">
+      <a href="fleet.html" style="color:var(--text-muted)">Fleet</a>
+      <span>›</span><span style="color:var(--gold)">S-Class · LON-2024-S7</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <a href="settings.html" class="icon-btn"><span class="material-symbols-outlined">settings</span></a>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <div class="page-hero">
+    <div>
+      <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--gold);margin-bottom:.5rem">Fleet Asset · Executive Sedan</div>
+      <h1 class="page-hero-title" style="font-size:2rem">Mercedes-Benz <em>S-Class</em></h1>
+      <div style="display:flex;align-items:center;gap:.875rem;margin-top:.5rem;flex-wrap:wrap">
+        <span class="badge badge-green">Available</span>
+        <span style="font-size:.72rem;color:var(--text-muted)">Plate: LON-2024-S7 · VIN: WDD2221561A099</span>
+      </div>
+    </div>
+    <div class="page-hero-actions">
+      <button class="btn btn-secondary btn-sm" onclick="showToast('Opening edit form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">edit</span> Edit</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Opening dispatch panel...','info')"><span class="material-symbols-outlined" style="font-size:1rem">directions_car</span> Dispatch</button>
+    </div>
+  </div>
+
+  <div class="vd-grid">
+    <!-- Left -->
+    <div>
+      <!-- Hero Image -->
+      <img src="img-mercedes.png" class="img-hero" alt="Mercedes S-Class">
+
+      <!-- Specs -->
+      <div class="vd-card">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1rem">Vehicle Specifications</div>
+        <div class="spec-grid">
+          <div class="spec-block"><div class="vd-label">Make</div><div class="vd-val">Mercedes-Benz</div></div>
+          <div class="spec-block"><div class="vd-label">Model</div><div class="vd-val">S-Class S500</div></div>
+          <div class="spec-block"><div class="vd-label">Year</div><div class="vd-val">2024</div></div>
+          <div class="spec-block"><div class="vd-label">Colour</div><div class="vd-val">Obsidian Black</div></div>
+          <div class="spec-block"><div class="vd-label">Fuel</div><div class="vd-val">PHEV Hybrid</div></div>
+          <div class="spec-block"><div class="vd-label">Capacity</div><div class="vd-val">4 Passengers</div></div>
+        </div>
+        <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:.5rem">
+          <span class="badge badge-gold">Wi-Fi</span>
+          <span class="badge badge-gold">Climate Control</span>
+          <span class="badge badge-gold">Meet & Greet</span>
+          <span class="badge badge-gold">Refreshments</span>
+        </div>
+      </div>
+
+      <!-- Maintenance Log -->
+      <div class="vd-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+          <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted)">Maintenance Log</div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('Opening maintenance form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">add</span> Add Record</button>
+        </div>
+        <div class="maint-row">
+          <div class="maint-icon"><span class="material-symbols-outlined" style="font-size:1.1rem;color:var(--success)">check_circle</span></div>
+          <div style="flex:1"><div style="font-size:.8rem;font-weight:700">Full Service</div><div style="font-size:.65rem;color:var(--text-muted);margin-top:.2rem">Engine, brakes, filters replaced. Mileage: 24,000 km</div><div style="font-size:.6rem;color:var(--text-muted);margin-top:.3rem">15 Oct 2024 · Cost: £480</div></div>
+        </div>
+        <div class="maint-row">
+          <div class="maint-icon"><span class="material-symbols-outlined" style="font-size:1.1rem;color:var(--success)">check_circle</span></div>
+          <div style="flex:1"><div style="font-size:.8rem;font-weight:700">Tyre Rotation</div><div style="font-size:.65rem;color:var(--text-muted);margin-top:.2rem">All four tyres rotated & pressure checked.</div><div style="font-size:.6rem;color:var(--text-muted);margin-top:.3rem">01 Sep 2024 · Cost: £90</div></div>
+        </div>
+        <div class="maint-row">
+          <div class="maint-icon"><span class="material-symbols-outlined" style="font-size:1.1rem;color:var(--warning)">schedule</span></div>
+          <div style="flex:1"><div style="font-size:.8rem;font-weight:700">Oil Change Due</div><div style="font-size:.65rem;color:var(--warning);margin-top:.2rem">Scheduled for 30 Oct 2024</div><div style="font-size:.6rem;color:var(--text-muted);margin-top:.3rem">Est. Cost: £120</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right -->
+    <div style="display:flex;flex-direction:column;gap:1.25rem">
+      <!-- Stats -->
+      <div class="vd-card">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1.25rem">Performance Stats</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+          <div class="stat-ring"><div class="ring-val">248</div><div class="ring-label">Total Trips</div></div>
+          <div class="stat-ring"><div class="ring-val">98%</div><div class="ring-label">Utilisation</div></div>
+          <div class="stat-ring"><div class="ring-val">4.97</div><div class="ring-label" style="display:flex;align-items:center;gap:.25rem"><span style="color:var(--gold)">★</span>Rating</div></div>
+          <div class="stat-ring"><div class="ring-val">84%</div><div class="ring-label">Fuel Level</div></div>
+        </div>
+      </div>
+
+      <!-- Assigned Driver -->
+      <div class="vd-card" style="border:1px solid rgba(212,160,23,.2)">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1rem">Assigned Chauffeur</div>
+        <div style="display:flex;align-items:center;gap:.875rem;margin-bottom:.875rem">
+          <div class="avatar avatar-lg">MT</div>
+          <div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.1rem">Marcus Thorne</div>
+            <div style="font-size:.65rem;color:var(--gold);margin-top:.2rem">★ 4.98 · Senior Grade I</div>
+          </div>
+        </div>
+        <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center" onclick="showToast('Opening reassign panel...','info')">
+          <span class="material-symbols-outlined" style="font-size:1rem">swap_horiz</span> Reassign Driver
+        </button>
+      </div>
+
+      <!-- Insurance & Registration -->
+      <div class="vd-card">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1rem">Documents</div>
+        <div style="display:flex;flex-direction:column;gap:.75rem">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:.8rem;font-weight:600">Insurance Certificate</div><div style="font-size:.6rem;color:var(--success)">Valid until Dec 2025</div></div>
+            <button class="btn-icon" onclick="showToast('Viewing document...','info')"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:.8rem;font-weight:600">Vehicle Registration</div><div style="font-size:.6rem;color:var(--success)">Valid until Mar 2025</div></div>
+            <button class="btn-icon" onclick="showToast('Viewing document...','info')"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div style="font-size:.8rem;font-weight:600">MOT Certificate</div><div style="font-size:.6rem;color:var(--warning)">Expiring Jan 2025</div></div>
+            <button class="btn-icon" onclick="showToast('Uploading new document...','info')"><span class="material-symbols-outlined" style="font-size:1rem">upload</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Status Change -->
+      <div class="vd-card">
+        <div style="font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:var(--text-muted);margin-bottom:1rem">Change Status</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem">
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Status set to Available','success')" style="justify-content:flex-start;gap:.625rem"><span class="dot dot-green"></span> Mark Available</button>
+          <button class="btn btn-secondary btn-sm" onclick="showToast('Sending to maintenance','info')" style="justify-content:flex-start;gap:.625rem"><span class="dot dot-amber"></span> Send to Service</button>
+          <button class="btn btn-danger btn-sm" onclick="confirmAction('Retire Vehicle','Retire this vehicle from the active fleet? This cannot be undone.',()=>showToast('Vehicle retired','error'))" style="justify-content:flex-start;gap:.625rem"><span class="dot dot-red"></span> Retire Vehicle</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="toast-container"></div>
+<div class="modal-overlay hidden" id="confirm-modal-wrap"></div>
+<script src="admin.js"></script>
+<script>document.getElementById('hamburger').addEventListener('click',openSidebar);</script>
+</body>
+</html>

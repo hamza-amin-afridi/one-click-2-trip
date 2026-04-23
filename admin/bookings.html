@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookings | One Click 2 Trip Admin</title>
+<meta name="description" content="Manage all chauffeur bookings for One Click 2 Trip.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.filter-bar{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;margin-bottom:1.5rem}
+.filter-group{display:flex;align-items:center;gap:.5rem;background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.4rem .875rem}
+.filter-group label{font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted)}
+.filter-group select{background:transparent;border:none;outline:none;color:var(--text);font-size:.78rem;cursor:pointer}
+.search-bar{display:flex;align-items:center;gap:.5rem;background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.4rem .875rem;flex:1;min-width:200px;max-width:320px}
+.search-bar input{background:none;border:none;outline:none;color:var(--text);font-size:.8rem;width:100%}
+.export-btn{margin-left:auto}
+.car-thumb{width:48px;height:32px;border-radius:.25rem;object-fit:cover;background:var(--surface-high)}
+.car-thumb-placeholder{width:48px;height:32px;border-radius:.25rem;background:var(--surface-high);display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link active"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold" onclick="showToast('Opening booking form...','info')"><span class="material-symbols-outlined">add</span><span class="btn-text">New Booking</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div class="header-search"><span class="material-symbols-outlined">search</span><input type="text" placeholder="Search clients, IDs, routes..." id="table-search"></div>
+  </div>
+  <div class="header-right">
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <a href="settings.html" class="icon-btn"><span class="material-symbols-outlined">settings</span></a>
+    <div class="admin-profile"><div><div class="name">Administrator</div><div class="role">Op. Commander</div></div><div class="avatar">A</div></div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <div class="page-hero">
+    <div>
+      <h1 class="page-hero-title">Bookings <em>Management</em></h1>
+      <div class="page-hero-sub">Curating exclusive journeys for our premium clientele</div>
+    </div>
+    <div class="page-hero-actions">
+      <button class="btn btn-secondary btn-sm"><span class="material-symbols-outlined" style="font-size:1rem">file_download</span> Export</button>
+      <button class="btn btn-primary btn-sm" onclick="showToast('Opening new booking form...','info')"><span class="material-symbols-outlined" style="font-size:1rem">add</span> New Booking</button>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="kpi-card"><div class="kpi-label">Revenue MTD</div><div class="kpi-value">£142k</div><div class="kpi-trend">▲ +12%</div><span class="material-symbols-outlined kpi-icon">payments</span></div>
+    <div class="kpi-card"><div class="kpi-label">Active Bookings</div><div class="kpi-value">42</div><div class="kpi-trend">● Live</div><span class="material-symbols-outlined kpi-icon">calendar_month</span></div>
+    <div class="kpi-card"><div class="kpi-label">Fleet Utilisation</div><div class="kpi-value">88%</div><div class="kpi-trend">▲ Optimal</div><span class="material-symbols-outlined kpi-icon">directions_car</span></div>
+    <div class="kpi-card"><div class="kpi-label">VIP Requests</div><div class="kpi-value">07</div><div class="kpi-trend">● Pending Review</div><span class="material-symbols-outlined kpi-icon">star_rate</span></div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar">
+    <div class="search-bar"><span class="material-symbols-outlined" style="font-size:1rem;color:var(--text-muted)">search</span><input type="text" placeholder="Search bookings..." id="inline-search"></div>
+    <div class="filter-group"><label>Status</label><select onchange="filterTable()"><option value="">All States</option><option value="Confirmed">Confirmed</option><option value="In Progress">In Progress</option><option value="Completed">Completed</option><option value="Cancelled">Cancelled</option></select></div>
+    <div class="filter-group"><label>Vehicle</label><select><option>All Vehicles</option><option>Mercedes S-Class</option><option>Rolls-Royce Ghost</option><option>Range Rover</option><option>BMW 7 Series</option></select></div>
+    <div class="filter-group"><label>Date</label><input type="date" style="background:transparent;border:none;outline:none;color:var(--text);font-size:.78rem;cursor:pointer"></div>
+  </div>
+
+  <!-- Table -->
+  <div class="table-wrap">
+    <div class="table-overflow">
+      <table class="admin-table" id="bookings-table">
+        <thead><tr>
+          <th>Booking ID</th><th>Date</th><th>Client</th><th>Route</th><th>Vehicle / Driver</th><th>Fare</th><th>Status</th><th></th>
+        </tr></thead>
+        <tbody>
+          <tr data-href="booking-detail.html" data-status="Confirmed">
+            <td><span style="color:var(--gold);font-weight:700;font-size:.8rem">#OC-88219</span></td>
+            <td><span style="font-size:.8rem;color:var(--text-muted)">Oct 24, 2024</span></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:30px;height:30px;font-size:.6rem">EH</div><span style="font-size:.85rem">Elena Helmond</span></div></td>
+            <td><div style="font-size:.8rem">Heathrow T5</div><div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.25rem"><span class="material-symbols-outlined" style="font-size:.75rem">trending_flat</span>Mayfair</div></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem">
+              <img src="img-mercedes.png" class="car-thumb" alt="Mercedes">
+              <div><div style="font-size:.78rem;font-weight:700">S-Class</div><div style="font-size:.65rem;color:var(--gold)">James Thorne</div></div>
+            </div></td>
+            <td><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-bright)">£450</span></td>
+            <td><span class="badge badge-gold">Confirmed</span></td>
+            <td><div style="display:flex;gap:.375rem;justify-content:flex-end">
+              <a href="booking-detail.html" class="btn-icon" title="View" onclick="event.stopPropagation()"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></a>
+              <button class="btn-icon" onclick="event.stopPropagation();showToast('More options','info')" title="More"><span class="material-symbols-outlined" style="font-size:1rem">more_vert</span></button>
+            </div></td>
+          </tr>
+          <tr data-href="booking-detail.html" data-status="In Progress">
+            <td><span style="color:var(--gold);font-weight:700;font-size:.8rem">#OC-88220</span></td>
+            <td><span style="font-size:.8rem;color:var(--text-muted)">Oct 24, 2024</span></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:30px;height:30px;font-size:.6rem">AL</div><span style="font-size:.85rem">Arthur Lockwood</span></div></td>
+            <td><div style="font-size:.8rem">Paris-Le Bourget</div><div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.25rem"><span class="material-symbols-outlined" style="font-size:.75rem">trending_flat</span>Hôtel de Crillon</div></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem">
+              <div class="car-thumb-placeholder"><span class="material-symbols-outlined" style="font-size:1.1rem;color:var(--text-muted)">directions_car</span></div>
+              <div><div style="font-size:.78rem;font-weight:700">S-Class Maybach</div><div style="font-size:.65rem;color:var(--gold);display:flex;align-items:center;gap:.3rem"><span class="dot dot-gold pulse"></span>Pierre Blanc</div></div>
+            </div></td>
+            <td><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-bright)">€680</span></td>
+            <td><span class="badge badge-amber"><span class="dot dot-amber pulse"></span>In Progress</span></td>
+            <td><div style="display:flex;gap:.375rem;justify-content:flex-end">
+              <a href="booking-detail.html" class="btn-icon" onclick="event.stopPropagation()"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></a>
+              <button class="btn-icon" onclick="event.stopPropagation();showToast('More options','info')"><span class="material-symbols-outlined" style="font-size:1rem">more_vert</span></button>
+            </div></td>
+          </tr>
+          <tr data-href="booking-detail.html" data-status="Completed">
+            <td><span style="color:var(--gold);font-weight:700;font-size:.8rem">#OC-88195</span></td>
+            <td><span style="font-size:.8rem;color:var(--text-muted)">Oct 23, 2024</span></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:30px;height:30px;font-size:.6rem">SJ</div><span style="font-size:.85rem">Sarah Jenkins</span></div></td>
+            <td><div style="font-size:.8rem">Aspen Jet Center</div><div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.25rem"><span class="material-symbols-outlined" style="font-size:.75rem">trending_flat</span>The Little Nell</div></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem">
+              <img src="img-vclass.png" class="car-thumb" alt="V-Class">
+              <div><div style="font-size:.78rem;font-weight:700">Range Rover LWB</div><div style="font-size:.65rem;color:var(--text-muted)">David Miller</div></div>
+            </div></td>
+            <td><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-bright)">$1,200</span></td>
+            <td><span class="badge badge-gray">Completed</span></td>
+            <td><div style="display:flex;gap:.375rem;justify-content:flex-end">
+              <a href="booking-detail.html" class="btn-icon" onclick="event.stopPropagation()"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></a>
+              <button class="btn-icon" onclick="event.stopPropagation();showToast('More options','info')"><span class="material-symbols-outlined" style="font-size:1rem">more_vert</span></button>
+            </div></td>
+          </tr>
+          <tr data-href="booking-detail.html" data-status="Completed">
+            <td><span style="color:var(--gold);font-weight:700;font-size:.8rem">#OC-88192</span></td>
+            <td><span style="font-size:.8rem;color:var(--text-muted)">Oct 23, 2024</span></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:30px;height:30px;font-size:.6rem">TM</div><span style="font-size:.85rem">Thomas Moretti</span></div></td>
+            <td><div style="font-size:.8rem">Malpensa VIP</div><div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.25rem"><span class="material-symbols-outlined" style="font-size:.75rem">trending_flat</span>Lake Como Villa</div></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem">
+              <img src="img-bmw.png" class="car-thumb" alt="BMW">
+              <div><div style="font-size:.78rem;font-weight:700">BMW 7 Series</div><div style="font-size:.65rem;color:var(--text-muted)">Luca Rossi</div></div>
+            </div></td>
+            <td><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--gold-bright)">€940</span></td>
+            <td><span class="badge badge-gray">Completed</span></td>
+            <td><div style="display:flex;gap:.375rem;justify-content:flex-end">
+              <a href="booking-detail.html" class="btn-icon" onclick="event.stopPropagation()"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></a>
+              <button class="btn-icon" onclick="event.stopPropagation();showToast('More options','info')"><span class="material-symbols-outlined" style="font-size:1rem">more_vert</span></button>
+            </div></td>
+          </tr>
+          <tr data-href="booking-detail.html" data-status="Cancelled">
+            <td><span style="color:var(--gold);font-weight:700;font-size:.8rem">#OC-88188</span></td>
+            <td><span style="font-size:.8rem;color:var(--text-muted)">Oct 22, 2024</span></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:30px;height:30px;font-size:.6rem">RK</div><span style="font-size:.85rem">Robert King</span></div></td>
+            <td><div style="font-size:.8rem">City of London</div><div style="font-size:.65rem;color:var(--text-muted);display:flex;align-items:center;gap:.25rem"><span class="material-symbols-outlined" style="font-size:.75rem">trending_flat</span>Canary Wharf</div></td>
+            <td><div style="display:flex;align-items:center;gap:.625rem">
+              <div class="car-thumb-placeholder"><span class="material-symbols-outlined" style="font-size:1.1rem;color:var(--text-muted)">directions_car</span></div>
+              <div><div style="font-size:.78rem;font-weight:700">Mercedes S-Class</div><div style="font-size:.65rem;color:var(--text-muted)">Unassigned</div></div>
+            </div></td>
+            <td><span style="font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--text-muted)">£220</span></td>
+            <td><span class="badge badge-red">Cancelled</span></td>
+            <td><div style="display:flex;gap:.375rem;justify-content:flex-end">
+              <a href="booking-detail.html" class="btn-icon" onclick="event.stopPropagation()"><span class="material-symbols-outlined" style="font-size:1rem">open_in_new</span></a>
+              <button class="btn-icon" onclick="event.stopPropagation();showToast('More options','info')"><span class="material-symbols-outlined" style="font-size:1rem">more_vert</span></button>
+            </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- Mobile Cards -->
+    <div class="mobile-cards" style="padding:1rem">
+      <div class="m-card"><div class="m-card-header"><span style="color:var(--gold);font-weight:700">#OC-88219</span><span class="badge badge-gold">Confirmed</span></div><div class="m-card-row"><span class="m-card-label">Client</span><span>Elena Helmond</span></div><div class="m-card-row"><span class="m-card-label">Route</span><span>Heathrow T5 → Mayfair</span></div><div class="m-card-row"><span class="m-card-label">Fare</span><span style="color:var(--gold-bright)">£450</span></div><div style="margin-top:.75rem"><a href="booking-detail.html" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">View Details</a></div></div>
+      <div class="m-card"><div class="m-card-header"><span style="color:var(--gold);font-weight:700">#OC-88220</span><span class="badge badge-amber">In Progress</span></div><div class="m-card-row"><span class="m-card-label">Client</span><span>Arthur Lockwood</span></div><div class="m-card-row"><span class="m-card-label">Route</span><span>Paris-Le Bourget → Hôtel de Crillon</span></div><div class="m-card-row"><span class="m-card-label">Fare</span><span style="color:var(--gold-bright)">€680</span></div><div style="margin-top:.75rem"><a href="booking-detail.html" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">View Details</a></div></div>
+    </div>
+    <div class="pagination">
+      <span class="pagination-info">Showing 5 of 1,248 bookings</span>
+      <div class="pagination-pages">
+        <button class="page-btn" disabled><span class="material-symbols-outlined" style="font-size:1rem">chevron_left</span></button>
+        <button class="page-btn active">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <span style="color:var(--text-muted);font-size:.8rem;align-self:center">...</span>
+        <button class="page-btn">48</button>
+        <button class="page-btn"><span class="material-symbols-outlined" style="font-size:1rem">chevron_right</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="fab">
+  <span class="fab-label">Schedule Journey</span>
+  <button class="fab-btn" onclick="showToast('Opening booking form...','info')"><span class="material-symbols-outlined">add</span></button>
+</div>
+<div class="toast-container"></div>
+<script src="admin.js"></script>
+<script>
+document.getElementById('hamburger').addEventListener('click',openSidebar);
+// Inline search
+document.getElementById('inline-search').addEventListener('input',function(){
+  const q=this.value.toLowerCase();
+  document.querySelectorAll('#bookings-table tbody tr').forEach(r=>{r.style.display=r.textContent.toLowerCase().includes(q)?'':' none'});
+});
+// Status filter
+function filterTable(){
+  const sel=document.querySelector('.filter-group select');
+  const val=sel.value;
+  document.querySelectorAll('#bookings-table tbody tr').forEach(r=>{
+    r.style.display=(!val||r.dataset.status===val)?'':'none';
+  });
+}
+// Row click
+document.querySelectorAll('[data-href]').forEach(r=>{
+  r.style.cursor='pointer';
+  r.addEventListener('click',()=>location.href=r.dataset.href);
+});
+</script>
+</body>
+</html>

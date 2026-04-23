@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&amp;family=DM+Sans:wght@400;500;700&amp;family=Manrope:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-primary": "#3d2e00",
+                    "tertiary-container": "#9ba8eb",
+                    "primary-fixed-dim": "#e6c364",
+                    "on-error-container": "#ffdad6",
+                    "on-surface-variant": "#d0c5b2",
+                    "primary": "#e6c364",
+                    "on-primary-container": "#503d00",
+                    "surface-container-highest": "#353534",
+                    "inverse-primary": "#755b00",
+                    "on-surface": "#e5e2e1",
+                    "background": "#131313",
+                    "surface": "#131313",
+                    "inverse-on-surface": "#313030",
+                    "error-container": "#93000a",
+                    "surface-bright": "#3a3939",
+                    "surface-variant": "#353534",
+                    "on-tertiary-container": "#2e3b77",
+                    "surface-container-high": "#2a2a2a",
+                    "on-secondary-container": "#c9b78b",
+                    "surface-tint": "#e6c364",
+                    "tertiary": "#b9c4ff",
+                    "secondary-container": "#554825",
+                    "tertiary-fixed-dim": "#b9c3ff",
+                    "secondary-fixed-dim": "#d8c598",
+                    "surface-container-lowest": "#0e0e0e",
+                    "surface-dim": "#131313",
+                    "surface-container-low": "#1c1b1b",
+                    "on-secondary": "#3b2f0e",
+                    "on-primary-fixed-variant": "#584400",
+                    "on-secondary-fixed-variant": "#524523",
+                    "on-tertiary-fixed-variant": "#35437e",
+                    "secondary": "#d8c598",
+                    "on-tertiary": "#1e2b66",
+                    "on-secondary-fixed": "#241a00",
+                    "tertiary-fixed": "#dde1ff",
+                    "primary-container": "#c9a84c",
+                    "secondary-fixed": "#f5e1b2",
+                    "on-error": "#690005",
+                    "primary-fixed": "#ffe08f",
+                    "outline-variant": "#4d4637",
+                    "inverse-surface": "#e5e2e1",
+                    "surface-container": "#201f1f",
+                    "error": "#ffb4ab",
+                    "on-tertiary-fixed": "#041451",
+                    "outline": "#99907e",
+                    "on-primary-fixed": "#241a00",
+                    "on-background": "#e5e2e1"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Noto Serif"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+            font-family: 'Manrope', sans-serif;
+        }
+        .gold-gradient {
+            background: linear-gradient(135deg, #e6c364 0%, #c9a84c 100%);
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-72 flex-shrink-0 bg-[#131313] shadow-[40px_0_40px_rgba(255,255,255,0.04)] flex flex-col py-8 z-50 sticky top-0 font-['Noto_Serif'] tracking-wide">
+<div class="px-8 mb-12">
+<h1 class="text-xl font-bold tracking-tighter text-[#e6c364]">Midnight Concierge</h1>
+<p class="text-xs text-zinc-500 uppercase tracking-widest mt-1">Admin Terminal</p>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-8 py-4 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="dashboard">dashboard</span>
+<span class="text-sm">Dashboard</span>
+</a>
+<a class="flex items-center px-8 py-4 transition-all duration-300 bg-white/5 text-[#e6c364] border-r-2 border-[#e6c364]" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="calendar_month">calendar_month</span>
+<span class="text-sm">Bookings</span>
+</a>
+<a class="flex items-center px-8 py-4 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="hail">hail</span>
+<span class="text-sm">Drivers</span>
+</a>
+<a class="flex items-center px-8 py-4 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="directions_car">directions_car</span>
+<span class="text-sm">Vehicles</span>
+</a>
+<a class="flex items-center px-8 py-4 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="bar_chart">bar_chart</span>
+<span class="text-sm">Analytics</span>
+</a>
+</nav>
+<div class="px-6 mb-8">
+<button class="w-full gold-gradient text-on-primary font-bold py-4 rounded-lg flex items-center justify-center gap-2 active:scale-[0.99] transition-all">
+<span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
+                New Booking
+            </button>
+</div>
+<div class="mt-auto border-t border-zinc-800/50 pt-6">
+<a class="flex items-center px-8 py-3 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="settings">settings</span>
+<span class="text-sm">Settings</span>
+</a>
+<a class="flex items-center px-8 py-3 transition-all duration-300 hover:bg-white/5 text-zinc-500 hover:text-zinc-200" href="#">
+<span class="material-symbols-outlined mr-4" data-icon="help_outline">help_outline</span>
+<span class="text-sm">Support</span>
+</a>
+</div>
+</aside>
+<main class="flex-1 flex flex-col min-h-0 bg-surface">
+<!-- TopAppBar (Shared Component) -->
+<header class="bg-[#131313]/80 backdrop-blur-xl flex justify-between items-center w-full px-12 h-20 sticky top-0 z-40">
+<div class="flex items-center gap-8">
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-zinc-500 text-lg">search</span>
+<input class="bg-surface-container-lowest border-none rounded-full pl-10 pr-6 py-2 text-sm w-64 focus:ring-1 focus:ring-primary" placeholder="Search terminal..." type="text"/>
+</div>
+<nav class="flex gap-6 font-['DM_Sans'] text-xs uppercase tracking-widest">
+<a class="text-zinc-400 hover:text-[#e6c364] transition-colors" href="#">Live Map</a>
+<a class="text-zinc-400 hover:text-[#e6c364] transition-colors" href="#">Fleet Status</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-zinc-400 hover:text-[#e6c364] transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-outline-variant/20">
+<img alt="Administrator Profile" class="h-full w-full object-cover" data-alt="Close up portrait of a professional male administrator in a dark studio setting with minimalist lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDeEAikYP13JcI-I8S-l8RUoioHpenb05TFmieZxsj5HFH3zi_PycbqUeo36MMTSiNKiRM62FCIMf29W2exRiInvcZJefC9WTzy6YydGe81F8OFgJ8uSSEMPxoS-wm7VK5NTLdFEYUsDGlk6AhDhXN7OUhQuweofvt6vmUmEA3-hi0-oyLqPMadqdWEskirfyMNttNrCqMs3741QRg0ZDtNzI0pIcrRxhujODcmTStWoWM2-79xZNQ5JpwLyfsZNdLpatC2sf3ZbfBs"/>
+</div>
+</div>
+</header>
+<!-- Booking Content Canvas -->
+<div class="flex-1 px-12 py-10 overflow-y-auto">
+<!-- Booking Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
+<div class="space-y-2">
+<div class="flex items-center gap-4">
+<h2 class="text-4xl font-['Noto_Serif'] font-bold tracking-tight text-on-surface">Booking #CHF-2024-8892</h2>
+<span class="px-4 py-1.5 rounded-full bg-secondary-container text-primary flex items-center gap-2 text-xs font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                            Confirmed
+                        </span>
+</div>
+<p class="text-on-surface-variant font-['DM_Sans'] tracking-wide">Last modified by Admin at 14:22 GMT • Created Oct 12, 2023</p>
+</div>
+<div class="flex gap-3">
+<button class="px-6 py-3 bg-surface-container-high rounded-lg text-sm font-semibold hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">edit</span>
+                        Edit
+                    </button>
+<button class="px-6 py-3 bg-surface-container-high rounded-lg text-sm font-semibold hover:bg-surface-container-highest transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">picture_as_pdf</span>
+                        PDF Invoice
+                    </button>
+<button class="px-6 py-3 bg-error-container/20 text-error rounded-lg text-sm font-semibold hover:bg-error-container/40 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">cancel</span>
+                        Cancel
+                    </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Column: Details & Pricing -->
+<div class="lg:col-span-9 space-y-8">
+<!-- Bento Grid Section 1: Journey & Vehicle -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Journey Card -->
+<div class="bg-surface-container-low rounded-xl p-8 space-y-8 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full -mr-8 -mt-8 pointer-events-none"></div>
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em]">Journey Details</h3>
+<div class="relative space-y-10 pl-6">
+<div class="absolute left-1 top-2 bottom-2 w-[1px] bg-outline-variant/30 dashed"></div>
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full border-2 border-primary bg-surface"></div>
+<p class="text-xs text-on-surface-variant mb-1 font-medium">Pickup Point</p>
+<p class="text-lg font-medium text-on-surface">The Ritz-Carlton, DIFC, Gate Village</p>
+<p class="text-sm text-on-surface-variant">Arrival: 10:30 PM, Oct 24</p>
+</div>
+<div class="relative">
+<div class="absolute -left-6 top-1 w-2.5 h-2.5 rounded-full bg-primary shadow-[0_0_8px_rgba(230,195,100,0.5)]"></div>
+<p class="text-xs text-on-surface-variant mb-1 font-medium">Destination</p>
+<p class="text-lg font-medium text-on-surface">Al Maktoum International Airport (DWC)</p>
+<p class="text-sm text-on-surface-variant">Terminal 2 - Private Aviation Suite</p>
+</div>
+</div>
+</div>
+<!-- Vehicle & Driver Card -->
+<div class="bg-surface-container-low rounded-xl p-8 flex flex-col justify-between">
+<div class="space-y-6">
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em]">Assignment</h3>
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/10">
+<div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="Professional headshot of a mature chauffeur in a black uniform with a subtle smile in front of a luxury sedan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxKFaGuc6eYUGqffbiFLAkNtcAu3qiqlmPIJ4XRbHXVifGtzwebr-bM7MhU1GCxCcHheJYxnPc6zyRFWitEVwqEMFM5UgVPrCQnQc7aCsiWePiVBarKvwdYjCwyMZCS2GbWNI57VTOEcxyR_n14TTBJDse1HZcY90WOyG2z3sTyWhfABppH3OxDDWMxc1bQSSP_9QaGSHqJjQCvFcFE2ztNNFqjSNMZrpbAUWCzDphgKz-hA_sd_aKfa8OTAmmukSf1cGKthnvUvc3"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant">Driver</p>
+<p class="font-bold text-on-surface">Alexander Vance</p>
+<div class="flex items-center gap-1 mt-1">
+<span class="material-symbols-outlined text-[10px] text-primary" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold text-on-surface-variant">4.9 PREMIUM</span>
+</div>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">swap_horiz</span>
+</button>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container-lowest rounded-lg border border-outline-variant/10">
+<div class="w-14 h-14 rounded-lg bg-surface-container-high flex items-center justify-center p-1">
+<img class="w-full h-full object-cover rounded" data-alt="Sleek black luxury sedan car side profile studio lighting against dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnTadnMWqX-vbvTpHSwTiefIIrUeF0DtBmUKeWI6uiocDurXawoWTTpJIi99yJTzltuLEeOAztEvrgd6cQF6_ydb1WAhnoAqVTv2CLlrN3CJCxiOq6evQ4NwQu3fkvdpzrXQPzoXW6MnprAUtU_rEzx4g7RTqnP8JiVKoJi-Ug6eh63auqPcSHKINkK8tng35arG3c-T45g8yDfl9WMsA20woNSg4CJjSuggQ-G8PVGesfPLXYwGY41DUYLgAUhfhVKhnWrNLn-bNI"/>
+</div>
+<div class="flex-1">
+<p class="text-xs text-on-surface-variant">Vehicle Class</p>
+<p class="font-bold text-on-surface">Mercedes-Benz S-Class</p>
+<p class="text-[10px] font-bold text-primary/80 uppercase">License: DXB 77812</p>
+</div>
+<button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">directions_car</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Pricing & Payment Bento Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Customer Mini-Profile -->
+<div class="bg-surface-container-low rounded-xl p-8">
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-6">Passenger</h3>
+<div class="text-center">
+<div class="w-20 h-20 rounded-full overflow-hidden mx-auto mb-4 border-2 border-primary/20">
+<img class="w-full h-full object-cover" data-alt="Sophisticated man in a luxury suit smiling warmly in an elegant office background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBSTCRU3_Xnn-JpzAc9Oq-vgiIbrqh_3k1jPXxK265cvqIMDnyNIWF0rd9HLSD34TNpdiA43JWYVxH1tJ1T9LPLtMruqSH9dYWbGs2zi1dMX_8Yw1kh839W8RHThANLTiVuzeefJNrz6oyYhhgI-HDkf6pd3-Eyz-ZcykRXGs3knegPrjp-XM1DNf-0n7-nvprZpwf5MuBDCFhbaYAe_VIwFgNQV7aRIkQg5PoK70eNwcyQGP0aBHN1FNs9TRkgIgIBjh_hxklnuJZ"/>
+</div>
+<h4 class="font-bold text-lg text-on-surface">Jameson Sterling</h4>
+<p class="text-xs text-primary font-bold uppercase tracking-widest mt-1">Diamond Member</p>
+<div class="flex justify-center gap-4 mt-6">
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">call</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">mail</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pricing Table -->
+<div class="lg:col-span-2 bg-surface-container-low rounded-xl p-8 flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em]">Fare breakdown</h3>
+<button class="text-xs font-bold text-on-surface-variant flex items-center gap-1 hover:text-primary transition-colors">
+                                    Adjust Pricing <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+<div class="space-y-4 flex-1">
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Base Fare (Executive Luxe)</span>
+<span class="text-on-surface font-medium">AED 1,200.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Airport Meet &amp; Greet</span>
+<span class="text-on-surface font-medium">AED 150.00</span>
+</div>
+<div class="flex justify-between text-sm">
+<span class="text-on-surface-variant">Night Surcharge (15%)</span>
+<span class="text-on-surface font-medium">AED 202.50</span>
+</div>
+<div class="pt-4 mt-auto border-t border-outline-variant/20">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-xs text-on-surface-variant font-bold uppercase mb-1">Total Amount</p>
+<p class="text-3xl font-['Noto_Serif'] font-bold text-on-surface">AED 1,552.50</p>
+</div>
+<div class="text-right">
+<div class="flex items-center gap-2 text-[10px] font-bold text-primary mb-1 uppercase tracking-tighter">
+<span class="material-symbols-outlined text-xs">verified</span>
+                                                Paid via Telr
+                                            </div>
+<p class="text-xs text-on-surface-variant">Ref: TL-88219-XP</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Activity Log -->
+<div class="bg-surface-container-low rounded-xl p-8">
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8">Booking Activity</h3>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-primary mt-2 ring-4 ring-primary/10"></div>
+<div>
+<p class="text-sm text-on-surface"><span class="font-bold">System</span> automatically assigned <span class="text-primary font-bold">Driver Alexander Vance</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Today, 14:22</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-outline mt-2"></div>
+<div>
+<p class="text-sm text-on-surface"><span class="font-bold">Customer Support (Sarah L.)</span> updated journey destination</p>
+<p class="text-xs text-on-surface-variant mt-1">Today, 11:45</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-outline mt-2"></div>
+<div>
+<p class="text-sm text-on-surface"><span class="font-bold">Payment Gateway (Telr)</span> confirmed transaction <span class="font-mono text-xs">#TL-88219-XP</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Oct 12, 09:12</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1.5 h-1.5 rounded-full bg-outline mt-2"></div>
+<div>
+<p class="text-sm text-on-surface">Booking created by <span class="font-bold">Mobile App (iOS)</span></p>
+<p class="text-xs text-on-surface-variant mt-1">Oct 12, 09:10</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Status Tracker -->
+<div class="lg:col-span-3 space-y-8">
+<div class="bg-surface-container-high rounded-xl p-8 sticky top-28">
+<h3 class="text-xs font-bold text-primary uppercase tracking-[0.2em] mb-8">Live Status</h3>
+<div class="space-y-0 relative">
+<!-- Vertical Stepper Track -->
+<div class="absolute left-[11px] top-2 bottom-2 w-0.5 bg-outline-variant/20"></div>
+<div class="absolute left-[11px] top-2 h-[45%] w-0.5 bg-primary"></div>
+<!-- Step: Created -->
+<div class="relative flex items-start gap-4 pb-10">
+<div class="z-10 w-6 h-6 rounded-full gold-gradient flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Booking Created</p>
+<p class="text-xs text-on-surface-variant">Oct 12, 09:10</p>
+</div>
+</div>
+<!-- Step: Payment -->
+<div class="relative flex items-start gap-4 pb-10">
+<div class="z-10 w-6 h-6 rounded-full gold-gradient flex items-center justify-center text-on-primary">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Payment Captured</p>
+<p class="text-xs text-on-surface-variant">Oct 12, 09:12</p>
+</div>
+</div>
+<!-- Step: Assigned -->
+<div class="relative flex items-start gap-4 pb-10">
+<div class="z-10 w-6 h-6 rounded-full gold-gradient flex items-center justify-center text-on-primary ring-4 ring-primary/20">
+<span class="material-symbols-outlined text-sm font-bold">check</span>
+</div>
+<div>
+<p class="text-sm font-bold text-primary leading-tight">Chauffeur Assigned</p>
+<p class="text-xs text-primary font-medium">Today, 14:22</p>
+</div>
+</div>
+<!-- Step: En Route -->
+<div class="relative flex items-start gap-4 pb-10 opacity-40">
+<div class="z-10 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Driver En Route</p>
+<p class="text-xs text-on-surface-variant">Pending arrival</p>
+</div>
+</div>
+<!-- Step: Started -->
+<div class="relative flex items-start gap-4 pb-10 opacity-40">
+<div class="z-10 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Trip Started</p>
+<p class="text-xs text-on-surface-variant">Pending pickup</p>
+</div>
+</div>
+<!-- Step: Completed -->
+<div class="relative flex items-start gap-4 opacity-40">
+<div class="z-10 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+</div>
+<div>
+<p class="text-sm font-bold text-on-surface leading-tight">Completed</p>
+<p class="text-xs text-on-surface-variant">Awaiting termination</p>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-outline-variant/10">
+<p class="text-[10px] font-bold text-on-surface-variant uppercase tracking-widest mb-4">Location Snapshot</p>
+<div class="aspect-square rounded-lg bg-surface-container-lowest overflow-hidden border border-outline-variant/10">
+<img class="w-full h-full object-cover grayscale opacity-50" data-alt="Satellite map view of Dubai city center at night with glowing highway lights and skyscraper silhouettes" data-location="Dubai" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbLv7omqdX05lRSJfU0q_5Z-0PIBuBf31dE5jXX0T_wJPsbF8gqiMT_cksUJ7lbULOAmZ9RaMwAkg9WA5LY_E7fyo1uA8dJl9NOW9v36vlPKa1oDpIaX7a4wRhEU7yLGkM-lPZLkHOtynJsZdP8rxbh2MNv6CD0NxKXztphMPasSoGzX1x5ZK2XjlIUktBW2gGFY_rod0u0-SVG7Ca57UUi1rzwiINgeRGecKnMgyeySFww0Cc-5PbZ6qBERW3LqBZZnPHmvaAuqYk"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

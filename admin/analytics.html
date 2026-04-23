@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Analytics | One Click 2 Trip Admin</title>
+<meta name="description" content="Revenue analytics and fleet performance reports.">
+<link rel="stylesheet" href="admin.css">
+<style>
+.chart-card{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem}
+.chart-title{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between}
+.bar-chart{display:flex;align-items:flex-end;gap:.375rem;height:160px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:.35rem;height:100%}
+.bar{width:100%;border-radius:.25rem .25rem 0 0;background:linear-gradient(to top,var(--gold-dim),var(--gold));transition:opacity .2s;cursor:pointer;min-height:4px}
+.bar:hover{opacity:.75}
+.bar.muted{background:var(--surface-highest)}
+.bar-label{font-size:.55rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted);text-align:center}
+.line-chart{position:relative;height:160px;margin:0 -.5rem}
+.line-chart svg{width:100%;height:100%}
+.donut-wrap{display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.donut{position:relative;width:120px;height:120px;flex-shrink:0}
+.donut svg{transform:rotate(-90deg)}
+.donut-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.donut-val{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold)}
+.donut-sub{font-size:.55rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted)}
+.legend-item{display:flex;align-items:center;gap:.5rem;font-size:.75rem;margin-bottom:.5rem}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.analytics-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.analytics-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+.report-row{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0;border-top:1px solid rgba(212,160,23,.05);font-size:.85rem}
+.report-row:first-child{border:none}
+@media(max-width:1024px){.analytics-grid,.analytics-grid-3{grid-template-columns:1fr}}
+@media(max-width:640px){.analytics-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="sidebar-overlay"></div>
+<aside class="sidebar">
+  <div class="sidebar-brand"><img src="logo-dark.webp" alt="One Click 2 Trip"><div class="sub">Admin Portal</div></div>
+  <nav>
+    <a href="index.html" class="nav-link"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
+    <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
+    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
+    <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
+    <a href="analytics.html" class="nav-link active"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
+    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
+  </nav>
+  <div class="sidebar-footer">
+    <button class="btn-gold" onclick="showToast('Exporting report...','info')"><span class="material-symbols-outlined">download</span><span class="btn-text">Export Report</span></button>
+    <div class="sidebar-footer-links">
+      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+    </div>
+  </div>
+</aside>
+
+<header class="admin-header">
+  <div class="header-left">
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+    <div class="header-search"><span class="material-symbols-outlined">search</span><input type="text" placeholder="Search reports..."></div>
+  </div>
+  <div class="header-right">
+    <div style="display:flex;align-items:center;gap:.5rem;background:var(--surface-low);border:1px solid var(--border);border-radius:.375rem;padding:.35rem .75rem">
+      <span style="font-size:.6rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted)">Period:</span>
+      <select style="background:transparent;border:none;outline:none;color:var(--gold);font-size:.75rem;font-weight:700;cursor:pointer">
+        <option>Last 30 Days</option><option>Last 7 Days</option><option>This Month</option><option>This Year</option>
+      </select>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="showToast('Exporting PDF report...','info')"><span class="material-symbols-outlined" style="font-size:1rem">picture_as_pdf</span> Export</button>
+    <button class="icon-btn"><span class="material-symbols-outlined">notifications</span><span class="notif-dot"></span></button>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+<main class="admin-main">
+<div class="page-body">
+  <div class="page-hero">
+    <div>
+      <h1 class="page-hero-title">Analytics & <em>Reports</em></h1>
+      <div class="page-hero-sub">Performance insights across all fleet operations</div>
+    </div>
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpi-grid">
+    <div class="kpi-card"><div class="kpi-label">Revenue (MTD)</div><div class="kpi-value">£142.8k</div><div class="kpi-trend">▲ +12% vs last month</div><span class="material-symbols-outlined kpi-icon">payments</span></div>
+    <div class="kpi-card"><div class="kpi-label">Total Bookings</div><div class="kpi-value">1,248</div><div class="kpi-trend">▲ +8% this month</div><span class="material-symbols-outlined kpi-icon">calendar_month</span></div>
+    <div class="kpi-card"><div class="kpi-label">Completion Rate</div><div class="kpi-value">96.4%</div><div class="kpi-trend">▲ +1.2% improvement</div><span class="material-symbols-outlined kpi-icon">task_alt</span></div>
+    <div class="kpi-card"><div class="kpi-label">Avg Trip Value</div><div class="kpi-value">£114</div><div class="kpi-trend">▲ +£8 this month</div><span class="material-symbols-outlined kpi-icon">trending_up</span></div>
+  </div>
+
+  <!-- Charts Row 1 -->
+  <div class="analytics-grid" style="margin-bottom:1.5rem">
+    <!-- Revenue Bar Chart -->
+    <div class="chart-card">
+      <div class="chart-title">Daily Revenue <span style="font-size:.65rem;color:var(--text-muted);font-family:'DM Sans',sans-serif">Last 14 days</span></div>
+      <div class="bar-chart" id="revenue-bars">
+        <div class="bar-wrap"><div class="bar" style="height:55%"></div><div class="bar-label">10</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:40%"></div><div class="bar-label">11</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:70%"></div><div class="bar-label">12</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:45%"></div><div class="bar-label">13</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:85%"></div><div class="bar-label">14</div></div>
+        <div class="bar-wrap"><div class="bar muted" style="height:30%"></div><div class="bar-label">15</div></div>
+        <div class="bar-wrap"><div class="bar muted" style="height:25%"></div><div class="bar-label">16</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:60%"></div><div class="bar-label">17</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:75%"></div><div class="bar-label">18</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:50%"></div><div class="bar-label">19</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:90%"></div><div class="bar-label">20</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:65%"></div><div class="bar-label">21</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:80%"></div><div class="bar-label">22</div></div>
+        <div class="bar-wrap"><div class="bar" style="height:100%;background:linear-gradient(to top,var(--gold),var(--gold-bright))"></div><div class="bar-label" style="color:var(--gold)">23</div></div>
+      </div>
+    </div>
+    <!-- Bookings by Status -->
+    <div class="chart-card">
+      <div class="chart-title">Bookings by Status</div>
+      <div class="donut-wrap">
+        <div class="donut">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--surface-highest)" stroke-width="18"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--gold)" stroke-width="18" stroke-dasharray="152 100" stroke-dashoffset="0"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="#fbbf24" stroke-width="18" stroke-dasharray="30 222" stroke-dashoffset="-152"/>
+            <circle cx="50" cy="50" r="40" fill="none" stroke="var(--error)" stroke-width="18" stroke-dasharray="18 234" stroke-dashoffset="-182"/>
+          </svg>
+          <div class="donut-label"><div class="donut-val">1,248</div><div class="donut-sub">Total</div></div>
+        </div>
+        <div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div><span>Completed — 61%</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:#fbbf24"></div><span>Confirmed — 12%</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--error)"></div><span>Cancelled — 7%</span></div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--surface-highest)"></div><span>In Progress — 20%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Row 2 -->
+  <div class="analytics-grid-3" style="margin-bottom:1.5rem">
+    <!-- Fleet Utilisation -->
+    <div class="chart-card">
+      <div class="chart-title" style="font-size:.95rem">Fleet Utilisation</div>
+      <div style="display:flex;flex-direction:column;gap:.875rem">
+        <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.35rem"><span>Mercedes S-Class</span><span style="color:var(--gold)">94%</span></div><div style="height:6px;background:var(--surface-highest);border-radius:999px"><div style="height:100%;width:94%;background:linear-gradient(to right,var(--gold-dim),var(--gold));border-radius:999px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.35rem"><span>Rolls-Royce</span><span style="color:var(--gold)">88%</span></div><div style="height:6px;background:var(--surface-highest);border-radius:999px"><div style="height:100%;width:88%;background:linear-gradient(to right,var(--gold-dim),var(--gold));border-radius:999px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.35rem"><span>BMW 7 Series</span><span style="color:var(--text-muted)">42%</span></div><div style="height:6px;background:var(--surface-highest);border-radius:999px"><div style="height:100%;width:42%;background:var(--surface-highest);border-radius:999px;background:linear-gradient(to right,#555,#777)"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:.78rem;margin-bottom:.35rem"><span>V-Class</span><span style="color:var(--gold)">76%</span></div><div style="height:6px;background:var(--surface-highest);border-radius:999px"><div style="height:100%;width:76%;background:linear-gradient(to right,var(--gold-dim),var(--gold));border-radius:999px"></div></div></div>
+      </div>
+    </div>
+    <!-- Top Drivers -->
+    <div class="chart-card">
+      <div class="chart-title" style="font-size:.95rem">Top Performers</div>
+      <div>
+        <div class="report-row"><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:28px;height:28px;font-size:.6rem">AS</div><span>A. Sterling</span></div><span style="color:var(--gold)">★ 5.0 · 842 trips</span></div>
+        <div class="report-row"><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:28px;height:28px;font-size:.6rem">EM</div><span>E. Moretti</span></div><span style="color:var(--gold)">★ 4.9 · 312 trips</span></div>
+        <div class="report-row"><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:28px;height:28px;font-size:.6rem">MT</div><span>M. Thorne</span></div><span style="color:var(--gold)">★ 4.8 · 1,509 trips</span></div>
+        <div class="report-row"><div style="display:flex;align-items:center;gap:.625rem"><div class="avatar" style="width:28px;height:28px;font-size:.6rem">JV</div><span>J. Vane</span></div><span style="color:var(--gold)">★ 4.7 · 128 trips</span></div>
+      </div>
+    </div>
+    <!-- Revenue by Vehicle -->
+    <div class="chart-card">
+      <div class="chart-title" style="font-size:.95rem">Revenue by Vehicle</div>
+      <div>
+        <div class="report-row"><span>Mercedes S-Class</span><span style="color:var(--gold);font-weight:700">£48,200</span></div>
+        <div class="report-row"><span>Rolls-Royce</span><span style="color:var(--gold);font-weight:700">£39,600</span></div>
+        <div class="report-row"><span>BMW 7 Series</span><span style="color:var(--gold);font-weight:700">£29,100</span></div>
+        <div class="report-row"><span>V-Class</span><span style="color:var(--gold);font-weight:700">£25,900</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Available Reports -->
+  <div class="chart-card">
+    <div class="chart-title">Available Reports</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.875rem">
+      <button class="btn btn-secondary" onclick="showToast('Generating Revenue Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--gold)">payments</span><div><div style="font-size:.78rem;font-weight:700">Revenue Report</div><div style="font-size:.6rem;color:var(--text-muted)">By vehicle, booking type</div></div></button>
+      <button class="btn btn-secondary" onclick="showToast('Generating Booking Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--gold)">calendar_month</span><div><div style="font-size:.78rem;font-weight:700">Booking Report</div><div style="font-size:.6rem;color:var(--text-muted)">Volume & status breakdown</div></div></button>
+      <button class="btn btn-secondary" onclick="showToast('Generating Driver Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--gold)">person_pin</span><div><div style="font-size:.78rem;font-weight:700">Driver Performance</div><div style="font-size:.6rem;color:var(--text-muted)">Trips, ratings, on-time rate</div></div></button>
+      <button class="btn btn-secondary" onclick="showToast('Generating Fleet Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--gold)">directions_car</span><div><div style="font-size:.78rem;font-weight:700">Fleet Utilisation</div><div style="font-size:.6rem;color:var(--text-muted)">Usage per vehicle, idle time</div></div></button>
+      <button class="btn btn-secondary" onclick="showToast('Generating Payment Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--gold)">receipt_long</span><div><div style="font-size:.78rem;font-weight:700">Payment Report</div><div style="font-size:.6rem;color:var(--text-muted)">Collected, pending, refunded</div></div></button>
+      <button class="btn btn-secondary" onclick="showToast('Generating Cancellation Report...','info')" style="justify-content:flex-start;gap:.75rem;text-align:left;padding:.875rem"><span class="material-symbols-outlined" style="color:var(--error)">cancel</span><div><div style="font-size:.78rem;font-weight:700">Cancellation Report</div><div style="font-size:.6rem;color:var(--text-muted)">Rate, reasons, impact</div></div></button>
+    </div>
+  </div>
+</div>
+</main>
+
+<div class="toast-container"></div>
+<script src="admin.js"></script>
+<script>document.getElementById('hamburger').addEventListener('click',openSidebar);</script>
+</body>
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Active Fleet | One Click 2 Trip</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&amp;family=DM+Sans:wght@400;500;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-primary": "#3d2e00",
+                        "surface-container-lowest": "#0e0e0e",
+                        "surface-container-highest": "#353534",
+                        "on-surface": "#e5e2e1",
+                        "surface-dim": "#131313",
+                        "on-tertiary-fixed-variant": "#5a4300",
+                        "secondary-fixed-dim": "#e7c188",
+                        "surface": "#131313",
+                        "on-error": "#690005",
+                        "surface-bright": "#3a3939",
+                        "on-tertiary": "#3e2e00",
+                        "on-background": "#e5e2e1",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed": "#281800",
+                        "on-primary-container": "#503d00",
+                        "background": "#131313",
+                        "surface-variant": "#353534",
+                        "error": "#ffb4ab",
+                        "inverse-on-surface": "#313030",
+                        "on-tertiary-fixed": "#251a00",
+                        "on-primary-fixed-variant": "#584400",
+                        "on-primary-fixed": "#241a00",
+                        "secondary": "#e7c188",
+                        "outline-variant": "#4d4637",
+                        "inverse-primary": "#755b00",
+                        "on-tertiary-container": "#513d00",
+                        "primary-fixed": "#ffe08f",
+                        "secondary-fixed": "#ffdeae",
+                        "outline": "#99907e",
+                        "tertiary-fixed-dim": "#e4c375",
+                        "surface-container": "#201f1f",
+                        "on-surface-variant": "#d0c5b2",
+                        "inverse-surface": "#e5e2e1",
+                        "on-secondary-container": "#d4af78",
+                        "tertiary-fixed": "#ffdf97",
+                        "primary-container": "#c9a84c",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary": "#e4c376",
+                        "surface-tint": "#e6c364",
+                        "on-secondary": "#432c01",
+                        "primary": "#e6c364",
+                        "secondary-container": "#5c4215",
+                        "primary-fixed-dim": "#e6c364",
+                        "surface-container-low": "#1c1b1b",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#5c4215",
+                        "tertiary-container": "#c7a85d"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "playfair": ["Playfair Display", "serif"],
+                        "dm-sans": ["DM Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .luxury-gradient {
+            background: linear-gradient(135deg, #e6c364 0%, #c9a84c 100%);
+        }
+        .glass-nav {
+            background: rgba(53, 53, 52, 0.4);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-dm-sans selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar (Authority: JSON) -->
+<aside class="fixed inset-y-0 left-0 w-64 flex flex-col py-8 bg-[#0e0e0e] z-50">
+<div class="px-8 mb-8">
+<div class="flex flex-col gap-1">
+<span class="font-['Playfair_Display'] text-xl text-[#e6c364]">Obsidian</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px] text-neutral-500">Concierge Admin</span>
+</div>
+</div>
+<nav class="flex-1">
+<!-- Dashboard -->
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Dashboard</span>
+</a>
+<!-- Bookings -->
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">calendar_month</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Bookings</span>
+</a>
+<!-- Drivers -->
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person_pin</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Drivers</span>
+</a>
+<!-- Fleet (ACTIVE) -->
+<a class="bg-[#1c1b1b] text-[#e6c364] border-r-4 border-[#e6c364] py-4 px-6 flex items-center gap-4" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Fleet</span>
+</a>
+<!-- Analytics -->
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">analytics</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Analytics</span>
+</a>
+</nav>
+<div class="px-6 mb-8">
+<button class="w-full luxury-gradient text-on-primary py-3 px-4 font-bold rounded-lg flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_circle</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">New Booking</span>
+</button>
+</div>
+<div class="border-t border-white/5 pt-6">
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">contact_support</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Support</span>
+</a>
+<a class="text-neutral-500 py-4 px-6 flex items-center gap-4 hover:bg-[#1c1b1b] hover:text-[#e7c188] transition-all" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span class="font-['DM_Sans'] tracking-widest uppercase text-[10px]">Logout</span>
+</a>
+</div>
+</aside>
+<!-- TopAppBar (Authority: JSON) -->
+<header class="fixed top-0 right-0 left-64 h-20 flex justify-between items-center px-12 bg-neutral-950/40 backdrop-blur-xl z-40">
+<div class="flex items-center gap-8">
+<span class="font-['Playfair_Display'] italic text-2xl text-[#e6c364]">One Click 2 Trip</span>
+<div class="flex gap-6">
+<a class="text-[#e6c364] font-bold border-b-2 border-[#e6c364] font-['DM_Sans'] text-sm tracking-wide uppercase py-1" href="#">Fleet Overview</a>
+<a class="text-neutral-400 font-['DM_Sans'] text-sm tracking-wide uppercase hover:text-[#e6c364] transition-colors py-1" href="#">Service Log</a>
+<a class="text-neutral-400 font-['DM_Sans'] text-sm tracking-wide uppercase hover:text-[#e6c364] transition-colors py-1" href="#">Inventory</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex gap-4 text-neutral-400">
+<button class="hover:text-[#e6c364] transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-[#e6c364] transition-colors"><span class="material-symbols-outlined">settings</span></button>
+</div>
+<div class="h-10 w-10 rounded-full border border-primary/20 overflow-hidden">
+<img class="h-full w-full object-cover" data-alt="portrait of a professional male fleet administrator in a dark suit with a clean high-end studio aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_FgUxqX8nK2oqsJDklPnKJxzNUCTvdaG08FCneAu6GZU0pW_gC5nZnnzOcYPNnt60WU-qnkMRjkpl4Tn_BzYspuFwcZSQgQf8miE2QpsK-b6HLzMGB1DXwnxfp-CXljvFiOk-m3TKCD8WAFTzK5dBd0DQM7PGJNdYhY6uiP4bTE8aw05mczhuVCLkWTXvETF_QuUDzyv5W_0ALuA82KThyOUsXb7tazbQ55iOT3ouBYk3wRS4meyrvTDcgfxf16GLFS-e-8JFXKsm"/>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="ml-64 pt-28 px-12 pb-20">
+<!-- Header Section -->
+<section class="flex justify-between items-end mb-12">
+<div>
+<h1 class="font-playfair text-6xl text-on-surface mb-2">The Active Fleet</h1>
+<p class="font-dm-sans text-on-surface-variant uppercase tracking-[0.2em] text-xs">Curated management for executive mobility</p>
+</div>
+<div class="flex gap-4">
+<button class="bg-surface-container-high text-primary px-6 py-3 rounded-lg flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined">filter_list</span>
+<span class="uppercase tracking-widest text-[10px] font-bold">Filters</span>
+</button>
+<button class="luxury-gradient text-on-primary px-8 py-3 rounded-lg flex items-center gap-2 font-bold shadow-xl shadow-primary/10">
+<span class="material-symbols-outlined">add</span>
+<span class="uppercase tracking-widest text-[10px]">Acquire Vehicle</span>
+</button>
+</div>
+</section>
+<!-- KPI Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-16">
+<!-- Total Units -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-primary-container font-dm-sans uppercase tracking-widest text-[10px] block mb-4">Total Assets</span>
+<span class="font-playfair text-5xl block mb-2">42</span>
+<span class="text-emerald-400 text-xs flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">trending_up</span>
+                        +4 this month
+                    </span>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-primary/10 transition-colors duration-500">inventory_2</span>
+</div>
+<!-- Ready Vehicles -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-primary-container font-dm-sans uppercase tracking-widest text-[10px] block mb-4">Operational Ready</span>
+<span class="font-playfair text-5xl block mb-2">38</span>
+<span class="text-on-surface-variant text-xs flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        90.4% Efficiency
+                    </span>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-primary/10 transition-colors duration-500">task_alt</span>
+</div>
+<!-- In Use -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-primary-container font-dm-sans uppercase tracking-widest text-[10px] block mb-4">Active Deployments</span>
+<span class="font-playfair text-5xl block mb-2">24</span>
+<span class="text-secondary text-xs flex items-center gap-1">
+                        En route to 12 locations
+                    </span>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-primary/10 transition-colors duration-500">route</span>
+</div>
+<!-- Maintenance -->
+<div class="bg-surface-container-low p-8 relative overflow-hidden group">
+<div class="relative z-10">
+<span class="text-primary-container font-dm-sans uppercase tracking-widest text-[10px] block mb-4">Under Service</span>
+<span class="font-playfair text-5xl block mb-2">04</span>
+<span class="text-error text-xs flex items-center gap-1">
+                        Scheduled completion: 48h
+                    </span>
+</div>
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-9xl text-white/5 group-hover:text-primary/10 transition-colors duration-500">build</span>
+</div>
+</section>
+<!-- Fleet List -->
+<section>
+<div class="flex items-center justify-between mb-8">
+<h2 class="font-playfair text-3xl italic">Premier Inventory</h2>
+<div class="flex bg-surface-container-lowest p-1 rounded-lg">
+<button class="bg-surface-container-high text-primary px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest">Active View</button>
+<button class="text-neutral-500 px-4 py-2 rounded-md text-[10px] font-bold uppercase tracking-widest hover:text-on-surface transition-colors">Map View</button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Vehicle Card 1 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all duration-300 p-6 flex items-center gap-8 group">
+<div class="w-48 h-28 bg-black/40 overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="sleek side profile of a modern black Mercedes-Benz S-Class luxury sedan in a minimalist dark garage with dramatic accent lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-uNKXz1ZiLqIx52YhcG1Fs-zQG69y5skFP9gG-de0o1ZTTDy3W1EAUlIufGb5MuoZI12kygozY-RGGq37UN49F7V_PFhJI3OwQQvmr1hLdhZ2bGVJjHkeohA_iNh32s09xc9wLPXuQLt4GFwCB3pBzCaYQm6zXmuXxLHmYGFVwL1VGITwoOprMcNjFmq14VQng3xO_PBVSZJzFYcdvk6TkfWN6e19GyPhtQ5puSHBktKKGHCzAm8JdROegKXUU2czaDGzhr1oGnov"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-playfair text-2xl">Mercedes-Benz S-Class</span>
+<span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 uppercase font-bold tracking-tighter">Available</span>
+</div>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest mb-4">Plate: LON-2024-S7</p>
+<div class="flex gap-6">
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Range</span>
+<span class="text-sm font-medium">450 mi</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Fuel</span>
+<span class="text-sm font-medium">84%</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Interior</span>
+<span class="text-sm font-medium">Nappa Silk</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col items-end gap-3">
+<span class="font-playfair text-2xl text-primary">$320/hr</span>
+<div class="flex gap-2">
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">history</span></button>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 2 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all duration-300 p-6 flex items-center gap-8 group">
+<div class="w-48 h-28 bg-black/40 overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="luxurious front grille and spirit of ecstasy ornament of a black Rolls-Royce Phantom under soft cinematic spotlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJkfQ2aXswyth4C5_QPFkYFDzxI6QG4j3ZyNVWomxjAOdeW1heVC8GK5OsSg0IOdg5-r14TtW8aKSmMx9hAdn5E3UrKZ14H5BJuxquFURzrcWmtD5ngmgquPqjqOPtXx88icNCiWVlDy64x8Z4YMLY9H-BrojHBjjfQEyczLtBhwksjGY_326TTMUiQ-j5rmWHKQ1a5_Zf-OZRIcksXYdaXAzzl1ofURxEw831jcfk0lmZBdHa9Pl_CSAiwBG8Ius8ffgJshpvjTcy"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-playfair text-2xl">Rolls-Royce Phantom</span>
+<span class="text-[10px] bg-secondary-container/30 text-secondary px-2 py-0.5 rounded border border-secondary/20 uppercase font-bold tracking-tighter">In Use</span>
+</div>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest mb-4">Plate: RR-GHOST-01</p>
+<div class="flex gap-6">
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Client</span>
+<span class="text-sm font-medium">VIP Alpha One</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Route</span>
+<span class="text-sm font-medium">LHR → Mayfair</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Status</span>
+<span class="text-sm font-medium">On-Time</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col items-end gap-3">
+<span class="font-playfair text-2xl text-primary">$1,200/hr</span>
+<div class="flex gap-2">
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">location_on</span></button>
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">contact_phone</span></button>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 3 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all duration-300 p-6 flex items-center gap-8 group">
+<div class="w-48 h-28 bg-black/40 overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="rear view of a luxury electric SUV in dark metallic grey parked in an ultra-modern showroom with geometric light beams" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApAQr3BSCLnjhrBsFgYWRw98ZU2I04fpzze8JI53S1vAC5yiEdWw9t5s1npj6pV4c2DWw_orWr6_AUhSnaQ-fXIpLb-UTXd6kmkd5b_I2iMz47RmALy8WbGc1Zd6PFfIphxS5-_5JElUz4rMQeCTynUaTbc6beSMtCPj9cRNJsPHJeQaU_WBXNpE0gD4qPcFdvlLaae1OVULdcVdxzPFNmtk6bURUb4Mgm-Z6M7DlmAXWfbHkYzPQXfBSLnfth-h4r6Mt7WaPNcXbs"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-playfair text-2xl">BMW i7 M70</span>
+<span class="text-[10px] bg-error-container/30 text-error px-2 py-0.5 rounded border border-error/20 uppercase font-bold tracking-tighter">Maintenance</span>
+</div>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest mb-4">Plate: EV-700-LUX</p>
+<div class="flex gap-6">
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Issue</span>
+<span class="text-sm font-medium">Tire Rotation</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Service Center</span>
+<span class="text-sm font-medium">West Tech Hub</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">ETA</span>
+<span class="text-sm font-medium text-error">Tomorrow 09:00</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col items-end gap-3">
+<span class="font-playfair text-2xl text-primary">$450/hr</span>
+<div class="flex gap-2">
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">build</span></button>
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">description</span></button>
+</div>
+</div>
+</div>
+<!-- Vehicle Card 4 -->
+<div class="bg-surface-container-low hover:bg-surface-container-high transition-all duration-300 p-6 flex items-center gap-8 group">
+<div class="w-48 h-28 bg-black/40 overflow-hidden relative">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" data-alt="modern luxury van interior with plush leather captain chairs and ambient violet lighting, looking through the rear window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARmaycBdRdLZ9kyyHH4-ylIdlMuZ8nkPg78aQKTTPDW3OzaYPvz4JA-G9P_nP8DfpDdMMfPFGFmEHoxPuujW8sWQe22r3FCDHe1si4P28Qxo9bD6EQ-MlGCAqn0WcRJkP6xJg5-ieesNqjRDKJJFpkwEH3GtN0mF83jUa-rah_j-IXOFCtt5LKnhCLjn5J_6vEyHfpRbYcGK8L1cgUJ3Jk1PsWj_T8jdesoZCdBwZ0A5nmyCmSDEauy-1Q8p0UJU2J0v_M8kasC56i"/>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="font-playfair text-2xl">Range Rover Autobiography</span>
+<span class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded border border-emerald-500/20 uppercase font-bold tracking-tighter">Available</span>
+</div>
+<p class="text-on-surface-variant text-xs uppercase tracking-widest mb-4">Plate: SV-ULTRA-22</p>
+<div class="flex gap-6">
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Seats</span>
+<span class="text-sm font-medium">4 Executive</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Last Cleaned</span>
+<span class="text-sm font-medium">1h ago</span>
+</div>
+<div class="flex flex-col">
+<span class="text-[9px] text-neutral-500 uppercase tracking-tighter">Chauffeur</span>
+<span class="text-sm font-medium">Assigned</span>
+</div>
+</div>
+</div>
+<div class="text-right flex flex-col items-end gap-3">
+<span class="font-playfair text-2xl text-primary">$280/hr</span>
+<div class="flex gap-2">
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">edit</span></button>
+<button class="h-10 w-10 flex items-center justify-center border border-outline-variant/30 text-on-surface hover:border-primary transition-colors"><span class="material-symbols-outlined text-lg">calendar_add_on</span></button>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Floating Action Element -->
+<div class="fixed bottom-12 right-12 z-50">
+<button class="w-16 h-16 rounded-full luxury-gradient text-on-primary flex items-center justify-center shadow-2xl shadow-primary/40 group relative">
+<span class="material-symbols-outlined text-3xl transition-transform group-hover:rotate-90">add</span>
+<span class="absolute right-20 bg-surface-container-highest px-4 py-2 rounded text-[10px] uppercase tracking-widest font-bold text-primary opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">Rapid Dispatch</span>
+</button>
+</div>
+</body></html>
