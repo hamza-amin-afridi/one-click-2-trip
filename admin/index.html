@@ -1,293 +1,538 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard | One Click 2 Trip Admin</title>
-<meta name="description" content="Operational command dashboard for One Click 2 Trip chauffeur service.">
-<link rel="stylesheet" href="admin.css">
-<style>
-.map-panel{background:var(--surface-low);border-radius:.75rem;overflow:hidden;position:relative;min-height:420px;border:1px solid var(--border)}
-.map-panel img{width:100%;height:100%;object-fit:cover;opacity:.55;filter:grayscale(.3) brightness(.7)}
-.map-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,transparent 50%)}
-.map-top-badge{position:absolute;top:1rem;left:1rem}
-.map-controls{position:absolute;bottom:1rem;left:1rem;display:flex;gap:.5rem}
-.map-ctrl-btn{background:rgba(15,14,12,.8);backdrop-filter:blur(12px);border:1px solid var(--border);color:var(--gold);width:36px;height:36px;border-radius:.375rem;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s}
-.map-ctrl-btn:hover{background:var(--surface-high)}
-.map-marker{position:absolute;cursor:pointer}
-.marker-dot{width:14px;height:14px;background:var(--gold);border-radius:50%;box-shadow:0 0 0 4px rgba(212,160,23,.25),0 0 12px rgba(212,160,23,.5)}
-.marker-tip{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,14,12,.95);backdrop-filter:blur(12px);border:1px solid var(--border-strong);border-radius:.375rem;padding:.4rem .65rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s;min-width:120px}
-.map-marker:hover .marker-tip{opacity:1}
-.marker-tip p{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--gold)}
-.marker-tip span{font-size:.6rem;color:var(--text-muted)}
-.main-grid{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;margin-bottom:2rem}
-.intel-panel{background:var(--surface-low);border:1px solid var(--border);border-radius:.75rem;padding:1.5rem;display:flex;flex-direction:column}
-.intel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
-.intel-title{font-family:'Playfair Display',serif;font-size:1.1rem}
-.status-node{display:flex;align-items:center;gap:.4rem;padding:.35rem .75rem;background:var(--surface-mid);border-radius:999px;border:1px solid var(--border)}
-.status-node span{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;font-weight:700;color:var(--text)}
-.queue-filters{display:flex;gap:.5rem}
-.filter-btn{font-size:.58rem;text-transform:uppercase;letter-spacing:.1em;padding:.3rem .75rem;border-radius:.25rem;color:var(--text-muted);transition:all .2s;border:1px solid transparent}
-.filter-btn:hover,.filter-btn.active{background:var(--gold-muted);color:var(--gold);border-color:var(--border-strong)}
-@media(max-width:1024px){.main-grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | One Click 2 Trip Admin</title>
+  <meta name="description" content="Operational command dashboard for One Click 2 Trip chauffeur service.">
+  <link rel="stylesheet" href="admin.css">
+  <style>
+    .map-panel {
+      background: var(--surface-low);
+      border-radius: .75rem;
+      overflow: hidden;
+      position: relative;
+      min-height: 420px;
+      border: 1px solid var(--border)
+    }
+
+    .map-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .55;
+      filter: grayscale(.3) brightness(.7)
+    }
+
+    .map-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 50%)
+    }
+
+    .map-top-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem
+    }
+
+    .map-controls {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      display: flex;
+      gap: .5rem
+    }
+
+    .map-ctrl-btn {
+      background: rgba(15, 14, 12, .8);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      color: var(--gold);
+      width: 36px;
+      height: 36px;
+      border-radius: .375rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background .2s
+    }
+
+    .map-ctrl-btn:hover {
+      background: var(--surface-high)
+    }
+
+    .map-marker {
+      position: absolute;
+      cursor: pointer
+    }
+
+    .marker-dot {
+      width: 14px;
+      height: 14px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 0 4px rgba(212, 160, 23, .25), 0 0 12px rgba(212, 160, 23, .5)
+    }
+
+    .marker-tip {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 14, 12, .95);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-strong);
+      border-radius: .375rem;
+      padding: .4rem .65rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+      min-width: 120px
+    }
+
+    .map-marker:hover .marker-tip {
+      opacity: 1
+    }
+
+    .marker-tip p {
+      font-size: .58rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      color: var(--gold)
+    }
+
+    .marker-tip span {
+      font-size: .6rem;
+      color: var(--text-muted)
+    }
+
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 1.5rem;
+      margin-bottom: 2rem
+    }
+
+    .intel-panel {
+      background: var(--surface-low);
+      border: 1px solid var(--border);
+      border-radius: .75rem;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column
+    }
+
+    .intel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem
+    }
+
+    .intel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem
+    }
+
+    .status-node {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .35rem .75rem;
+      background: var(--surface-mid);
+      border-radius: 999px;
+      border: 1px solid var(--border)
+    }
+
+    .status-node span {
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      font-weight: 700;
+      color: var(--text)
+    }
+
+    .queue-filters {
+      display: flex;
+      gap: .5rem
+    }
+
+    .filter-btn {
+      font-size: .58rem;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      padding: .3rem .75rem;
+      border-radius: .25rem;
+      color: var(--text-muted);
+      transition: all .2s;
+      border: 1px solid transparent
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--gold-muted);
+      color: var(--gold);
+      border-color: var(--border-strong)
+    }
+
+    @media(max-width:1024px) {
+      .main-grid {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
-<!-- Sidebar -->
-<div class="sidebar-overlay"></div>
-<aside class="sidebar">
-  <div class="sidebar-brand">
-    <img src="logo-dark.webp" alt="One Click 2 Trip">
-    <div class="sub">Admin Portal</div>
-  </div>
-  <nav>
-    <a href="index.html" class="nav-link active"><span class="material-symbols-outlined">dashboard</span><span class="nav-text">Dashboard</span></a>
-    <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span class="nav-text">Bookings</span></a>
-    <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span class="nav-text">Drivers</span></a>
-    <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span class="nav-text">Fleet</span></a>
-    <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span class="nav-text">Analytics</span></a>
-    <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span class="nav-text">Settings</span></a>
-  </nav>
-  <div class="sidebar-footer">
-    <button class="btn-gold"><span class="material-symbols-outlined">add</span><span class="btn-text">New Booking</span></button>
-    <div class="sidebar-footer-links">
-      <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
-      <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+  <!-- Sidebar -->
+  <div class="sidebar-overlay"></div>
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <img src="logo-dark.webp" alt="One Click 2 Trip">
+      <div class="sub">Admin Portal</div>
     </div>
-  </div>
-</aside>
+    <nav>
+      <a href="index.html" class="nav-link active"><span class="material-symbols-outlined">dashboard</span><span
+          class="nav-text">Dashboard</span></a>
+      <a href="bookings.html" class="nav-link"><span class="material-symbols-outlined">calendar_month</span><span
+          class="nav-text">Bookings</span></a>
+      <a href="drivers.html" class="nav-link"><span class="material-symbols-outlined">person_pin</span><span
+          class="nav-text">Drivers</span></a>
+      <a href="fleet.html" class="nav-link"><span class="material-symbols-outlined">directions_car</span><span
+          class="nav-text">Fleet</span></a>
+      <a href="analytics.html" class="nav-link"><span class="material-symbols-outlined">analytics</span><span
+          class="nav-text">Analytics</span></a>
+      <a href="settings.html" class="nav-link"><span class="material-symbols-outlined">settings</span><span
+          class="nav-text">Settings</span></a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-gold"><span class="material-symbols-outlined">add</span><span class="btn-text">New
+          Booking</span></button>
+      <div class="sidebar-footer-links">
+        <a href="settings.html"><span class="material-symbols-outlined">contact_support</span><span> Support</span></a>
+        <a href="#" data-action="logout"><span class="material-symbols-outlined">logout</span><span> Logout</span></a>
+      </div>
+    </div>
+  </aside>
 
-<!-- Header -->
-<header class="admin-header">
-  <div class="header-left">
-    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
-    <div class="header-search">
-      <span class="material-symbols-outlined">search</span>
-      <input type="text" placeholder="Search operations..." id="table-search">
+  <!-- Header -->
+  <header class="admin-header">
+    <div class="header-left">
+      <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+      <div class="header-search">
+        <span class="material-symbols-outlined">search</span>
+        <input type="text" placeholder="Search operations..." id="table-search">
+      </div>
     </div>
-  </div>
-  <div class="header-right">
-    <button class="icon-btn" id="notif-btn" title="Notifications">
-      <span class="material-symbols-outlined">notifications</span>
-      <span class="notif-dot"></span>
+    <div class="header-right">
+      <button class="icon-btn" id="notif-btn" title="Notifications">
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="notif-dot"></span>
+      </button>
+      <a href="settings.html" class="icon-btn" title="Settings"><span
+          class="material-symbols-outlined">settings</span></a>
+      <div class="admin-profile">
+        <div>
+          <div class="name">Administrator</div>
+          <div class="role">Op. Commander</div>
+        </div>
+        <div class="avatar">A</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="admin-main">
+    <div class="page-body">
+
+      <!-- Hero -->
+      <div class="page-hero">
+        <div>
+          <h2 class="page-hero-title"><em>Operational</em> Command</h2>
+          <div class="page-hero-sub">Real-time Fleet Intelligence & Logistics</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
+          <div class="status-node">
+            <span class="dot dot-green pulse"></span>
+            <span>All Systems Active</span>
+          </div>
+          <span id="header-clock"
+            style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em"></span>
+        </div>
+      </div>
+
+      <!-- KPIs -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Total Bookings</div>
+          <div class="kpi-value">48</div>
+          <div class="kpi-trend">▲ +12% Today</div>
+          <span class="material-symbols-outlined kpi-icon">calendar_month</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Active Rides</div>
+          <div class="kpi-value">14</div>
+          <div class="kpi-trend">● In Progress</div>
+          <span class="material-symbols-outlined kpi-icon">route</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Revenue Today</div>
+          <div class="kpi-value">£5,420</div>
+          <div class="kpi-trend">▲ Peak Performance</div>
+          <span class="material-symbols-outlined kpi-icon">payments</span>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-label">Drivers Online</div>
+          <div class="kpi-value">22</div>
+          <div class="kpi-trend">92% Utilised</div>
+          <span class="material-symbols-outlined kpi-icon">person_pin</span>
+        </div>
+      </div>
+
+      <!-- Map + Feed -->
+      <div class="main-grid">
+        <!-- Map -->
+        <div class="map-panel">
+          <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&q=80" alt="City Map View">
+          <div class="map-overlay"></div>
+          <div class="map-top-badge glass"
+            style="padding:.4rem .875rem;border-radius:.375rem;display:flex;align-items:center;gap:.5rem">
+            <span class="material-symbols-outlined" style="font-size:1rem;color:var(--gold)">location_on</span>
+            <span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em">Greater London
+              Zone</span>
+          </div>
+          <!-- Markers -->
+          <div class="map-marker" style="top:38%;left:28%">
+            <div class="marker-dot"></div>
+            <div class="marker-tip">
+              <p>CH-882</p><span>En-Route LHR</span>
+            </div>
+          </div>
+          <div class="map-marker" style="top:55%;left:58%">
+            <div class="marker-dot"></div>
+            <div class="marker-tip">
+              <p>CH-415</p><span>Active · Mayfair</span>
+            </div>
+          </div>
+          <div class="map-marker" style="top:42%;left:65%">
+            <div class="marker-dot" style="background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.2)"></div>
+            <div class="marker-tip">
+              <p>CH-301</p><span>Standby · City</span>
+            </div>
+          </div>
+          <div class="map-controls">
+            <button class="map-ctrl-btn"><span class="material-symbols-outlined"
+                style="font-size:1.1rem">add</span></button>
+            <button class="map-ctrl-btn"><span class="material-symbols-outlined"
+                style="font-size:1.1rem">remove</span></button>
+            <button class="map-ctrl-btn"><span class="material-symbols-outlined"
+                style="font-size:1.1rem">my_location</span></button>
+          </div>
+        </div>
+
+        <!-- Intelligence Feed -->
+        <div class="intel-panel">
+          <div class="intel-header">
+            <span class="intel-title">System Intelligence</span>
+            <span class="material-symbols-outlined"
+              style="color:var(--gold);font-variation-settings:'FILL' 1">bolt</span>
+          </div>
+          <div style="flex:1;overflow-y:auto">
+            <div class="feed-item">
+              <div class="feed-dot"></div>
+              <div>
+                <div class="feed-event">New Priority Booking</div>
+                <div class="feed-time">2 MIN AGO</div>
+                <div class="feed-text">Executive Sedan requested from Heathrow T5 to Mayfair. Auto-dispatching CH-882.
+                </div>
+              </div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-dot"></div>
+              <div>
+                <div class="feed-event">Route Optimised</div>
+                <div class="feed-time">12 MIN AGO</div>
+                <div class="feed-text">Traffic alert on M4. Recalculated 3 active routes — +14min efficiency gain.</div>
+              </div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-dot"></div>
+              <div>
+                <div class="feed-event">Shift Completion</div>
+                <div class="feed-time">28 MIN AGO</div>
+                <div class="feed-text">Driver Julian A. completed shift. Fleet utilisation report generated.</div>
+              </div>
+            </div>
+            <div class="feed-item">
+              <div class="feed-dot muted"></div>
+              <div style="opacity:.5">
+                <div class="feed-event">Weather Advisory</div>
+                <div class="feed-time">1H AGO</div>
+                <div class="feed-text">Rain at 18:00. Pre-dispatching 4 standby drivers.</div>
+              </div>
+            </div>
+          </div>
+          <a href="bookings.html" class="btn btn-ghost btn-sm"
+            style="margin-top:1rem;width:100%;justify-content:center">View Full Log</a>
+        </div>
+      </div>
+
+      <!-- Active Queue Table -->
+      <div class="section-header">
+        <h3 class="section-title">Active Chauffeur Queue</h3>
+        <div class="queue-filters">
+          <button class="filter-btn active" onclick="filterQueue(this,'all')">All Drivers</button>
+          <button class="filter-btn" onclick="filterQueue(this,'trip')">On Trip</button>
+          <button class="filter-btn" onclick="filterQueue(this,'available')">Available</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <div class="table-overflow">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Chauffeur</th>
+                <th>Vehicle</th>
+                <th>Current Task</th>
+                <th>Rating</th>
+                <th style="text-align:right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr data-href="drivers.html" data-status="trip">
+                <td>
+                  <div style="display:flex;align-items:center;gap:.875rem">
+                    <div class="avatar"><span style="font-size:.6rem">MT</span></div>
+                    <div>
+                      <div style="font-size:.8rem;font-weight:700">Marcus Thorne</div>
+                      <div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:.8rem">Mercedes S-Class</div>
+                  <div style="font-size:.65rem;color:var(--text-muted)">LNE 4821</div>
+                </td>
+                <td><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>En-Route (LHR)</span></td>
+                <td><span style="color:var(--gold);font-size:.875rem">★ 4.98</span></td>
+                <td style="text-align:right"><button class="btn-icon"
+                    onclick="event.stopPropagation();showToast('Driver details opened','info')"><span
+                      class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
+              </tr>
+              <tr data-href="drivers.html" data-status="available">
+                <td>
+                  <div style="display:flex;align-items:center;gap:.875rem">
+                    <div class="avatar"><span style="font-size:.6rem">ER</span></div>
+                    <div>
+                      <div style="font-size:.8rem;font-weight:700">Elena Rossi</div>
+                      <div style="font-size:.65rem;color:var(--text-muted)">Senior Grade II</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:.8rem">Range Rover SV</div>
+                  <div style="font-size:.65rem;color:var(--text-muted)">BKR 9901</div>
+                </td>
+                <td><span class="badge badge-gray">Available</span></td>
+                <td><span style="color:var(--gold);font-size:.875rem">★ 5.00</span></td>
+                <td style="text-align:right"><button class="btn-icon"
+                    onclick="event.stopPropagation();showToast('Driver details opened','info')"><span
+                      class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
+              </tr>
+              <tr data-href="drivers.html" data-status="trip">
+                <td>
+                  <div style="display:flex;align-items:center;gap:.875rem">
+                    <div class="avatar"><span style="font-size:.6rem">JV</span></div>
+                    <div>
+                      <div style="font-size:.8rem;font-weight:700">Julian Vane</div>
+                      <div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div style="font-size:.8rem">BMW 7 Series</div>
+                  <div style="font-size:.65rem;color:var(--text-muted)">LX 778</div>
+                </td>
+                <td><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>En-Route (Mayfair)</span>
+                </td>
+                <td><span style="color:var(--gold);font-size:.875rem">★ 4.91</span></td>
+                <td style="text-align:right"><button class="btn-icon"
+                    onclick="event.stopPropagation();showToast('Driver details opened','info')"><span
+                      class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Mobile cards -->
+        <div class="mobile-cards" style="padding:1rem">
+          <div class="m-card">
+            <div class="m-card-header">
+              <div style="display:flex;align-items:center;gap:.75rem">
+                <div class="avatar">MT</div>
+                <div>
+                  <div style="font-size:.85rem;font-weight:700">Marcus Thorne</div>
+                  <div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div>
+                </div>
+              </div><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>On Trip</span>
+            </div>
+            <div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Mercedes S-Class · LNE 4821</span>
+            </div>
+            <div class="m-card-row"><span class="m-card-label">Rating</span><span style="color:var(--gold)">★
+                4.98</span></div>
+          </div>
+          <div class="m-card">
+            <div class="m-card-header">
+              <div style="display:flex;align-items:center;gap:.75rem">
+                <div class="avatar">ER</div>
+                <div>
+                  <div style="font-size:.85rem;font-weight:700">Elena Rossi</div>
+                  <div style="font-size:.65rem;color:var(--text-muted)">Senior Grade II</div>
+                </div>
+              </div><span class="badge badge-gray">Available</span>
+            </div>
+            <div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Range Rover SV · BKR 9901</span>
+            </div>
+            <div class="m-card-row"><span class="m-card-label">Rating</span><span style="color:var(--gold)">★
+                5.00</span></div>
+          </div>
+        </div>
+        <div class="pagination">
+          <span class="pagination-info">Showing 3 of 22 active chauffeurs</span>
+          <a href="drivers.html" class="btn btn-ghost btn-sm">View All Drivers</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FAB -->
+  <div class="fab">
+    <span class="fab-label">Quick Dispatch</span>
+    <button class="fab-btn" onclick="showToast('Opening dispatch panel...','info')">
+      <span class="material-symbols-outlined">add</span>
     </button>
-    <a href="settings.html" class="icon-btn" title="Settings"><span class="material-symbols-outlined">settings</span></a>
-    <div class="admin-profile">
-      <div>
-        <div class="name">Administrator</div>
-        <div class="role">Op. Commander</div>
-      </div>
-      <div class="avatar">A</div>
-    </div>
-  </div>
-</header>
-
-<!-- Main -->
-<main class="admin-main">
-<div class="page-body">
-
-  <!-- Hero -->
-  <div class="page-hero">
-    <div>
-      <h2 class="page-hero-title"><em>Operational</em> Command</h2>
-      <div class="page-hero-sub">Real-time Fleet Intelligence & Logistics</div>
-    </div>
-    <div style="display:flex;align-items:center;gap:.75rem;flex-wrap:wrap">
-      <div class="status-node">
-        <span class="dot dot-green pulse"></span>
-        <span>All Systems Active</span>
-      </div>
-      <span id="header-clock" style="font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.1em"></span>
-    </div>
   </div>
 
-  <!-- KPIs -->
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-label">Total Bookings</div>
-      <div class="kpi-value">48</div>
-      <div class="kpi-trend">▲ +12% Today</div>
-      <span class="material-symbols-outlined kpi-icon">calendar_month</span>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Active Rides</div>
-      <div class="kpi-value">14</div>
-      <div class="kpi-trend">● In Progress</div>
-      <span class="material-symbols-outlined kpi-icon">route</span>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Revenue Today</div>
-      <div class="kpi-value">£5,420</div>
-      <div class="kpi-trend">▲ Peak Performance</div>
-      <span class="material-symbols-outlined kpi-icon">payments</span>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-label">Drivers Online</div>
-      <div class="kpi-value">22</div>
-      <div class="kpi-trend">92% Utilised</div>
-      <span class="material-symbols-outlined kpi-icon">person_pin</span>
-    </div>
-  </div>
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
 
-  <!-- Map + Feed -->
-  <div class="main-grid">
-    <!-- Map -->
-    <div class="map-panel">
-      <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1200&q=80" alt="City Map View">
-      <div class="map-overlay"></div>
-      <div class="map-top-badge glass" style="padding:.4rem .875rem;border-radius:.375rem;display:flex;align-items:center;gap:.5rem">
-        <span class="material-symbols-outlined" style="font-size:1rem;color:var(--gold)">location_on</span>
-        <span style="font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em">Greater London Zone</span>
-      </div>
-      <!-- Markers -->
-      <div class="map-marker" style="top:38%;left:28%">
-        <div class="marker-dot"></div>
-        <div class="marker-tip"><p>CH-882</p><span>En-Route LHR</span></div>
-      </div>
-      <div class="map-marker" style="top:55%;left:58%">
-        <div class="marker-dot"></div>
-        <div class="marker-tip"><p>CH-415</p><span>Active · Mayfair</span></div>
-      </div>
-      <div class="map-marker" style="top:42%;left:65%">
-        <div class="marker-dot" style="background:#4ade80;box-shadow:0 0 0 4px rgba(74,222,128,.2)"></div>
-        <div class="marker-tip"><p>CH-301</p><span>Standby · City</span></div>
-      </div>
-      <div class="map-controls">
-        <button class="map-ctrl-btn"><span class="material-symbols-outlined" style="font-size:1.1rem">add</span></button>
-        <button class="map-ctrl-btn"><span class="material-symbols-outlined" style="font-size:1.1rem">remove</span></button>
-        <button class="map-ctrl-btn"><span class="material-symbols-outlined" style="font-size:1.1rem">my_location</span></button>
-      </div>
-    </div>
-
-    <!-- Intelligence Feed -->
-    <div class="intel-panel">
-      <div class="intel-header">
-        <span class="intel-title">System Intelligence</span>
-        <span class="material-symbols-outlined" style="color:var(--gold);font-variation-settings:'FILL' 1">bolt</span>
-      </div>
-      <div style="flex:1;overflow-y:auto">
-        <div class="feed-item">
-          <div class="feed-dot"></div>
-          <div>
-            <div class="feed-event">New Priority Booking</div>
-            <div class="feed-time">2 MIN AGO</div>
-            <div class="feed-text">Executive Sedan requested from Heathrow T5 to Mayfair. Auto-dispatching CH-882.</div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="feed-dot"></div>
-          <div>
-            <div class="feed-event">Route Optimised</div>
-            <div class="feed-time">12 MIN AGO</div>
-            <div class="feed-text">Traffic alert on M4. Recalculated 3 active routes — +14min efficiency gain.</div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="feed-dot"></div>
-          <div>
-            <div class="feed-event">Shift Completion</div>
-            <div class="feed-time">28 MIN AGO</div>
-            <div class="feed-text">Driver Julian A. completed shift. Fleet utilisation report generated.</div>
-          </div>
-        </div>
-        <div class="feed-item">
-          <div class="feed-dot muted"></div>
-          <div style="opacity:.5">
-            <div class="feed-event">Weather Advisory</div>
-            <div class="feed-time">1H AGO</div>
-            <div class="feed-text">Rain at 18:00. Pre-dispatching 4 standby drivers.</div>
-          </div>
-        </div>
-      </div>
-      <a href="bookings.html" class="btn btn-ghost btn-sm" style="margin-top:1rem;width:100%;justify-content:center">View Full Log</a>
-    </div>
-  </div>
-
-  <!-- Active Queue Table -->
-  <div class="section-header">
-    <h3 class="section-title">Active Chauffeur Queue</h3>
-    <div class="queue-filters">
-      <button class="filter-btn active" onclick="filterQueue(this,'all')">All Drivers</button>
-      <button class="filter-btn" onclick="filterQueue(this,'trip')">On Trip</button>
-      <button class="filter-btn" onclick="filterQueue(this,'available')">Available</button>
-    </div>
-  </div>
-  <div class="table-wrap">
-    <div class="table-overflow">
-      <table class="admin-table">
-        <thead><tr>
-          <th>Chauffeur</th><th>Vehicle</th><th>Current Task</th><th>Rating</th><th style="text-align:right">Actions</th>
-        </tr></thead>
-        <tbody>
-          <tr data-href="drivers.html" data-status="trip">
-            <td><div style="display:flex;align-items:center;gap:.875rem">
-              <div class="avatar"><span style="font-size:.6rem">MT</span></div>
-              <div><div style="font-size:.8rem;font-weight:700">Marcus Thorne</div><div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div></div>
-            </div></td>
-            <td><div style="font-size:.8rem">Mercedes S-Class</div><div style="font-size:.65rem;color:var(--text-muted)">LNE 4821</div></td>
-            <td><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>En-Route (LHR)</span></td>
-            <td><span style="color:var(--gold);font-size:.875rem">★ 4.98</span></td>
-            <td style="text-align:right"><button class="btn-icon" onclick="event.stopPropagation();showToast('Driver details opened','info')"><span class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
-          </tr>
-          <tr data-href="drivers.html" data-status="available">
-            <td><div style="display:flex;align-items:center;gap:.875rem">
-              <div class="avatar"><span style="font-size:.6rem">ER</span></div>
-              <div><div style="font-size:.8rem;font-weight:700">Elena Rossi</div><div style="font-size:.65rem;color:var(--text-muted)">Senior Grade II</div></div>
-            </div></td>
-            <td><div style="font-size:.8rem">Range Rover SV</div><div style="font-size:.65rem;color:var(--text-muted)">BKR 9901</div></td>
-            <td><span class="badge badge-gray">Available</span></td>
-            <td><span style="color:var(--gold);font-size:.875rem">★ 5.00</span></td>
-            <td style="text-align:right"><button class="btn-icon" onclick="event.stopPropagation();showToast('Driver details opened','info')"><span class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
-          </tr>
-          <tr data-href="drivers.html" data-status="trip">
-            <td><div style="display:flex;align-items:center;gap:.875rem">
-              <div class="avatar"><span style="font-size:.6rem">JV</span></div>
-              <div><div style="font-size:.8rem;font-weight:700">Julian Vane</div><div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div></div>
-            </div></td>
-            <td><div style="font-size:.8rem">BMW 7 Series</div><div style="font-size:.65rem;color:var(--text-muted)">LX 778</div></td>
-            <td><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>En-Route (Mayfair)</span></td>
-            <td><span style="color:var(--gold);font-size:.875rem">★ 4.91</span></td>
-            <td style="text-align:right"><button class="btn-icon" onclick="event.stopPropagation();showToast('Driver details opened','info')"><span class="material-symbols-outlined" style="font-size:1.1rem">more_horiz</span></button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <!-- Mobile cards -->
-    <div class="mobile-cards" style="padding:1rem">
-      <div class="m-card"><div class="m-card-header"><div style="display:flex;align-items:center;gap:.75rem"><div class="avatar">MT</div><div><div style="font-size:.85rem;font-weight:700">Marcus Thorne</div><div style="font-size:.65rem;color:var(--gold)">Senior Grade I</div></div></div><span class="badge badge-gold"><span class="dot dot-gold pulse"></span>On Trip</span></div><div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Mercedes S-Class · LNE 4821</span></div><div class="m-card-row"><span class="m-card-label">Rating</span><span style="color:var(--gold)">★ 4.98</span></div></div>
-      <div class="m-card"><div class="m-card-header"><div style="display:flex;align-items:center;gap:.75rem"><div class="avatar">ER</div><div><div style="font-size:.85rem;font-weight:700">Elena Rossi</div><div style="font-size:.65rem;color:var(--text-muted)">Senior Grade II</div></div></div><span class="badge badge-gray">Available</span></div><div class="m-card-row"><span class="m-card-label">Vehicle</span><span>Range Rover SV · BKR 9901</span></div><div class="m-card-row"><span class="m-card-label">Rating</span><span style="color:var(--gold)">★ 5.00</span></div></div>
-    </div>
-    <div class="pagination">
-      <span class="pagination-info">Showing 3 of 22 active chauffeurs</span>
-      <a href="drivers.html" class="btn btn-ghost btn-sm">View All Drivers</a>
-    </div>
-  </div>
-
-</div>
-</main>
-
-<!-- FAB -->
-<div class="fab">
-  <span class="fab-label">Quick Dispatch</span>
-  <button class="fab-btn" onclick="showToast('Opening dispatch panel...','info')">
-    <span class="material-symbols-outlined">add</span>
-  </button>
-</div>
-
-<!-- Toast Container -->
-<div class="toast-container"></div>
-
-<script src="admin.js"></script>
-<script>
-document.getElementById('hamburger').addEventListener('click',openSidebar);
-function filterQueue(btn, status){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('tbody tr').forEach(row=>{
-    if(status==='all'||row.dataset.status===status) row.style.display='';
-    else row.style.display='none';
-  });
-}
-</script>
+  <script src="admin.js"></script>
+  <script>
+    document.getElementById('hamburger').addEventListener('click', openSidebar);
+    function filterQueue(btn, status) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('tbody tr').forEach(row => {
+        if (status === 'all' || row.dataset.status === status) row.style.display = '';
+        else row.style.display = 'none';
+      });
+    }
+  </script>
 </body>
+
 </html>
